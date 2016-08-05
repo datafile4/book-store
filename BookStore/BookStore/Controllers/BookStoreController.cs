@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -87,39 +88,36 @@ namespace BookStore.Controllers
                         return Ok(false, "This email has already been registered once!");
                 }
 
-
-                int CartID;
-                queryString = $@"insert into Carts 
-                                    values('{model.UserName.ToLower()}')
-                                    
-                                    Select id from Carts 
-                                    where name = '{model.UserName.ToLower()}'";
-                using (var cmd = new SqlCommand(queryString, con))
+                using (SqlCommand cmd = new SqlCommand("uspRegisterUser", con))
                 {
-                    CartID = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (CartID < 1)
-                        return Ok(false, "Inserting new Cart failed.");
-                }
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    //yes, we need to add parameters in sequence
+                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = model.FirstName;
+                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = model.LastName;
+                    //we don't need to make the username lowercase. Stored procedure will do this
+                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.UserName;
+                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
 
-                queryString =
-                $@"insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
-                        values(
-                                '{model.FirstName}',
-                                '{model.LastName}',
-                                '{model.UserName.ToLower()}',
-                                 {model.Password},
-                                '{model.Email.ToLower()}',
-                                 {CartID}
-                                )";
 
-                using (var cmd = new SqlCommand(queryString, con))
-                {
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
-                        return Ok(false, "Registration failed. Try It Again!");
+                    {
+                        return Ok(new    //Error in registration
+                        {
+                            success = false,
+                            message = "Registration Failed. Try It Again !"
+                        });
+                    }
+                    else
+                    {
+                        return Ok(new //Registration is successful
+                        {
+                            success = true,
+                            message = "Sucessfully Registered !"
+                        });
+                    }
                 }
-
-                return Ok(true, "Successfully registered!");
             }
         }
     }
