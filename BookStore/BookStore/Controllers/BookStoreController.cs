@@ -38,7 +38,6 @@ namespace BookStore.Controllers
         [HttpPost]
         public IHttpActionResult Login(LoginModel model)
         {
-            IHttpActionResult requestResult;
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
@@ -46,26 +45,28 @@ namespace BookStore.Controllers
                 string queryString =
                     $@"select id 
                         from Users
-                        where username = '{model.Username}' 
-                        or email ='{model.Username}' 
+                        where username = '{model.Username.ToLower()}' 
+                        or email ='{model.Username.ToLower()}' 
                         and password = '{model.Password}'";
 
                 using (var cmd = new SqlCommand(queryString, con))
                 {
-                    var reader = (int)cmd.ExecuteScalar();
+                    var reader = (int)(cmd.ExecuteScalar() ?? 0);
                     if (reader < 1)
-                    {
-                        requestResult = BadRequest("Login failed. Check your username/password");
-                    } else
-                    {
-                        requestResult = Ok("Sucessfully logged in");
-                    }                                                     
+                        return Ok(new
+                        {
+                            success = false,
+                            message = "Login failed. Check your username/password"
+                        });
+
                 }
-                con.Close();
-                return requestResult;
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Sucessfully logged in"
+                });
             }
-
-
         }
     }
 }
