@@ -70,38 +70,7 @@ namespace BookStore.Controllers
         public IHttpActionResult Register(RegisterModel model)
         {
 
-            using (SqlConnection sqlCon = new SqlConnection(conStr))
-            {
-                using (SqlCommand cmd = new SqlCommand("dbo.uspRegisterUser", sqlCon))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    //yes, we need to add parameters in sequence
-                    cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = model.FirstName.ToString();
-                    cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = model.LastName.ToString();
-                    //we don't need to make the username lowercase. Stored procedure will do this
-                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.UserName.ToString();
-                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password.ToString();
-                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email.ToString();
-
-                    sqlCon.Open();
-                    var affectedRows = cmd.ExecuteNonQuery();
-                    if (affectedRows < 1)
-                    {
-                        return Ok(new    //Error in registration
-                        {
-                            success = false,
-                            message = "Registration Failed. Try It Again !"
-                        });
-                    } else
-                    {
-                        return Ok(new //Registration is successful
-                        {
-                            success = true,
-                            message = "Sucessfully Registered !"
-                        });
-                    }                        
-                }
-            }
+            
             //it will be remain as backup
             /*using (var con = new SqlConnection(conStr))
             {
