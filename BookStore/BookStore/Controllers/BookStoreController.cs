@@ -38,6 +38,7 @@ namespace BookStore.Controllers
         [HttpPost]
         public IHttpActionResult Login(LoginModel model)
         {
+            IHttpActionResult requestResult;
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
@@ -52,12 +53,16 @@ namespace BookStore.Controllers
                 using (var cmd = new SqlCommand(queryString, con))
                 {
                     var reader = (int)cmd.ExecuteScalar();
-
-                    if (reader < 1) return BadRequest("Login failed. Check your username/password");
-
+                    if (reader < 1)
+                    {
+                        requestResult = BadRequest("Login failed. Check your username/password");
+                    } else
+                    {
+                        requestResult = Ok("Sucessfully logged in");
+                    }                                                     
                 }
-
-                return Ok("Sucessfully logged in");
+                con.Close();
+                return requestResult;
             }
 
 
