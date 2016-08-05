@@ -19,18 +19,16 @@ namespace BookStore.Controllers
         ///
         ///TODO: save conectionString in Web.config file
         const string conStr =
-                        @"Data Source=amiraslan.database.windows.net;
-                          Initial Catalog=Enumeration;
-                          Integrated Security=False;
-                          User ID=emiraslan;
-                          
-                          Password=Orxan12Aslan24;
-                          
-                          Connect Timeout=60;
-                          Encrypt=True;
-                          TrustServerCertificate=False;
-                          ApplicationIntent=ReadWrite;
-                          MultiSubnetFailover=False";
+       @"Data Source=superbookstore.database.windows.net;
+        Initial Catalog = BookStore;
+        Integrated Security = False;
+        User ID = emiraslan;
+        Password=Orxan12Aslan24;
+        Connect Timeout = 15;
+        Encrypt=False;
+        TrustServerCertificate=True;
+        ApplicationIntent=ReadWrite;
+        MultiSubnetFailover=False";
         #endregion
 
 
