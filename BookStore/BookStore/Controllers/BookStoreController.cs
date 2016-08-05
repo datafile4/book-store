@@ -39,9 +39,12 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-
+                // Note that, to define the database I use (Use BookStore Go) in query string
                 string queryString =
-                    $@"select id 
+                    $@"Use BookStore
+                        Go
+
+                        select id 
                         from Users
                         where username = '{model.Username.ToLower()}' 
                         or email ='{model.Username.ToLower()}' 
@@ -63,6 +66,50 @@ namespace BookStore.Controllers
                 {
                     success = true,
                     message = "Sucessfully logged in"
+                });
+            }
+        }
+
+        [HttpPost]
+        public IHttpActionResult Register(RegisterModel model)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+        // Note that, to define the database I use (Use BookStore Go) in query string        
+                string queryString =
+                    $@"
+                        Use BookStore
+                        Go
+                        insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
+                        values(
+                                '{model.FirstName.ToLower()}',
+                                '{model.LastName.toLower}',
+                                '{model.Username.ToLower()}',
+                                 {model.Password},
+                                '{model.Email.toLower()}',
+                                 {model.CartID}
+                                )";
+                // TODO :
+                // CartID should not be inserted. 
+                // But identiy key word has been forgotten to add CartID, so 
+                // for now it should be written manually ! 
+
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var reader = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (reader < 1)
+                        return Ok(new
+                        {
+                            success = false,
+                            message = "Registration Failed. Try It Again !"
+                        });
+                }
+
+                return Ok(new
+                {
+                    success = true,
+                    message = "Sucessfully Registered !"
                 });
             }
         }
