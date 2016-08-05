@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -32,7 +31,14 @@ namespace BookStore.Controllers
         MultiSubnetFailover=False";
         #endregion
 
-
+        public IHttpActionResult Ok(bool scs, string msg)
+        {
+            return Ok(new
+            {
+                success = scs,
+                message = msg
+            });
+        }
 
         [HttpPost]
         public IHttpActionResult Login(LoginModel model)
@@ -49,34 +55,41 @@ namespace BookStore.Controllers
 
                 using (var cmd = new SqlCommand(queryString, con))
                 {
-                    var reader = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (reader < 1)
-                        return Ok(new
-                        {
-                            success = false,
-                            message = "Login failed. Check your username/password"
-                        });
+                    var result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result < 1)
+                        return Ok(false, "Login failed. Check your username/password");
                 }
 
-                return Ok(new
-                {
-                    success = true,
-                    message = "Sucessfully logged in"
-                });
+                return Ok(true, "Sucessfully logged in");
             }
         }
 
         [HttpPost]
         public IHttpActionResult Register(RegisterModel model)
         {
-
-            
-            //it will be remain as backup
-            /*using (var con = new SqlConnection(conStr))
+            using (var con = new SqlConnection(conStr))
             {
                 con.Open();
+
+                string queryString = $@"select id from Users where username = '{model.UserName.ToLower()}'";
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result > 0)
+                        return Ok(false, "Username already exists!");
+                }
+
+                queryString = $@"select id from Users where email = '{model.Email.ToLower()}'";
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result > 0)
+                        return Ok(false, "This email has already been registered once!");
+                }
+
+
                 int CartID;
-                string queryString = $@"insert into Carts 
+                queryString = $@"insert into Carts 
                                     values('{model.UserName.ToLower()}')
                                     
                                     Select id from Carts 
@@ -85,14 +98,9 @@ namespace BookStore.Controllers
                 {
                     CartID = (int)(cmd.ExecuteScalar() ?? 0);
                     if (CartID < 1)
-                        return Ok(new
-                        {
-                            success = false,
-                            message = "Inserting new Cart failed."
-                        });
+                        return Ok(false, "Inserting new Cart failed.");
                 }
 
-             
                 queryString =
                 $@"insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
                         values(
@@ -108,19 +116,11 @@ namespace BookStore.Controllers
                 {
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
-                        return Ok(new
-                        {
-                            success = false,
-                            message = "Registration Failed. Try It Again !"
-                        });
+                        return Ok(false, "Registration failed. Try It Again!");
                 }
 
-                return Ok(new
-                {
-                    success = true,
-                    message = "Sucessfully Registered !"
-                });
-            }*/
+                return Ok(true, "Successfully registered!");
+            }
         }
     }
 }
