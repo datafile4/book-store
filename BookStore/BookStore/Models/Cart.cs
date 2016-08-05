@@ -15,7 +15,8 @@ namespace BookStore.Models
      
         //we keep track on the date, not the date or time
         // Keep this for some moment. 
-        // There is not such column in the Cart table yet.
+        // There is no such column in the Cart table yet.
+
         //[DataType(DataType.Date)]
         //[DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}",ApplyFormatInEditMode = true)]
         //public DateTime Date { get; set; }
