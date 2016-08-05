@@ -84,11 +84,11 @@ namespace BookStore.Controllers
                         insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
                         values(
                                 '{model.FirstName.ToLower()}',
-                                '{model.LastName.toLower}',
-                                '{model.Username.ToLower()}',
+                                '{model.LastName.ToLower()}',
+                                '{model.UserName.ToLower()}',
                                  {model.Password},
-                                '{model.Email.toLower()}',
-                                 {model.CartID}
+                                '{model.Email.ToLower()}',
+                                 {model.CartId}
                                 )";
                 // TODO :
                 // CartID should not be inserted. 
