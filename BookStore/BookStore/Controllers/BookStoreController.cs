@@ -55,7 +55,6 @@ namespace BookStore.Controllers
                             success = false,
                             message = "Login failed. Check your username/password"
                         });
-
                 }
 
                 return Ok(new
@@ -72,20 +71,34 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString =
-                    $@"insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
+                int CartID;
+                string queryString = $@"insert into Carts 
+                                    values('{model.UserName.ToLower()}')
+                                    
+                                    Select id from Carts 
+                                    where name = '{model.UserName.ToLower()}'";
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    CartID = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (CartID < 1)
+                        return Ok(new
+                        {
+                            success = false,
+                            message = "Inserting new Cart failed."
+                        });
+                }
+
+             
+                queryString =
+                $@"insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
                         values(
-                                '{model.FirstName.ToLower()}',
-                                '{model.LastName.ToLower()}',
+                                '{model.FirstName}',
+                                '{model.LastName}',
                                 '{model.UserName.ToLower()}',
                                  {model.Password},
                                 '{model.Email.ToLower()}',
-                                 {model.CartId}
+                                 {CartID}
                                 )";
-                // TODO :
-                // CartID should not be inserted. 
-                // But identiy key word has been forgotten to add CartID, so 
-                // for now it should be written manually ! 
 
                 using (var cmd = new SqlCommand(queryString, con))
                 {
