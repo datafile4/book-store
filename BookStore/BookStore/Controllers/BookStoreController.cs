@@ -39,12 +39,8 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                // Note that, to define the database I use (Use BookStore Go) in query string
                 string queryString =
-                    $@"Use BookStore
-                        Go
-
-                        select id 
+                    $@"select id 
                         from Users
                         where username = '{model.Username.ToLower()}' 
                         or email ='{model.Username.ToLower()}' 
@@ -76,12 +72,8 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-        // Note that, to define the database I use (Use BookStore Go) in query string        
                 string queryString =
-                    $@"
-                        Use BookStore
-                        Go
-                        insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
+                    $@"insert into Users (FirstName , LastName , Username , Password , Email, CartID) 
                         values(
                                 '{model.FirstName.ToLower()}',
                                 '{model.LastName.ToLower()}',
@@ -97,8 +89,8 @@ namespace BookStore.Controllers
 
                 using (var cmd = new SqlCommand(queryString, con))
                 {
-                    var reader = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (reader < 1)
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
                         return Ok(new
                         {
                             success = false,
