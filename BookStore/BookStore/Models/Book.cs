@@ -13,9 +13,10 @@ namespace BookStore.Models
 
         public string Name { get; set; }
         public string Author { get; set; }
+        public string ImageURL { get; set; }
         public string GenreID { get; set; }        
-          
         public string LanguageID { get; set; }
+        public string UserID { get; set; }
         
     }
 }
