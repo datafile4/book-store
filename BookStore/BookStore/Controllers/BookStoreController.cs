@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -33,5 +34,33 @@ namespace BookStore.Controllers
         #endregion
 
 
+
+        [HttpPost]
+        public IHttpActionResult Login(LoginModel model)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                string queryString =
+                    $@"select id 
+                        from Users
+                        where username = '{model.Username}' 
+                        or email ='{model.Username}' 
+                        and password = '{model.Password}'";
+
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var reader = (int)cmd.ExecuteScalar();
+
+                    if (reader < 1) return BadRequest("Login failed. Check your username/password");
+
+                }
+
+                return Ok("Sucessfully logged in");
+            }
+
+
+        }
     }
 }
