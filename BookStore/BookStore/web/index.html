@@ -8,30 +8,35 @@ License URL:
 <html>
 <head>
 <title>Shoppe Bootstarp Website Template | Home :: w3layouts</title>
-<!-- 
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<!-- <!--->
 <script type='text/javascript' src="js/jquery-1.11.1.min.js"></script>
-<!-- 
 <link href="css/style.css" rel='stylesheet' type='text/css' />
-<!--
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 
+<!--
 <!--webfont
 
+<!---> 
 <!-- start menu -->
-<!--
 <link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all" />
+<!--
+<!---> 
 <script type="text/javascript" src="js/megamenu.js"></script>
 <script>$(document).ready(function(){$(".megamenu").megamenu();});</script>
-<!-- 
 <link rel="stylesheet" href="css/fwslider.css" media="all">
 <script src="js/jquery-ui.min.js"></script>
 <script src="js/fwslider.js"></script>
+    <!---
+
+-->
 <script src="js/menu_jquery.js"></script>
- -->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="../test html/login.js"></script>
+ 
 </head>
-<body>
+<body ng-app="app" ng-controller="HttpGetController">
 
 <div class="top_bg">
 <div class="container">
@@ -50,13 +55,14 @@ License URL:
 						                <fieldset id="body">
 						                	<fieldset>
 						                          <label for="email">Email Address</label>
-						                          <input type="text" name="email" id="email">
+                                                <input type="text" placeholder="Username" ng-model="Username" required /><br />
 						                    </fieldset>
 						                    <fieldset>
 						                            <label for="password">Password</label>
-						                            <input type="password" name="password" id="password">
+                                                <input type="password" placeholder="password" ng-model="password" required /><br />
 						                     </fieldset>
-						                    <input type="button" id="login" value="Sign in">
+                                            <button ng-click="Login_()">login</button><br />
+                                            <p ng-style="emiraslan" ng-bind="message"></p>
 						                	<label for="checkbox"><input type="checkbox" id="checkbox"> <i>Remember me</i></label>
 						            	</fieldset>
 						            <span><a href="#">Forgot your password?</a></span>
