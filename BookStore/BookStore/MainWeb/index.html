@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     
-    <link rel="stylesheet" type="text/css" href="../css/login.css" />
-    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/register.css" />
     <title>Login</title>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="../../test html/login.js"></script>
+    <script src="login.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -19,10 +19,10 @@
                 <span id="reauthEmail" class="reauth-email">New Login </span>
                 <input type="text" placeholder="Username" ng-model="Username" required /><br />
                 <input type="password" placeholder="password" ng-model="password" required /><br />
-                <button ng-click="Login_()">login</button><br />                
+                <button id="signIn" class="rc-button rc-button-submit" ng-click="Login_()">Login</button><br />                
                 <a href="Registration.html"><p class="return_create">Create New Account</p></a>
                 <p class="error_message" style="color:#f00"></p>
-
+                <p ng-style="emiraslan" ng-bind="message"></p>
 
             </div>
         </div>
