@@ -50,8 +50,8 @@ namespace BookStore.Controllers
                 string queryString =
                     $@"select id 
                         from Users
-                        where username = '{model.Username.ToLower()}' 
-                        or email ='{model.Username.ToLower()}' 
+                        where (username = '{model.Username.ToLower()}' 
+                        or email ='{model.Username.ToLower()}')
                         and password = '{model.Password}'";
 
                 using (var cmd = new SqlCommand(queryString, con))
