@@ -82,6 +82,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="MainWeb\css\login.css" />
+    <Content Include="MainWeb\css\register.css" />
+    <Content Include="MainWeb\RegisterLoginTestProject\index.html" />
+    <Content Include="MainWeb\RegisterLoginTestProject\Registration.html" />
+    <Content Include="MainWeb\RegisterLoginTestProject\script.js" />
     <Content Include="test html\login.html" />
     <Content Include="test html\login.js" />
     <Content Include="Web.config" />
