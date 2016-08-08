@@ -72,7 +72,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                string queryString = $@"select id from Users where username = '{model.UserName.ToLower()}'";
+                string queryString = $"select id from Users where username = '{model.UserName.ToLower()}'";
                 using (var cmd = new SqlCommand(queryString, con))
                 {
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
@@ -80,7 +80,7 @@ namespace BookStore.Controllers
                         return Ok(false, "Username already exists!");
                 }
 
-                queryString = $@"select id from Users where email = '{model.Email.ToLower()}'";
+                queryString = $"select id from Users where email = '{model.Email.ToLower()}'";
                 using (var cmd = new SqlCommand(queryString, con))
                 {
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
@@ -99,24 +99,13 @@ namespace BookStore.Controllers
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
 
-
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
                     {
-                        return Ok(new    //Error in registration
-                        {
-                            success = false,
-                            message = "Registration Failed. Try It Again !"
-                        });
+                        return Ok(false, "Registration Failed. Try It Again!");
                     }
-                    else
-                    {
-                        return Ok(new //Registration is successful
-                        {
-                            success = true,
-                            message = "Sucessfully Registered !"
-                        });
-                    }
+
+                    return Ok(true, "Sucessfully Registered!");
                 }
             }
         }
