@@ -1,4 +1,28 @@
-﻿var app = angular.module("app", []).controller("HttpGetController", function ($scope, $http) {
+﻿var app = angular.module("app", []);
+app.config(function ($routeProvider) {
+    $routeProvider
+    .when("/", {
+        templateUrl: "index.html"
+    })
+    .when("/login", {
+        templateUrl: "login.html",
+        controller: "HttpGetController"
+    })
+     .when("/buy", {
+         resolve: {
+             "chech": function ($location, $rootScope) {
+                 if (!$rootScope.loggedIn) {
+                     $location.path("/");   
+                 }
+             }
+         },
+         templateUrl: "buy.html"
+     })
+    .otherwise({
+        redirectTo: "/"
+    });
+});
+app.controller("HttpGetController", function ($scope, $http , $location) {
 
     $scope.Login_ = function () {
 
@@ -13,17 +37,18 @@
                 url: '../api/bookstore/login',
                 data: loginData,
             }
-            ).then(function(myresponse) {
+            ).then(function (myresponse) {
                 var ServerResponseObject = myresponse.data;
                 var mySuccess = ServerResponseObject.success;
                 var msg = ServerResponseObject.message;
-                if (mySuccess)
-                {
+                if (mySuccess) {
+                    $rootScope.loggedIn = true;
+                    $location.path("/buy");
                     $scope.message = msg;
                     $scope.emiraslan = {
                         color: 'green'
                     }
-                } 
+                }
                 else {
                     $scope.message = msg;
                     $scope.emiraslan = {
