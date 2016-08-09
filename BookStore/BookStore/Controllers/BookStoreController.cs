@@ -1,5 +1,4 @@
-﻿using BookStore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -7,6 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Net.Http.Headers;
+using System.Diagnostics;
+using System.Web.Http.Controllers;
+using BookStore.Models;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace BookStore.Controllers
 {
@@ -40,7 +45,6 @@ namespace BookStore.Controllers
                 message = msg
             });
         }
-
         [HttpPost]
         public IHttpActionResult Login(LoginModel model)
         {
@@ -50,18 +54,40 @@ namespace BookStore.Controllers
                 string queryString =
                     $@"select id 
                         from Users
-                        where username = '{model.Username.ToLower()}' 
-                        or email ='{model.Username.ToLower()}' 
+                        where (username = '{model.Username.ToLower()}' 
+                        or email ='{model.Username.ToLower()}') 
                         and password = '{model.Password}'";
 
+
+                int UserID;
                 using (var cmd = new SqlCommand(queryString, con))
                 {
-                    var result = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (result < 1)
+                    UserID = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (UserID < 1)
                         return Ok(false, "Login failed. Check your username/password");
                 }
 
-                return Ok(true, "Sucessfully logged in");
+                queryString = $"select guid from Tokens where  UserID = {UserID}";
+                string GuidStr;
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    GuidStr = cmd.ExecuteScalar() as string;
+                    if (GuidStr == null)
+                        return Ok(false, "Are you sure that you have registered?!");
+                }
+
+                var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
+                var cookie = new CookieHeaderValue(RequiresLoginAttribute.LoginToken, GuidStr);
+                cookie.Expires = DateTimeOffset.Now.AddMonths(3);
+                cookie.Domain = Request.RequestUri.Host;
+                cookie.Path = "/";
+                responseMsg.Headers.AddCookies(new[] { cookie });
+
+                var successMsg = new { success = true, message = "Sucessfully logged in" };
+                var param = JsonConvert.SerializeObject(successMsg);
+                responseMsg.Content = new StringContent(param, Encoding.UTF8, "application/json");
+
+                return ResponseMessage(responseMsg);
             }
         }
 
@@ -72,7 +98,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                string queryString = $"select id from Users where username = '{model.UserName.ToLower()}'";
+                string queryString = $"select id from Users where username = '{model.Username.ToLower()}'";
                 using (var cmd = new SqlCommand(queryString, con))
                 {
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
@@ -95,9 +121,10 @@ namespace BookStore.Controllers
                     cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = model.FirstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = model.LastName;
                     //we don't need to make the username lowercase. Stored procedure will do this
-                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.UserName;
+                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
+                    cmd.Parameters.Add("@GUID", SqlDbType.NVarChar).Value = Guid.NewGuid().ToString().ToLower();
 
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
@@ -108,6 +135,30 @@ namespace BookStore.Controllers
                     return Ok(true, "Sucessfully Registered!");
                 }
             }
+        }
+
+
+        [HttpGet]
+        public IHttpActionResult Test()
+        {
+            return Ok(new { a = true, heads = Request.Content.Headers });
+        }
+
+        [HttpGet]
+        [RequiresLogin]
+        public IHttpActionResult SetCookie()
+        {
+            var resp = new HttpResponseMessage();
+
+
+            var cookie = new CookieHeaderValue("session-id", "12sd345");
+            cookie.Expires = DateTimeOffset.Now.AddDays(1);
+            cookie.Domain = Request.RequestUri.Host;
+            cookie.Path = "/";
+
+            resp.Headers.AddCookies(new[] { cookie });
+
+            return ResponseMessage(resp);
         }
     }
 }
