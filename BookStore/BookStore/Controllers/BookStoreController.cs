@@ -24,7 +24,7 @@ namespace BookStore.Controllers
         ///anything  important :)
         ///
         ///TODO: save conectionString in Web.config file
-        const string conStr =
+        public const string conStr =
        @"Data Source=superbookstore.database.windows.net;
         Initial Catalog = BookStore;
         Integrated Security = False;
@@ -67,19 +67,33 @@ namespace BookStore.Controllers
                         return Ok(false, "Login failed. Check your username/password");
                 }
 
-                queryString = $"select guid from Tokens where  UserID = {UserID}";
-                string GuidStr;
+
+
+                const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
+                var now = DateTimeOffset.Now;
+                var expireDate = now.AddMonths(3);
+                string GuidStr = Guid.NewGuid().ToString().ToLower();
+
+                queryString = $@"insert into Tokens 
+                                             values(
+                                             {UserID}, 
+                                            '{GuidStr}',                            
+                                            '{expireDate.ToString(dtFormat)}', 
+                                            '{now.ToString(dtFormat)}')";
+
                 using (var cmd = new SqlCommand(queryString, con))
                 {
-                    GuidStr = cmd.ExecuteScalar() as string;
-                    if (GuidStr == null)
-                        return Ok(false, "Are you sure that you have registered?!");
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                    {
+                        return Ok(false, "Login Failed. Try again!");
+                    }
                 }
 
                 var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
                 var cookie = new CookieHeaderValue(RequiresLoginAttribute.LoginToken, GuidStr);
-                cookie.Expires = DateTimeOffset.Now.AddMonths(3);
-                cookie.Domain = Request.RequestUri.Host;
+                cookie.Expires = expireDate;
+                cookie.Domain = Request.RequestUri.Authority;
                 cookie.Path = "/";
                 responseMsg.Headers.AddCookies(new[] { cookie });
 
@@ -124,7 +138,6 @@ namespace BookStore.Controllers
                     cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
-                    cmd.Parameters.Add("@GUID", SqlDbType.NVarChar).Value = Guid.NewGuid().ToString().ToLower();
 
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
@@ -138,11 +151,6 @@ namespace BookStore.Controllers
         }
 
 
-        [HttpGet]
-        public IHttpActionResult Test()
-        {
-            return Ok(new { a = true, heads = Request.Content.Headers });
-        }
 
         [HttpGet]
         [RequiresLogin]

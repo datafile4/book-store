@@ -16,8 +16,7 @@ namespace BookStore.Controllers
     {
 
         public const string LoginToken = "user-g";
-
-
+        
         private bool CheckDatabase(string guid)
         {
             using (var con = new SqlConnection(BookStoreController.conStr))
@@ -28,10 +27,24 @@ namespace BookStore.Controllers
                         from Tokens
                         where GUID = '{guid}'";
 
+                int TokenID;
                 using (var cmd = new SqlCommand(queryString, con))
                 {
-                    var result = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (result < 1)
+                    TokenID = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (TokenID < 1)
+                        return false;
+                }
+
+                const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
+                queryString =
+                    $@"Update Tokens
+                        Set LastLogin = '{DateTimeOffset.Now.ToString(dtFormat)}'
+                        where id = {TokenID}";
+
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    int affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
                         return false;
                 }
 
@@ -43,7 +56,7 @@ namespace BookStore.Controllers
         {
             var login = actionContext.Request.Headers.GetCookies(LoginToken).FirstOrDefault();
 
-            if ( login != null)
+            if (login != null)
             {
 
                 if (CheckDatabase(login[LoginToken].Value))
@@ -51,7 +64,7 @@ namespace BookStore.Controllers
                     return;
                 }
             }
-        
+
             var response = new HttpResponseMessage(HttpStatusCode.Redirect);
             ///TODO: add return url into uri after successful log in.
             response.Headers.Location = new Uri($"http://{actionContext.Request.RequestUri.Authority}/login.html");
