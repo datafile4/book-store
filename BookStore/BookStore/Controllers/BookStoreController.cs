@@ -78,7 +78,7 @@ namespace BookStore.Controllers
                 var expireDate = now.AddMonths(3);
                 string GuidStr = Guid.NewGuid().ToString().ToLower();
 
-                queryString = $@"insert into Tokens 
+                queryString = $@"insert into UserLogins
                                              values(
                                              {UserID}, 
                                             '{GuidStr}',                            

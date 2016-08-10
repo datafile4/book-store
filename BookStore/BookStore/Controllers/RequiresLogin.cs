@@ -16,7 +16,7 @@ namespace BookStore.Controllers
     {
 
         public const string LoginToken = "user-g";
-        
+
         private bool CheckDatabase(string guid)
         {
             using (var con = new SqlConnection(BookStoreController.conStr))
@@ -24,7 +24,7 @@ namespace BookStore.Controllers
                 con.Open();
                 string queryString =
                     $@"select id 
-                        from Tokens
+                        from UserLogins
                         where GUID = '{guid}'";
 
                 int TokenID;
@@ -37,7 +37,7 @@ namespace BookStore.Controllers
 
                 const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
                 queryString =
-                    $@"Update Tokens
+                    $@"Update UserLogins
                         Set LastLogin = '{DateTimeOffset.Now.ToString(dtFormat)}'
                         where id = {TokenID}";
 
