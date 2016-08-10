@@ -154,6 +154,33 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpPost]
+        [RequiresLogin]
+        public IHttpActionResult AddToCart(int bookID)
+        {
+            //TODO: prevent adding same book twice. instead increase Count.
+            string queryString = $@"insert into Carts
+                                             values(
+                                             {CurrentUserID}, 
+                                             {bookID})";
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open(); using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                    {
+                        return Ok(false, "Adding book to cart failed. Try again!");
+                    }
+                }
+            }
+
+            return Ok(true, "Book successfully added into cart!");
+        }
+
+
+
 
 
         [HttpGet]
@@ -162,6 +189,7 @@ namespace BookStore.Controllers
         {
             var resp = new HttpResponseMessage();
 
+            Debug.WriteLine(CurrentUserID);
 
             var cookie = new CookieHeaderValue("session-id", "12sd345");
             cookie.Expires = DateTimeOffset.Now.AddDays(1);
