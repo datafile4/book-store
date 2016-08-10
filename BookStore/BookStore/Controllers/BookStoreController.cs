@@ -97,7 +97,7 @@ namespace BookStore.Controllers
                 var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
                 var cookie = new CookieHeaderValue(RequiresLoginAttribute.LoginToken, GuidStr);
                 cookie.Expires = expireDate;
-                cookie.Domain = Request.RequestUri.Authority;
+                cookie.Domain = Request.RequestUri.Host;
                 cookie.Path = "/";
                 responseMsg.Headers.AddCookies(new[] { cookie });
 
