@@ -148,9 +148,9 @@ namespace BookStore.Controllers
                     {
                         return Ok(false, "Registration Failed. Try It Again!");
                     }
-
-                    return Ok(true, "Sucessfully Registered!");
                 }
+
+                return Ok(true, "Sucessfully Registered!");
             }
         }
 
@@ -158,15 +158,27 @@ namespace BookStore.Controllers
         [RequiresLogin]
         public IHttpActionResult AddToCart(int bookID)
         {
-            //TODO: prevent adding same book twice. instead increase Count.
-            string queryString = $@"insert into Carts
-                                             values(
-                                             {CurrentUserID}, 
-                                             {bookID})";
-
             using (var con = new SqlConnection(conStr))
             {
-                con.Open(); using (var cmd = new SqlCommand(queryString, con))
+                con.Open();
+                string queryString = $@"select id from Carts
+                                             where UserID = {CurrentUserID} 
+                                             and
+                                             BookID = {bookID}";
+
+
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result > 0)
+                        return Ok(false, "Book have already added!");
+                }
+
+                queryString = $@"insert into Carts
+                                             values({CurrentUserID}, 
+                                             {bookID})";
+
+                using (var cmd = new SqlCommand(queryString, con))
                 {
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
@@ -174,9 +186,9 @@ namespace BookStore.Controllers
                         return Ok(false, "Adding book to cart failed. Try again!");
                     }
                 }
-            }
 
-            return Ok(true, "Book successfully added into cart!");
+                return Ok(true, "Book successfully added into cart!");
+            }
         }
 
 
