@@ -191,9 +191,68 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpGet]
+        public UserInfoModel GetUserInfo(string username)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                username = username.ToLower();
+                string queryString =
+                       $@"select email, lastname, firstname 
+                        from Users
+                        where username = '{username}'";
 
+                //null if not found
+                UserInfoModel returnModel = null;
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var reader = cmd.ExecuteReader();
 
+                    if (reader.Read())
+                    {
+                        returnModel = new UserInfoModel();
+                        returnModel.Email = reader.GetString(0);
+                        returnModel.LastName = reader.GetString(1);
+                        returnModel.FirstName = reader.GetString(2);
+                        returnModel.Username = username;
+                    }
 
+                    return returnModel;
+                }
+            }
+        }
+
+        [HttpGet, RequiresLogin]
+        public UserInfoModel GetCurrentUserInfo()
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                string queryString =
+                       $@"select email, lastname, firstname, username
+                        from Users
+                        where id = {CurrentUserID}";
+
+                //null if not found
+                UserInfoModel returnModel = null;
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnModel = new UserInfoModel();
+                        returnModel.Email = reader.GetString(0);
+                        returnModel.LastName = reader.GetString(1);
+                        returnModel.FirstName = reader.GetString(2);
+                        returnModel.Username = reader.GetString(3);
+                    }
+
+                    return returnModel;
+                }
+            }
+        }
 
         [HttpGet]
         [RequiresLogin]
