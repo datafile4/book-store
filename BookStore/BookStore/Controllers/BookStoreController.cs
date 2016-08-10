@@ -36,6 +36,10 @@ namespace BookStore.Controllers
         ApplicationIntent=ReadWrite;
         MultiSubnetFailover=False";
         #endregion
+        /// <summary>
+        /// Available only for methods with RequiresLoginAttribute
+        /// </summary>
+        public int CurrentUserID { get; set; }
 
         public IHttpActionResult Ok(bool scs, string msg)
         {

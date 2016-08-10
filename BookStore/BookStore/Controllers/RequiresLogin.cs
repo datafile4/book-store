@@ -58,9 +58,26 @@ namespace BookStore.Controllers
 
             if (login != null)
             {
-
-                if (CheckDatabase(login[LoginToken].Value))
+                string guid = login[LoginToken].Value;
+                if (CheckDatabase(guid))
                 {
+
+                    using (var con = new SqlConnection(BookStoreController.conStr))
+                    {
+                        con.Open();
+                        string queryString =
+                            $@"select userid 
+                              from UserLogins
+                              where GUID = '{guid}'";
+
+                        int userID;
+                        using (var cmd = new SqlCommand(queryString, con))
+                        {
+                            userID = (int)(cmd.ExecuteScalar() ?? 0);
+                            (actionContext.ControllerContext.Controller as BookStoreController).CurrentUserID = userID;
+                        }
+                    }
+
                     return;
                 }
             }
