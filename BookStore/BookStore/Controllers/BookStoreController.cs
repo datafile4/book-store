@@ -287,6 +287,66 @@ namespace BookStore.Controllers
             }
         }
 
+
+        [HttpPost, RequiresLogin]
+        public IHttpActionResult UploadBook(Book book)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                string queryString = $@"insert into books 
+                                        (name, author, ImageURL, langID, genreID, userID ) 
+                                        values('{book.Name}', '{book.Author}',
+                                        '{book.ImageURL}', {book.LanguageID},
+                                            {book.GenreID}, {CurrentUserID})";
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                        return Ok(false, "Could not upload book, try again!");
+                }
+
+                return Ok(true, "The book is successfully uploaded!");
+            }
+        }
+
+        [HttpPost]
+        public IEnumerable<string> GetGenres()
+        {
+            return GetSomething("genres");
+        }
+        [HttpPost]
+        public IEnumerable<string> GetLangs()
+        {
+            return GetSomething("langs");
+        }
+
+
+
+
+        private IEnumerable<string> GetSomething(string tableName)
+        {
+            List<string> returnModels = null;
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                string queryString = $"select name from {tableName}";
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        returnModels.Add(reader.GetString(0));
+                    }
+                }
+            }
+
+            return returnModels;
+        }
         private UserInfoModel GetUserInfo(int userID, SqlConnection con)
         {
             string queryString =
@@ -336,7 +396,7 @@ namespace BookStore.Controllers
                     int langID = reader.GetInt32(4);
                     returnModel.Language = GetName(langID, "Langs", con);
                     int GenreID = reader.GetInt32(5);
-                    returnModel.Genre= GetName(GenreID, "Genres", con);
+                    returnModel.Genre = GetName(GenreID, "Genres", con);
                     int userID = reader.GetInt32(6);
                     returnModel.Uploader = GetUserInfo(userID, con);
                 }
