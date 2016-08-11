@@ -85,6 +85,7 @@
     <Content Include="MainWeb\buy.html" />
     <Content Include="MainWeb\css\login.css" />
     <Content Include="MainWeb\css\register.css" />
+    <Content Include="MainWeb\css\SearchBox.html" />
     <Content Include="MainWeb\index.html" />
     <Content Include="MainWeb\login.html" />
     <Content Include="MainWeb\login.js" />
