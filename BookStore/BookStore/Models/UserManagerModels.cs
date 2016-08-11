@@ -27,5 +27,16 @@ namespace BookStore.Models
         public string Email { get; set; }
     }
 
+    public class BookModel
+    {
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string ImageURL { get; set; }
+        public string Genre { get; set; }
+        public string Language { get; set; }
+        public decimal Pirce { get; set; } 
+        public string Username { get; set; }
+    }
+
 
 }
