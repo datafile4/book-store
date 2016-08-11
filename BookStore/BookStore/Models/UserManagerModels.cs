@@ -35,7 +35,7 @@ namespace BookStore.Models
         public string Genre { get; set; }
         public string Language { get; set; }
         public decimal Pirce { get; set; } 
-        public string Username { get; set; }
+        public UserInfoModel Uploader { get; set; }
     }
 
 

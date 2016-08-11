@@ -187,11 +187,37 @@ namespace BookStore.Controllers
                     }
                 }
 
-                return Ok(true, "Book successfully added into cart!");
+                return Ok(true, "Book is successfully added into cart!");
             }
         }
 
-        [HttpGet]
+        [HttpPost]
+        [RequiresLogin]
+        public IHttpActionResult RemoveFromCart(int bookID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                string queryString = $@"Delete from Carts
+                                             where UserID = {CurrentUserID} 
+                                             and
+                                             BookID = {bookID}";
+
+
+                using (var cmd = new SqlCommand(queryString, con))
+                {
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                    {
+                        return Ok(false, "Failed to remove book. Try again!");
+                    }
+                }
+
+                return Ok(true, "Book is successfully removed from cart!");
+            }
+        }
+
+        [HttpPost]
         public UserInfoModel GetUserInfo(string username)
         {
             using (var con = new SqlConnection(conStr))
@@ -223,53 +249,113 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpGet, RequiresLogin]
+        [HttpPost]
+        [RequiresLogin] // needed to get CurrentUserID
         public UserInfoModel GetCurrentUserInfo()
         {
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString =
-                       $@"select email, lastname, firstname, username
-                        from Users
-                        where id = {CurrentUserID}";
+                return GetUserInfo(CurrentUserID, con);
+            }
+        }
 
-                //null if not found
-                UserInfoModel returnModel = null;
+        [HttpPost, RequiresLogin]
+        public IEnumerable<BookModel> GetCartItems()
+        {
+            List<BookModel> returnModels = null;
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                string queryString =
+                       $@"select BookID
+                        from Carts
+                        where UserID = {CurrentUserID}";
+
                 using (var cmd = new SqlCommand(queryString, con))
                 {
                     var reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                    while (reader.Read())
                     {
-                        returnModel = new UserInfoModel();
-                        returnModel.Email = reader.GetString(0);
-                        returnModel.LastName = reader.GetString(1);
-                        returnModel.FirstName = reader.GetString(2);
-                        returnModel.Username = reader.GetString(3);
+                        returnModels.Add(GetBookInfo(reader.GetInt32(0), con));
                     }
 
-                    return returnModel;
+                    return returnModels;
                 }
             }
         }
 
-        [HttpGet]
-        [RequiresLogin]
-        public IHttpActionResult SetCookie()
+        private UserInfoModel GetUserInfo(int userID, SqlConnection con)
         {
-            var resp = new HttpResponseMessage();
+            string queryString =
+                   $@"select email, lastname, firstname, username
+                        from Users
+                        where id = {userID}";
 
-            Debug.WriteLine(CurrentUserID);
+            //null if not found
+            UserInfoModel returnModel = null;
+            using (var cmd = new SqlCommand(queryString, con))
+            {
+                var reader = cmd.ExecuteReader();
 
-            var cookie = new CookieHeaderValue("session-id", "12sd345");
-            cookie.Expires = DateTimeOffset.Now.AddDays(1);
-            cookie.Domain = Request.RequestUri.Host;
-            cookie.Path = "/";
+                if (reader.Read())
+                {
+                    returnModel = new UserInfoModel();
+                    returnModel.Email = reader.GetString(0);
+                    returnModel.LastName = reader.GetString(1);
+                    returnModel.FirstName = reader.GetString(2);
+                    returnModel.Username = reader.GetString(3);
+                }
 
-            resp.Headers.AddCookies(new[] { cookie });
-
-            return ResponseMessage(resp);
+                return returnModel;
+            }
         }
+        private BookModel GetBookInfo(int bookID, SqlConnection con)
+        {
+            BookModel returnModel = null;
+
+            string queryString =
+                       $@"select Name,Author,ImageURL,
+                        Price,LangID,GenreID,UserID
+                        from Books
+                        where BookID = {bookID}";
+            using (var cmd = new SqlCommand(queryString, con))
+            {
+                var reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    returnModel = new BookModel();
+
+                    returnModel.Name = reader.GetString(0);
+                    returnModel.Author = reader.GetString(1);
+                    returnModel.ImageURL = reader.GetString(2);
+                    returnModel.Pirce = reader.GetDecimal(3);
+                    int langID = reader.GetInt32(4);
+                    returnModel.Language = GetName(langID, "Langs", con);
+                    int GenreID = reader.GetInt32(5);
+                    returnModel.Genre= GetName(GenreID, "Genres", con);
+                    int userID = reader.GetInt32(6);
+                    returnModel.Uploader = GetUserInfo(userID, con);
+                }
+            }
+            return returnModel;
+        }
+        private string GetName(int ID, string tableName, SqlConnection con)
+        {
+            string returnString = null;
+            string queryString =
+                     $@"select Name
+                        from {tableName}
+                        where id = {ID}";
+            using (var cmd = new SqlCommand(queryString, con))
+            {
+                returnString = cmd.ExecuteScalar() as string;
+                return returnString;
+            }
+        }
+
     }
 }
