@@ -1,25 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    
-    <link rel="stylesheet" type="text/css" href="css/login.css" />
-    <link rel="stylesheet" type="text/css" href="css/register.css" />
-    <title>Login</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    <script src="login.js"></script>
-</head>
-<body>
+<form name="frm">
     <div class="wrapper">
 
         <div class="main content clearfix">
-            <div id="rsi-card" class="card signin-card" ng-app="app" ng-controller="HttpGetController">
+            <div id="rsi-card" class="card signin-card">
 
                 <p class="profile-name">Login</p>
 
                 <span id="reauthEmail" class="reauth-email">New Login </span>
-                <input type="text" placeholder="Username" ng-model="Username" required /><br />
-                <input type="password" placeholder="password" ng-model="password" required /><br />
-                <button id="signIn" class="rc-button rc-button-submit" ng-click="Login_()">Login</button><br />                
+                <div>
+                    <input type="text" name="Username" placeholder="Username" ng-model="Username" required />
+                    <span ng-show="frm.Username.$dirty && frm.Username.$error.required" > Required! </span>
+                </div>
+
+                <div>
+                    <input type="password" name="password" placeholder="password" ng-model="password" required />
+                    <span ng-show="frm.password.$dirty && frm.password.$error.required" > Required!  </span>
+                    
+                </div>
+                <br />
+                <button ng-disabled="frm.$invalid" id="signIn" class="rc-button rc-button-submit" ng-click="Login_()">Login</button><br />
                 <a href="Registration.html"><p class="return_create">Create New Account</p></a>
                 <p class="error_message" style="color:#f00"></p>
                 <p ng-style="emiraslan" ng-bind="message"></p>
@@ -28,6 +27,4 @@
         </div>
 
     </div>
-
-</body>
-</html>
+</form>

@@ -82,11 +82,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="MainWeb\buy.html" />
     <Content Include="MainWeb\css\login.css" />
     <Content Include="MainWeb\css\register.css" />
     <Content Include="MainWeb\index.html" />
     <Content Include="MainWeb\login.html" />
     <Content Include="MainWeb\login.js" />
+    <Content Include="MainWeb\main.html" />
+    <Content Include="MainWeb\main.js" />
     <Content Include="MainWeb\Registration.html" />
     <Content Include="Web.config" />
     <Content Include="web\buy.html" />

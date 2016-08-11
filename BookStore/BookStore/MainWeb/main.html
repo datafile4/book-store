@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" ng-controller="loginCtrl">
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="main.js"></script>
+    <script src="login.js"></script>
+    <style>
+        input.ng-invalid.ng-dirty {
+            border: 1px solid red;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+    <link rel="stylesheet" type="text/css" href="css/register.css" />
+</head>
+<body>
+<div align="center" >
+    <h1>LOGIN RESITRATION</h1>
+</div>
+   <div ng-view></div>
+</body>
+</html>
