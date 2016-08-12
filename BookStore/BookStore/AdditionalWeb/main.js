@@ -2,16 +2,11 @@
 
 app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $routeProvider
-    .when('/', {templateUrl : 'index.html'})
     .when('/login', {
         templateUrl: 'login.html',
         controller: 'loginCtrl'
 
     })
-        .when('/register', {
-            templateUrl: 'register.html',
-            controller: 'registerCtrl'
-        })
 
      .when('/dashboard', {
          resolve: {
@@ -25,6 +20,6 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
          templateUrl: 'products_in.html'
      })
     .otherwise({
-        redirectTo: '/'
+        redirectTo: '/login'
     });
 }]);
