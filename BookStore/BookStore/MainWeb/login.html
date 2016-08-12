@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-app="app" ng-controller="loginCtrl">
 <head>
     <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
     <script src="http://code.angularjs.org/1.2.3/angular.min.js"></script>
@@ -25,6 +25,9 @@
                         <input type="email" name="email" placeholder="email" ng-model="Username" required>
                         <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
                         <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
+                        <span ng-bind="Username">
+                            
+                        </span>
                     </div>
                     <div>
                         <input type="password"
@@ -32,8 +35,8 @@
                                placeholder="password"
                                ng-model="password"
                                required
-                               ng-minlength="5"
-                               ng-maxlength="10" />
+                               ng-minlength="3"
+                               ng-maxlength="30" />
                         <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>

@@ -7,7 +7,11 @@
     <link rel="stylesheet" text="text/css" href="style_log.css" />
     <link rel="stylesheet" text="text/css" href="style_reg.css" />
     <title>Login</title>
-
+    <script>
+        document.getElementById('register').onclick = function() {
+            {{11*11}}
+        }​;​
+    </script>
     <script src="script.js" type="text/javascript"></script>
 </head>
 <body class="container">
@@ -24,6 +28,7 @@
                     <div>
                         <input type="text" name="firstname" placeholder="Firstname" ng-model="firstname" required>
                         <span ng-show="frm.firstname.$dirty && frm.firstname.$error.required"> Required! </span>
+                        {{10+20}}
                     </div>
                     <div>
                         <input type="text" name="lastname" placeholder="Lastname" ng-model="lastname" required>
@@ -34,7 +39,7 @@
                         <span ng-show="frm.username.$dirty && frm.username.$error.required"> Required! </span>
                     </div>
                     <div>
-                        <input type="email" name="email" placeholder="email" ng-model="mail" required>
+                        <input type="email" name="email" placeholder="email" ng-model="email" required>
                         <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
                         <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
                     </div>
@@ -51,8 +56,10 @@
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
                         {{10*24}}
                     </div>
-                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Register_()">
-                    <a href="register.html"><p class="return_create">Create New Account</p></a>
+
+                    <input id="register" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Register_()" >
+               
+                    <a href="login.html"><p class="return_create">Create New Account</p></a>
                     <p class="error_message" style="color:#f00"></p>
 
 
