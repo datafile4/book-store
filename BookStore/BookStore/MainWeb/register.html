@@ -1,7 +1,5 @@
-﻿
-
-<!DOCTYPE html>
-<html lang="en" ng-app="">
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="app">
 <head>
 
     <link rel="stylesheet" type="text/css" href="style_reg.css" />
@@ -35,7 +33,7 @@
                     <input id="lastName" type="text" placeholder="Last Name" class="" ng-model="user.lastname" ng-minlength="3">
                     <input id="username" type="text" placeholder="Username" class="" ng-model="user.username" ng-minlength="3">
                     <input id="password" type="password" placeholder="Password" class="" name="password" ng-model="user.password" ng-minlength="5">
-                    <span ng-show="frm.email.$error.email"> Too short!</span>
+                    <span ng-show="false"> Too short!</span>
                     <input id="email" type="email" placeholder="E-mail" class="" name="email" ng-model="user.email">
                     <span ng-show="frm.email.$error.email">Not an email !</span>
 
