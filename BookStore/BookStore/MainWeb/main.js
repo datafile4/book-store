@@ -10,7 +10,6 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     })
         .when('/register', {
             templateUrl: 'register.html',
-            controller: 'registerCtrl'
         })
 
      .when('/dashboard', {

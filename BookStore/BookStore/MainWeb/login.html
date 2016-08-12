@@ -22,7 +22,7 @@
                     <span id="reauthEmail" class="reauth-email">New Login </span>
 
                     <div>
-                        <input type="email" name="email" placeholder="email" ng-model="mail" required>
+                        <input type="email" name="email" placeholder="email" ng-model="Username" required>
                         <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
                         <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
                     </div>
@@ -39,7 +39,7 @@
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
                         {{12*8}}
                     </div>
-                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="loginCtrl()">
+                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Login_()">
                     <a href="register.html"><p class="return_create">Create New Account</p></a>
                     <p class="error_message" style="color:#f00"></p>
 

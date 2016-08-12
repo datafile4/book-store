@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en" ng-app="app" ng-controller="registerCtrl">
+<html lang="en" ng-app="app">
 <head>
     <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
     <script src="http://code.angularjs.org/1.2.3/angular.min.js"></script>
@@ -17,22 +17,10 @@
             <div class="main content clearfix">
                 <div id="rsi-card" class="card signin-card">
 
-                    <p class="profile-name">Registration</p>
+                    <p class="profile-name">Login</p>
 
-                    <span id="reauthEmail" class="reauth-email">New Registration </span>
+                    <span id="reauthEmail" class="reauth-email">New Login </span>
 
-                    <div>
-                        <input type="text" name="firstname" placeholder="Firstname" ng-model="firstname" required>
-                        <span ng-show="frm.firstname.$dirty && frm.firstname.$error.required"> Required! </span>
-                    </div>
-                    <div>
-                        <input type="text" name="lastname" placeholder="Lastname" ng-model="lastname" required>
-                        <span ng-show="frm.lastname.$dirty && frm.lastname.$error.required"> Required! </span>
-                    </div>
-                    <div>
-                        <input type="text" name="username" placeholder="Username" ng-model="username" required>
-                        <span ng-show="frm.username.$dirty && frm.username.$error.required"> Required! </span>
-                    </div>
                     <div>
                         <input type="email" name="email" placeholder="email" ng-model="mail" required>
                         <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
@@ -49,9 +37,9 @@
                         <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
-                        {{10*24}}
+                        {{12*8}}
                     </div>
-                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Register_()">
+                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="loginCtrl()">
                     <a href="register.html"><p class="return_create">Create New Account</p></a>
                     <p class="error_message" style="color:#f00"></p>
 

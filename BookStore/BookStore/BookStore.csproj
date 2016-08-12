@@ -113,6 +113,7 @@
     <Content Include="MainWeb\mainPage.png" />
     <Content Include="MainWeb\products_in.html" />
     <Content Include="MainWeb\register.html" />
+    <Content Include="MainWeb\register1.html" />
     <Content Include="MainWeb\style.css" />
     <Content Include="MainWeb\style_log.css" />
     <Content Include="MainWeb\style_reg.css" />

@@ -2,6 +2,7 @@
     console.log("Inside HttpGetController");
     $scope.Login_ = function () {
 
+        console.log("Inside Function Login_");
         var loginData = {
             Username: $scope.Username,
             Password: $scope.password
@@ -27,6 +28,10 @@
         res.error(function (data) {
             console.log("error");
         });
+
+        ////////////////////////////////////////////////////////
+
+       
         //$http(
         //    {
         //        method: 'POST',
@@ -64,6 +69,43 @@
         //        '<hr />headers: ' + header +
         //        '<hr />config: ' + config;
         //});
+    };
+
+});
+app.controller('registerCtrl', function ($scope, $http, $location, $rootScope) {
+            
+    $scope.Register_ = function () {
+
+        var registerData = {
+            Firstname: $scope.firstname,
+            Lastname: $scope.lastname,
+            Username: $scope.username,
+            Password: $scope.password,
+            Email: $scope.email
+        };
+
+        var res = $http.post("http://localhost:52521/api/bookstore/register", registerData);
+
+        res.success(function (data) {
+            console.log("success: " + JSON.stringify(data));
+
+            $rootScope.isLogged = data.success;
+            if ($rootScope.isLogged) {
+                $location.path('/dashboard');
+            } else {
+                $scope.message = data.message;
+                $scope.emiraslan = {
+                    color: 'red'
+                }
+            }
+
+
+        });
+
+        res.error(function (data) {
+            console.log("error");
+        });
+
     };
 
 });
