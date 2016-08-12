@@ -1,27 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
-
-    <link rel="stylesheet" type="text/css" href="style_reg.css" />
-    <link rel="stylesheet" type="text/css" href="style_log.css" />
-    <title>Sign Up</title>
-    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <!--<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>-->
     <script src="http://code.angularjs.org/1.2.3/angular.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular-route.js"></script>
-    <script src="script.js" type="text/javascript"></script>
-    <style>
-        input.ng-invalid {
-            border: 3px solid red;
-        }
+    <link rel="stylesheet" text="text/css" href="style_log.css" />
+    <link rel="stylesheet" text="text/css" href="style_reg.css" />
+    <title>Login</title>
 
-        input.ng-valid {
-            border: 3px solid green;
-        }
-    </style>
-    <style></style>
+    <script src="script.js" type="text/javascript"></script>
 </head>
 <body>
-    <form name="frm">
+    <!--<form name="frm">
         <div class="wrapper">
 
             <div class="main content clearfix">
@@ -43,6 +33,90 @@
                     <a href="index.html"><p class="return_create">Already have an account... Log in</p></a>
                     <p id="error_message" style="color:#f00"></p>
                     <p ng-style="emiraslan" ng-bind="message"></p>
+                </div>
+            </div>
+
+        </div>
+    </form>-->
+    <!--
+    <form name="frm">
+        <div class="wrapper">
+
+            <div class="main content clearfix">
+                <div id="rsi-card" class="card signin-card">
+
+                    <p class="profile-name">Registration</p>
+
+                    <span id="reauthEmail" class="reauth-email"> New Registration </span>
+                    <div>
+                        <input type="text" name="firstName" placeholder="firstname" ng-model="firstname" required ng-minlength="6" />
+                        <span ng-show="frm.firstname.$dirty && frm.firstname.$error.required"> Required!  </span>
+                        <span ng-show="frm.firstname.$dirty && frm.firstname.$error.minlength"> too short! </span>
+                    </div>
+                    <div>
+                        <input type="text" name="lastName" placeholder="lastname" ng-model="lastname" required ng-minlength="6" />
+                        <span ng-show="frm.lastname.$dirty && frm.lastname.$error.required"> Required!  </span>
+                        <span ng-show="frm.lastname.$dirty && frm.lastname.$error.minlength"> too short! </span>
+                    </div>
+                    <div>
+                        <input type="text" name="username" placeholder="username" ng-model="username" required ng-minlength="6" />
+                        <span ng-show="frm.username.$dirty && frm.username.$error.required"> Required!  </span>
+                        <span ng-show="frm.username.$dirty && frm.username.$error.minlength"> too short! </span>
+                    </div>
+                    <div>
+                        <input type="password" name="password" placeholder="password" ng-model="password" required ng-minlength="6" />
+                        <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
+                        <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
+                    </div>
+                    <div>
+                        <input type="email" name="email" placeholder="email" ng-model="mail" required>
+                        <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
+                        <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
+                    </div>
+                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="registerCtrl()">
+                    <a href="register.html"><p class="return_create">Create New Account</p></a>
+                    <p class="error_message" style="color:#f00"></p>
+
+
+                </div>
+            </div>
+
+        </div>
+    </form>
+    -->
+    <form name="frm">
+        <div class="wrapper">
+
+            <div class="main content clearfix">
+                <div id="rsi-card" class="card signin-card">
+
+                    <p class="profile-name">Login</p>
+
+                    <span id="reauthEmail" class="reauth-email">New Login </span>
+
+                    <div>
+                        <input type="email" name="email" placeholder="email" ng-model="mail" required>
+                        <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
+                        <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
+                    </div>
+                    <div>
+                        <input type="password"
+                               name="password"
+                               placeholder="password"
+                               ng-model="password"
+                               required
+                               ng-minlength="5"
+                               ng-maxlength="10" />
+                        <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
+                        <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
+                        <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
+                        {{12*8}}
+                    </div>
+                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="loginCtrl()">
+                    <a href="register.html"><p class="return_create">Create New Account</p></a>
+                    <p class="error_message" style="color:#f00"></p>
+
+
                 </div>
             </div>
 
