@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BookStore.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 
-namespace BookStore.Controllers
+namespace BookStore.Attributes
 {
     public class RequiresLoginAttribute : ActionFilterAttribute
     {
@@ -83,6 +84,18 @@ namespace BookStore.Controllers
             ///TODO: add return url into uri after successful log in.
             response.Headers.Location = new Uri($"http://{actionContext.Request.RequestUri.Authority}/login.html");
             actionContext.Response = response;
+        }
+    }
+
+    public class ValidateModelAttribute : ActionFilterAttribute
+    {
+        public override void OnActionExecuting(HttpActionContext actionContext)
+        {
+            if (actionContext.ModelState.IsValid == false)
+            {
+                actionContext.Response = actionContext.Request.CreateErrorResponse(
+                    HttpStatusCode.BadRequest, actionContext.ModelState);
+            }
         }
     }
 }

@@ -89,7 +89,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\BookStoreController.cs" />
-    <Compile Include="Controllers\RequiresLogin.cs" />
+    <Compile Include="Controllers\Attributes.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
