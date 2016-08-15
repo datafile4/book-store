@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
@@ -22,27 +23,24 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(BookStoreController.conStr))
             {
                 con.Open();
-                string queryString =
-                    $@"select id 
-                        from UserLogins
-                        where GUID = '{guid}'";
 
-                int TokenID;
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("uspGetUserID", con))
                 {
-                    TokenID = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (TokenID < 1)
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Guid", SqlDbType.NVarChar).Value = guid;
+                    int result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result < 1)
                         return false;
                 }
 
                 const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
-                queryString =
-                    $@"Update UserLogins
-                        Set LastLogin = '{DateTimeOffset.Now.ToString(dtFormat)}'
-                        where id = {TokenID}";
 
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("uspUpdateLastLogin", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@LastLogin", SqlDbType.DateTimeOffset).Value = DateTimeOffset.Now.ToString(dtFormat);
+                    cmd.Parameters.Add("@Guid", SqlDbType.NVarChar).Value = guid;
+
                     int affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
                         return false;
@@ -65,15 +63,14 @@ namespace BookStore.Controllers
                     using (var con = new SqlConnection(BookStoreController.conStr))
                     {
                         con.Open();
-                        string queryString =
-                            $@"select userid 
-                              from UserLogins
-                              where GUID = '{guid}'";
 
                         int userID;
-                        using (var cmd = new SqlCommand(queryString, con))
+                        using (var cmd = new SqlCommand("uspGetUserID", con))
                         {
-                            userID = (int)(cmd.ExecuteScalar() ?? 0);
+                            cmd.CommandType = CommandType.StoredProcedure;
+                            cmd.Parameters.Add("@Guid", SqlDbType.NVarChar).Value = guid;
+
+                            userID = (int)cmd.ExecuteScalar();
                             (actionContext.ControllerContext.Controller as BookStoreController).CurrentUserID = userID;
                         }
                     }
