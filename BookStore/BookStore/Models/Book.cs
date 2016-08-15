@@ -8,15 +8,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace BookStore.Models
 {
     public class Book
-    {        
-        public int ID { get; set; }
-
+    {
+        [Required]
         public string Name { get; set; }
+        [Required]
         public string Author { get; set; }
+        [Url]
+        [Required]
         public string ImageURL { get; set; }
-        public string GenreID { get; set; }        
-        public string LanguageID { get; set; }
-        public string UserID { get; set; }
-        
+        [Required]
+        [Range(0,1000)]
+        public decimal? Price { get; set; }
+        [Required]
+        public int? GenreID { get; set; }
+        [Required]
+        public int? LanguageID { get; set; }
     }
 }
