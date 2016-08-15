@@ -1,5 +1,4 @@
-﻿using BookStore.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Data;
@@ -7,6 +6,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Net.Http.Headers;
+using System.Diagnostics;
+using System.Web.Http.Controllers;
+using BookStore.Models;
+using System.Text;
+using Newtonsoft.Json;
+using BookStore.Attributes;
 
 namespace BookStore.Controllers
 {
@@ -19,18 +25,24 @@ namespace BookStore.Controllers
         ///anything  important :)
         ///
         ///TODO: save conectionString in Web.config file
-        const string conStr =
-       @"Data Source=superbookstore.database.windows.net;
-        Initial Catalog = BookStore;
-        Integrated Security = False;
-        User ID = emiraslan;
-        Password=Orxan12Aslan24;
-        Connect Timeout = 15;
-        Encrypt=False;
-        TrustServerCertificate=True;
-        ApplicationIntent=ReadWrite;
-        MultiSubnetFailover=False";
+        public const string conStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        //@"Data Source=superbookstore.database.windows.net;
+        //Initial Catalog = BookStore;
+        //Integrated Security = False;
+        //User ID = emiraslan;
+        //Password=Orxan12Aslan24;
+        //Connect Timeout = 15;
+        //Encrypt=False;
+        //TrustServerCertificate=True;
+        //ApplicationIntent=ReadWrite;
+        //MultiSubnetFailover=False";
+
+
         #endregion
+        /// <summary>
+        /// Available only for methods with RequiresLoginAttribute
+        /// </summary>
+        public int CurrentUserID { get; set; }
 
         public IHttpActionResult Ok(bool scs, string msg)
         {
@@ -41,61 +53,97 @@ namespace BookStore.Controllers
             });
         }
 
-        [HttpPost]
+        [HttpPost, ValidateModel]
         public IHttpActionResult Login(LoginModel model)
         {
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString =
-                    $@"select id 
-                        from Users
-                        where (username = '{model.Username.ToLower()}' 
-                        or email ='{model.Username.ToLower()}')
-                        and password = '{model.Password}'";
-
-                using (var cmd = new SqlCommand(queryString, con))
+             
+                int UserID;
+                using (var cmd = new SqlCommand("uspLoginProc", con))
                 {
-                    var result = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (result < 1)
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
+                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
+
+                    UserID = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (UserID < 1)
                         return Ok(false, "Login failed. Check your username/password");
                 }
+                
 
-                return Ok(true, "Sucessfully logged in");
+                const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
+                var now = DateTimeOffset.Now;
+                var expireDate = now.AddMonths(3);
+                string GuidStr = Guid.NewGuid().ToString().ToLower();
+                              
+                using (var cmd = new SqlCommand("uspInsertIntoUserLogins", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+                    cmd.Parameters.Add("@GuidStr", SqlDbType.NVarChar).Value = GuidStr;
+                    cmd.Parameters.Add("@expireDate", SqlDbType.NVarChar).Value = expireDate.ToString(dtFormat);
+                    cmd.Parameters.Add("@now", SqlDbType.NVarChar).Value = now.ToString(dtFormat);
+
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                    {
+                        return Ok(false, "Login Failed. Try again!");
+                    }
+                }
+
+                var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
+                var cookie = new CookieHeaderValue(RequiresLoginAttribute.LoginToken, GuidStr);
+                cookie.Expires = expireDate;
+                cookie.Domain = Request.RequestUri.Host;
+                cookie.Path = "/";
+                responseMsg.Headers.AddCookies(new[] { cookie });
+
+                var successMsg = new { success = true, message = "Sucessfully logged in" };
+                var param = JsonConvert.SerializeObject(successMsg);
+                responseMsg.Content = new StringContent(param, Encoding.UTF8, "application/json");
+
+                return ResponseMessage(responseMsg);
             }
         }
 
-        [HttpPost]
+        [HttpPost, ValidateModel]
         public IHttpActionResult Register(RegisterModel model)
         {
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
 
-                string queryString = $"select id from Users where username = '{model.UserName.ToLower()}'";
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("uspCheckUsername", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = model.Username.ToLower();
+
+
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
                     if (result > 0)
                         return Ok(false, "Username already exists!");
                 }
 
-                queryString = $"select id from Users where email = '{model.Email.ToLower()}'";
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("uspCheckEmail", con))
                 {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email.ToLower();
+
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
                     if (result > 0)
                         return Ok(false, "This email has already been registered once!");
                 }
 
-                using (SqlCommand cmd = new SqlCommand("uspRegisterUser", con))
+                using (SqlCommand cmd = new SqlCommand("uspRegister", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //yes, we need to add parameters in sequence
                     cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = model.FirstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = model.LastName;
-                    //we don't need to make the username lowercase. Stored procedure will do this
-                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.UserName;
+                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
 
@@ -104,9 +152,198 @@ namespace BookStore.Controllers
                     {
                         return Ok(false, "Registration Failed. Try It Again!");
                     }
-
-                    return Ok(true, "Sucessfully Registered!");
                 }
+
+                return Ok(true, "Sucessfully Registered!");
+            }
+        }
+
+        [HttpPost]
+        [RequiresLogin]
+        public IHttpActionResult AddToCart(int bookID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspAddToCartCheck", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
+
+                    var result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result > 0)
+                        return Ok(false, "Book have already added!");
+                }
+
+                using (var cmd = new SqlCommand("uspAddToCart", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
+
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                    {
+                        return Ok(false, "Adding book to cart failed. Try again!");
+                    }
+                }
+
+                return Ok(true, "Book is successfully added into cart!");
+            }
+        }
+
+        [HttpPost]
+        [RequiresLogin]
+        public IHttpActionResult RemoveFromCart(int bookID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspRemoveFromCart", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
+
+
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                    {
+                        return Ok(false, "Failed to remove book. Try again!");
+                    }
+                }
+
+                return Ok(true, "Book is successfully removed from cart!");
+            }
+        }
+
+        [HttpPost]
+        public UserInfoModel GetUserInfo(string username)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                username = username.ToLower();
+
+                //null if not found
+                UserInfoModel returnModel = null;
+                using (var cmd = new SqlCommand("uspGetUserInfo", con))
+                {
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnModel = new UserInfoModel();
+                        returnModel.Email = reader.GetString(0);
+                        returnModel.LastName = reader.GetString(1);
+                        returnModel.FirstName = reader.GetString(2);
+                        returnModel.Username = username;
+                    }
+
+                    return returnModel;
+                }
+            }
+        }
+
+        [HttpPost]
+        [RequiresLogin]
+        public UserInfoModel GetCurrentUserInfo()
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                UserInfoModel returnModel = null;
+                using (var cmd = new SqlCommand("uspGetUserInfo", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnModel = new UserInfoModel();
+                        returnModel.Email = reader.GetString(0);
+                        returnModel.LastName = reader.GetString(1);
+                        returnModel.FirstName = reader.GetString(2);
+                        returnModel.Username = reader.GetString(3);
+                    }
+
+                    return returnModel;
+                }
+            }
+        }
+
+        [HttpPost, RequiresLogin]
+        public IEnumerable<BookModel> GetCartItems()
+        {
+            List<BookModel> returnModels = new List<BookModel>();
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspGetBookInfo", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var book = new BookModel
+                        {
+                            Name = reader.GetString(0),
+                            Author = reader.GetString(1),
+                            ImageURL = reader.GetString(2),
+                            Pirce = reader.GetDecimal(3),
+                            Language = reader.GetString(4),
+                            Genre = reader.GetString(5),
+                            Uploader = new UserInfoModel
+                            {
+                                FirstName = reader.GetString(6),
+                                LastName = reader.GetString(7),
+                                Username = reader.GetString(8),
+                                Email = reader.GetString(9)
+                            }
+                        };
+
+                        returnModels.Add(book);
+                    }
+                    return returnModels;
+                }
+            }
+        }
+
+        [HttpPost, RequiresLogin, ValidateModel]
+        public IHttpActionResult UploadBook(Book book)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspUploadBook", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = book.Name;
+                    cmd.Parameters.Add("@author", SqlDbType.NVarChar).Value = book.Author;
+                    cmd.Parameters.Add("@ImageURL", SqlDbType.NVarChar).Value = book.ImageURL;
+                    cmd.Parameters.Add("@langID", SqlDbType.Int).Value = book.LanguageID;
+                    cmd.Parameters.Add("@genreID", SqlDbType.Int).Value = book.GenreID;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@price", SqlDbType.Decimal).Value = book.Price;
+
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                        return Ok(false, "Could not upload book, try again!");
+                }
+
+                return Ok(true, "The book is successfully uploaded!");
             }
         }
     }
