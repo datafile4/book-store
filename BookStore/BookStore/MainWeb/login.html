@@ -13,7 +13,6 @@
 <body class="container">
     <form name="frm">
         <div class="wrapper">
-
             <div class="main content clearfix">
                 <div id="rsi-card" class="card signin-card">
 
@@ -25,9 +24,6 @@
                         <input type="email" name="email" placeholder="email" ng-model="Username" required>
                         <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
                         <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
-                        <span ng-bind="Username">
-                            
-                        </span>
                     </div>
                     <div>
                         <input type="password"
@@ -40,7 +36,7 @@
                         <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
-                        {{12*8}}
+                        
                     </div>
                     <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Login_()">
                     <a href="register.html"><p class="return_create">Create New Account</p></a>

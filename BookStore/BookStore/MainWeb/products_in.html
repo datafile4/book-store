@@ -7,107 +7,71 @@
     <link rel="icon" href="Books.ico" />
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
     <link rel="stylesheet" href="style.css" type="text/css" />
-    <script src=""></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $(".product").clone().appendTo("body");
+            });
+        });
+    </script>
 </head>
 
 <body>
-    <div id="wrapper">
+    <div id="prod-wrapper">
         <header id="header-home">
             <ul class="logo" id="title-bar">
                 <li> <img src="Books.ico" width="60" height="60" alt="BookStoreLogo" /> </li>
                 <li> <span id="TitleBarName">Practice Book Store</span> </li>
             </ul>
-            
             <div class="search">
                 <input type="text" id="search-text" />
                 <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="34" height="34" /></button>
             </div>
             <!-- Burani Login zamani deyismek lazimdi -->
-            <div class="login-register">
+            <!--<div class="login-register">
                 <ul class="login-reg">
                     <li><a href="login.html">Login</a></li>
                     <li>|</li>
                     <li><a href="register.html">Register</a></li>
                 </ul>
-            </div>
-            <!--<div class="user-icon">
+            </div>-->
+            <div class="user-icon">
                 <ul class="user-icon-list">
-                    <li><a href="user_page.html"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40"/></a></li>
+                    <li>
+                        <a href="user_page.html"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40" /></a>
+                    </li>
                     <li>|</li>
-                     <li><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" width="40" height="40"/></li>
-                     <li>|</li>
-                    <li class="username" ><a href="user_page.html">Username</a></li>
+                    <li><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" width="40" height="40" /></li>
+                    <li>|</li>
+                    <li class="username"><a href="user_page.html">Username</a></li>
                 </ul>
-            </div> -->
+            </div>
         </header>
     </div>
     <div class="products-container">
         <ul class="product-list">
             <li class="product">
-                    <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
-                    <div class="product-parameters">
-                        <ul class="product-parameters-list">
-                            <li class="parameters" >Name: {{name}}</li>
-                            <li class="parameters" >Author: {{author}}</li>
-                            <li class="parameters" >Price: {{$100}}</li>
-                            <li class="parameters" >Seller: {{seller}}</li>
-                            <li class="parameters" >Language: {{englis}}</li>
-                            <li class="parameters" >Genre: {{sci-fi}}</li>
-                        </ul>
-                    </div>
+                <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
+                <div class="product-parameters">
+                    <ul class="product-parameters-list">
+                        <li class="parameters">Name: {{name}}</li>
+                        <li class="parameters">Author: {{author}}</li>
+                        <li class="parameters">Price: {{$100}}</li>
+                        <li class="parameters">Seller: {{seller}}</li>
+                        <li class="parameters">Language: {{englis}}</li>
+                        <li class="parameters">Genre: {{sci-fi}}</li>
+                    </ul>
+                </div>
             </li>
-            <li class="product">
-                    <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
-                    <div class="product-parameters">
-                        <ul class="product-parameters-list">
-                            <li class="parameters" >Name: {{name}}</li>
-                            <li class="parameters" >Author: {{author}}</li>
-                            <li class="parameters" >Price: {{$100}}</li>
-                            <li class="parameters" >Seller: {{seller}}</li>
-                            <li class="parameters" >Language: {{englis}}</li>
-                            <li class="parameters" >Genre: {{sci-fi}}</li>
-                        </ul>
-                    </div>
-            </li>
-            <li class="product">
-                    <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
-                    <div class="product-parameters">
-                        <ul class="product-parameters-list">
-                            <li class="parameters" >Name: {{name}}</li>
-                            <li class="parameters" >Author: {{author}}</li>
-                            <li class="parameters" >Price: {{$100}}</li>
-                            <li class="parameters" >Seller: {{seller}}</li>
-                            <li class="parameters" >Language: {{englis}}</li>
-                            <li class="parameters" >Genre: {{sci-fi}}</li>
-                        </ul>
-                    </div>
-            </li>
-             <li class="product">
-                    <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
-                    <div class="product-parameters">
-                        <ul class="product-parameters-list">
-                            <li class="parameters" >Name: {{name}}</li>
-                            <li class="parameters" >Author: {{author}}</li>
-                            <li class="parameters" >Price: {{$100}}</li>
-                            <li class="parameters" >Seller: {{seller}}</li>
-                            <li class="parameters" >Language: {{englis}}</li>
-                            <li class="parameters" >Genre: {{sci-fi}}</li>
-                        </ul>
-                    </div>
-            </li>
-            
         </ul>
-    
     </div>
+    <button>Clone New Element</button>
     <div class="home-container">
         <div class="paralel-containers-1">
             <h5>Book Store </h5>
-            <p>
-                    Book Store supply with any kind of book
-                    <a href="/uses/internet-of-things.html">Sci-Fi</a>,
-                    <a href="/uses/webrtc.html">Documentary</a>, and
-                    <a href="/uses/social.html">Detective</a>.
-               </p></div>
+            <p> Book Store supply with any kind of book <a href="/uses/internet-of-things.html">Sci-Fi</a>, <a href="/uses/webrtc.html">Documentary</a>, and <a href="/uses/social.html">Detective</a>. </p>
+        </div>
         <div class="paralel-containers-2">
             <h5>
                     It's cheap and high quality
@@ -118,14 +82,7 @@
                     It's a
                     <a href="/about/standards-process.html">living standard</a>.
                 </h5>
-            <p> Engineers actively extend and improve it. Millions use and buy books <a href="/software">Book Store</a> daily to read. 
-                Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature 
-                from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, 
-                looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of 
-                the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 
-                of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise 
-                on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..",
-                comes from a line in section 1.10.32. </p>
+            <p> Engineers actively extend and improve it. Millions use and buy books <a href="/software">Book Store</a> daily to read. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. </p>
         </div>
     </div>
     <footer>
