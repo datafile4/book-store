@@ -23,8 +23,5 @@ namespace BookStore.Models
         public int? GenreID { get; set; }
         [Required]
         public int? LanguageID { get; set; }
-        [Required]
-        public int? UserID { get; set; }
-        
     }
 }
