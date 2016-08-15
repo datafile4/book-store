@@ -14,15 +14,16 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         })
 
      .when('/dashboard', {
-         resolve: {
-             "check": function ($location, $rootScope) {
-                 console.log("rootscope.isLogged: " + $rootScope.isLogged);
-                 if (!$rootScope.isLogged) {
-                     $location.path('/');
-                 }
-             }
-         },
-         templateUrl: 'products_in.html'
+         //resolve: {
+         //    "check": function ($location, $rootScope) {
+         //        console.log("rootscope.isLogged: " + $rootScope.isLogged);
+         //        if (!$rootScope.isLogged) {
+         //            $location.path('/');
+         //        }
+         //    }
+         //},
+         templateUrl: 'products_in.html',
+         controller: 'GetBooks'
      })
     .otherwise({
         redirectTo: '/'
