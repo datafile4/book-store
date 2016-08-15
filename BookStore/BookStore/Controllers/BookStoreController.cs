@@ -25,7 +25,7 @@ namespace BookStore.Controllers
         ///
         ///TODO: save conectionString in Web.config file
         public const string conStr =
-       @"Data Source=superbookstore.database.windows.net;
+        @"Data Source=superbookstore.database.windows.net;
         Initial Catalog = BookStore;
         Integrated Security = False;
         User ID = emiraslan;
@@ -55,38 +55,34 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString =
-                    $@"select id 
-                        from Users
-                        where (username = '{model.Username.ToLower()}' 
-                        or email ='{model.Username.ToLower()}') 
-                        and password = '{model.Password}'";
-
-
+             
                 int UserID;
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("LoginProc", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
+                    cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
+
                     UserID = (int)(cmd.ExecuteScalar() ?? 0);
                     if (UserID < 1)
                         return Ok(false, "Login failed. Check your username/password");
                 }
-
-
+                
 
                 const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
                 var now = DateTimeOffset.Now;
                 var expireDate = now.AddMonths(3);
                 string GuidStr = Guid.NewGuid().ToString().ToLower();
-
-                queryString = $@"insert into UserLogins
-                                             values(
-                                             {UserID}, 
-                                            '{GuidStr}',                            
-                                            '{expireDate.ToString(dtFormat)}', 
-                                            '{now.ToString(dtFormat)}')";
-
-                using (var cmd = new SqlCommand(queryString, con))
+                              
+                using (var cmd = new SqlCommand("InsertIntoUserLogins", con))
                 {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+                    cmd.Parameters.Add("@GuidStr", SqlDbType.NVarChar).Value = GuidStr;
+                    cmd.Parameters.Add("@expireDate", SqlDbType.NVarChar).Value = expireDate.ToString(dtFormat);
+                    cmd.Parameters.Add("@now", SqlDbType.NVarChar).Value = now.ToString(dtFormat);
+
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
                     {
@@ -116,29 +112,33 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                string queryString = $"select id from Users where username = '{model.Username.ToLower()}'";
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("CheckUsername", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = model.Username.ToLower();
+
+
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
                     if (result > 0)
                         return Ok(false, "Username already exists!");
                 }
 
-                queryString = $"select id from Users where email = '{model.Email.ToLower()}'";
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("CheckEmail", con))
                 {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email.ToLower();
+
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
                     if (result > 0)
                         return Ok(false, "This email has already been registered once!");
                 }
 
-                using (SqlCommand cmd = new SqlCommand("uspRegisterUser", con))
+                using (SqlCommand cmd = new SqlCommand("Register", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    //yes, we need to add parameters in sequence
                     cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = model.FirstName;
                     cmd.Parameters.Add("@LastName", SqlDbType.NVarChar).Value = model.LastName;
-                    //we don't need to make the username lowercase. Stored procedure will do this
                     cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
@@ -161,25 +161,25 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString = $@"select id from Carts
-                                             where UserID = {CurrentUserID} 
-                                             and
-                                             BookID = {bookID}";
 
-
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("AddToCartCheck", con))
                 {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
+
                     var result = (int)(cmd.ExecuteScalar() ?? 0);
                     if (result > 0)
                         return Ok(false, "Book have already added!");
                 }
 
-                queryString = $@"insert into Carts
-                                             values({CurrentUserID}, 
-                                             {bookID})";
-
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("AddToCart", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
+
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
                     {
@@ -198,14 +198,15 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString = $@"Delete from Carts
-                                             where UserID = {CurrentUserID} 
-                                             and
-                                             BookID = {bookID}";
 
-
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("RemoveFromCart", con))
                 {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
+
+
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
                     {
@@ -224,14 +225,10 @@ namespace BookStore.Controllers
             {
                 con.Open();
                 username = username.ToLower();
-                string queryString =
-                       $@"select email, lastname, firstname 
-                        from Users
-                        where username = '{username}'";
 
                 //null if not found
                 UserInfoModel returnModel = null;
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("GetUserInfo", con))
                 {
                     var reader = cmd.ExecuteReader();
 
@@ -250,13 +247,30 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin] // needed to get CurrentUserID
+        [RequiresLogin]
         public UserInfoModel GetCurrentUserInfo()
         {
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                return GetUserInfo(CurrentUserID, con);
+                UserInfoModel returnModel = null;
+                using (var cmd = new SqlCommand("GetUserInfo", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.Read())
+                    {
+                        returnModel = new UserInfoModel();
+                        returnModel.Email = reader.GetString(0);
+                        returnModel.LastName = reader.GetString(1);
+                        returnModel.FirstName = reader.GetString(2);
+                        returnModel.Username = reader.GetString(3);
+                    }
+
+                    return returnModel;
+                }
             }
         }
 
@@ -268,25 +282,39 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-                string queryString =
-                       $@"select BookID
-                        from Carts
-                        where UserID = {CurrentUserID}";
 
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("GetBookInfo", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+
                     var reader = cmd.ExecuteReader();
 
                     while (reader.Read())
                     {
-                        returnModels.Add(GetBookInfo(reader.GetInt32(0), con));
-                    }
+                        var book = new BookModel
+                        {
+                            Name = reader.GetString(0),
+                            Author = reader.GetString(1),
+                            ImageURL = reader.GetString(2),
+                            Pirce = reader.GetDecimal(3),
+                            Language = reader.GetString(4),
+                            Genre = reader.GetString(5),
+                            Uploader = new UserInfoModel
+                            {
+                                FirstName = reader.GetString(6),
+                                LastName = reader.GetString(7),
+                                Username = reader.GetString(8),
+                                Email = reader.GetString(9)
+                            }
+                        };
 
+                        returnModels.Add(book);
+                    }
                     return returnModels;
                 }
             }
         }
-
 
         [HttpPost, RequiresLogin]
         public IHttpActionResult UploadBook(Book book)
@@ -295,13 +323,15 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                string queryString = $@"insert into books 
-                                        (name, author, ImageURL, langID, genreID, userID ) 
-                                        values('{book.Name}', '{book.Author}',
-                                        '{book.ImageURL}', {book.LanguageID},
-                                            {book.GenreID}, {CurrentUserID})";
-                using (var cmd = new SqlCommand(queryString, con))
+                using (var cmd = new SqlCommand("UploadBook", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = book.Name;
+                    cmd.Parameters.Add("@author", SqlDbType.NVarChar).Value = book.Author;
+                    cmd.Parameters.Add("@ImageURL", SqlDbType.NVarChar).Value = book.ImageURL;
+                    cmd.Parameters.Add("@langID", SqlDbType.Int).Value = book.LanguageID;
+                    cmd.Parameters.Add("@genreID", SqlDbType.Int).Value = book.GenreID;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
                         return Ok(false, "Could not upload book, try again!");
@@ -310,112 +340,5 @@ namespace BookStore.Controllers
                 return Ok(true, "The book is successfully uploaded!");
             }
         }
-
-        [HttpPost]
-        public IEnumerable<string> GetGenres()
-        {
-            return GetSomething("genres");
-        }
-        [HttpPost]
-        public IEnumerable<string> GetLangs()
-        {
-            return GetSomething("langs");
-        }
-
-
-
-
-        private IEnumerable<string> GetSomething(string tableName)
-        {
-            List<string> returnModels = null;
-
-            using (var con = new SqlConnection(conStr))
-            {
-                con.Open();
-                string queryString = $"select name from {tableName}";
-                using (var cmd = new SqlCommand(queryString, con))
-                {
-
-                    var reader = cmd.ExecuteReader();
-
-                    while (reader.Read())
-                    {
-                        returnModels.Add(reader.GetString(0));
-                    }
-                }
-            }
-
-            return returnModels;
-        }
-        private UserInfoModel GetUserInfo(int userID, SqlConnection con)
-        {
-            string queryString =
-                   $@"select email, lastname, firstname, username
-                        from Users
-                        where id = {userID}";
-
-            //null if not found
-            UserInfoModel returnModel = null;
-            using (var cmd = new SqlCommand(queryString, con))
-            {
-                var reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    returnModel = new UserInfoModel();
-                    returnModel.Email = reader.GetString(0);
-                    returnModel.LastName = reader.GetString(1);
-                    returnModel.FirstName = reader.GetString(2);
-                    returnModel.Username = reader.GetString(3);
-                }
-
-                return returnModel;
-            }
-        }
-        private BookModel GetBookInfo(int bookID, SqlConnection con)
-        {
-            BookModel returnModel = null;
-
-            string queryString =
-                       $@"select Name,Author,ImageURL,
-                        Price,LangID,GenreID,UserID
-                        from Books
-                        where BookID = {bookID}";
-            using (var cmd = new SqlCommand(queryString, con))
-            {
-                var reader = cmd.ExecuteReader();
-
-                if (reader.Read())
-                {
-                    returnModel = new BookModel();
-
-                    returnModel.Name = reader.GetString(0);
-                    returnModel.Author = reader.GetString(1);
-                    returnModel.ImageURL = reader.GetString(2);
-                    returnModel.Pirce = reader.GetDecimal(3);
-                    int langID = reader.GetInt32(4);
-                    returnModel.Language = GetName(langID, "Langs", con);
-                    int GenreID = reader.GetInt32(5);
-                    returnModel.Genre = GetName(GenreID, "Genres", con);
-                    int userID = reader.GetInt32(6);
-                    returnModel.Uploader = GetUserInfo(userID, con);
-                }
-            }
-            return returnModel;
-        }
-        private string GetName(int ID, string tableName, SqlConnection con)
-        {
-            string returnString = null;
-            string queryString =
-                     $@"select Name
-                        from {tableName}
-                        where id = {ID}";
-            using (var cmd = new SqlCommand(queryString, con))
-            {
-                returnString = cmd.ExecuteScalar() as string;
-                return returnString;
-            }
-        }
-
     }
 }
