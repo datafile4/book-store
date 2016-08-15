@@ -57,7 +57,7 @@ namespace BookStore.Controllers
                 con.Open();
              
                 int UserID;
-                using (var cmd = new SqlCommand("LoginProc", con))
+                using (var cmd = new SqlCommand("uspLoginProc", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
@@ -74,7 +74,7 @@ namespace BookStore.Controllers
                 var expireDate = now.AddMonths(3);
                 string GuidStr = Guid.NewGuid().ToString().ToLower();
                               
-                using (var cmd = new SqlCommand("InsertIntoUserLogins", con))
+                using (var cmd = new SqlCommand("uspInsertIntoUserLogins", con))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -112,7 +112,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("CheckUsername", con))
+                using (var cmd = new SqlCommand("uspCheckUsername", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = model.Username.ToLower();
@@ -123,7 +123,7 @@ namespace BookStore.Controllers
                         return Ok(false, "Username already exists!");
                 }
 
-                using (var cmd = new SqlCommand("CheckEmail", con))
+                using (var cmd = new SqlCommand("uspCheckEmail", con))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -134,7 +134,7 @@ namespace BookStore.Controllers
                         return Ok(false, "This email has already been registered once!");
                 }
 
-                using (SqlCommand cmd = new SqlCommand("Register", con))
+                using (SqlCommand cmd = new SqlCommand("uspRegister", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@FirstName", SqlDbType.NVarChar).Value = model.FirstName;
@@ -162,7 +162,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("AddToCartCheck", con))
+                using (var cmd = new SqlCommand("uspAddToCartCheck", con))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -174,7 +174,7 @@ namespace BookStore.Controllers
                         return Ok(false, "Book have already added!");
                 }
 
-                using (var cmd = new SqlCommand("AddToCart", con))
+                using (var cmd = new SqlCommand("uspAddToCart", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
@@ -199,7 +199,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("RemoveFromCart", con))
+                using (var cmd = new SqlCommand("uspRemoveFromCart", con))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -228,7 +228,7 @@ namespace BookStore.Controllers
 
                 //null if not found
                 UserInfoModel returnModel = null;
-                using (var cmd = new SqlCommand("GetUserInfo", con))
+                using (var cmd = new SqlCommand("uspGetUserInfo", con))
                 {
                     var reader = cmd.ExecuteReader();
 
@@ -254,7 +254,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
                 UserInfoModel returnModel = null;
-                using (var cmd = new SqlCommand("GetUserInfo", con))
+                using (var cmd = new SqlCommand("uspGetUserInfo", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
@@ -283,7 +283,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("GetBookInfo", con))
+                using (var cmd = new SqlCommand("uspGetBookInfo", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
@@ -323,7 +323,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("UploadBook", con))
+                using (var cmd = new SqlCommand("uspUploadBook", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = book.Name;
