@@ -92,6 +92,7 @@
     <Content Include="AdditionalWeb\Registration.html" />
     <Content Include="Global.asax" />
     <Content Include="MainWeb\Books.ico" />
+    <Content Include="MainWeb\GetBooks.js" />
     <Content Include="MainWeb\images\26102.jpg" />
     <Content Include="MainWeb\images\Blue-Gradient-Wallpapers-Free-Download.png" />
     <Content Include="MainWeb\images\BookImage.JPG" />
