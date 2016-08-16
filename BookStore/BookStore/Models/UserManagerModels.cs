@@ -55,5 +55,17 @@ namespace BookStore.Models
         public UserInfoModel Uploader { get; set; }
     }
 
+    public class BookModelWithID
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string Author { get; set; }
+        public string ImageURL { get; set; }
+        public string Genre { get; set; }
+        public string Language { get; set; }
+        public decimal Pirce { get; set; }
+        public UserInfoModel Uploader { get; set; }
+    }
+
 
 }

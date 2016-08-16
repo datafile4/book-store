@@ -386,5 +386,46 @@ namespace BookStore.Controllers
                 }
             }
         }
+
+        [HttpGet]
+        public IEnumerable<BookModelWithID> GetBooksForAdmin()
+        {
+            List<BookModelWithID> allBookData = new List<BookModelWithID>();
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("spUserPageForAdmin", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        var book = new BookModelWithID
+                        {
+                            Name = reader.GetString(0),
+                            Author = reader.GetString(1),
+                            ImageURL = reader.GetString(2),
+                            Pirce = reader.GetDecimal(3),
+                            Language = reader.GetString(4),
+                            Genre = reader.GetString(5),
+                            Uploader = new UserInfoModel
+                            {
+                                FirstName = reader.GetString(6),
+                                LastName = reader.GetString(7),
+                                Username = reader.GetString(8),
+                                Email = reader.GetString(9)
+                            }
+                        };
+
+                        allBookData.Add(book);
+                    }
+                    return allBookData;
+                }
+            }
+
+        }
     }
 }
