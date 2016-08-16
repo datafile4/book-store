@@ -8,7 +8,7 @@
                 password: $scope.password
 
             };
-            var res = $http.post("http://localhost:52521/api/bookstore/login", loginData);
+            var res = $http.post("api/bookstore/login", loginData);
             console.log("Parameters : " + loginData.Username + "   Password: " + loginData.password);
             res.success(function (data) {
                 console.log("success: " + JSON.stringify(data));
@@ -92,7 +92,7 @@ app.controller('registerCtrl', function ($scope, $http, $location, $rootScope) {
             "   Password: " + registerData.Password
 
             );
-        var res = $http.post("http://localhost:52521/api/bookstore/register", registerData);
+        var res = $http.post("api/bookstore/register", registerData);
 
         res.success(function (data) {
             console.log("success: " + JSON.stringify(data));

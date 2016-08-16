@@ -424,8 +424,7 @@ header .login-register {
 }
 
 .user-icon-list {
-    float: left;
-    width: 222px;
+    
     height: 40px;
 }
 
@@ -443,13 +442,11 @@ header .login-register {
 }
 
 .user-icon {
-    margin: 10px;
-    float: left;
+    float: right;
     background: #d9d9d9;
     width: 222px;
-    height: 40px;
-    border-radius: 3px;
-    border: 2px solid grey;
+    height: 38px;
+    border: 1px solid grey;
 }
 
 .search {
