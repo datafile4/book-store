@@ -89,7 +89,33 @@
         </div>
     </div>
     <div class="admin-control">
-        
+        <table class="admin-control-table">
+            <tr>
+                <th>Book Name</th>
+                <th>Author</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Language</th>
+                <th>Genre</th>
+                <th>Uploader Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Confirm</th>
+            </tr>
+            <tr >
+                <td>{{book.Name}}</td>
+                <td>{{book.Author}}</td>
+                <td>{{book.ImageURL}}</td>
+                <td>{{book.Price}}</td>
+                <td>{{book.Language}}</td>
+                <td>{{book.Genre}}</td>
+                <td>{{book.Uploader.FirstName}} {{book.Uploader.LastName}}</td>
+                <td>{{book.Uploader.Username}}</td>
+                <td>{{book.Uploader.Email}}</td>
+                <td><input class="confirm-button" type="button" name="confirm" value="Confirm"><input class="confirm-button" type="button" name="delete" value="Delete"></td>
+            </tr>
+
+        </table>
     </div>
     <div class="bottom-part">
         <div class="last-part">
