@@ -428,5 +428,27 @@ namespace BookStore.Controllers
             }
 
         }
+
+        [HttpPost]
+        public IHttpActionResult confirmBook(int ID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspConfirmBook ", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = ID;
+
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                        return Ok(false, "Not Confirmed !!! Try again ... ");
+                }
+
+                return Ok(true, "The book is successfully Confirmed!!!");
+            }
+        }
+
     }
 }

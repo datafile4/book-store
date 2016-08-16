@@ -105,7 +105,7 @@
                 <td>{{book.Uploader.FirstName}} {{book.Uploader.LastName}}</td>
                 <td>{{book.Uploader.Username}}</td>
                 <td>{{book.Uploader.Email}}</td>
-                <td><input class="confirm-button" type="button" name="confirm" value="Confirm" ng-click="confirm()"><input class="confirm-button" type="button" name="delete" value="Delete"></td>
+                <td><input class="confirm-button" type="button" name="confirm" value="Confirm" ng-click="confirm($index)"><input class="confirm-button" type="button" name="delete" value="Delete"></td>
             </tr>
 
         </table>
