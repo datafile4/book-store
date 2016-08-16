@@ -405,18 +405,19 @@ namespace BookStore.Controllers
                     {
                         var book = new BookModelWithID
                         {
-                            Name = reader.GetString(0),
-                            Author = reader.GetString(1),
-                            ImageURL = reader.GetString(2),
-                            Pirce = reader.GetDecimal(3),
-                            Language = reader.GetString(4),
-                            Genre = reader.GetString(5),
+                            ID = reader.GetInt32(0),
+                            Name = reader.GetString(1),
+                            Author = reader.GetString(2),
+                            ImageURL = reader.GetString(3),
+                            Pirce = reader.GetDecimal(4),
+                            Language = reader.GetString(5),
+                            Genre = reader.GetString(6),
                             Uploader = new UserInfoModel
                             {
-                                FirstName = reader.GetString(6),
-                                LastName = reader.GetString(7),
-                                Username = reader.GetString(8),
-                                Email = reader.GetString(9)
+                                FirstName = reader.GetString(7),
+                                LastName = reader.GetString(8),
+                                Username = reader.GetString(9),
+                                Email = reader.GetString(10)
                             }
                         };
 

@@ -5,7 +5,6 @@
     res.success(function (response) {
         $scope.books = response;
         console.log( JSON.stringify(response));
-
     });
     res.error(function (response) {
         console.log("In controller !!" + JSON.stringify(response));
