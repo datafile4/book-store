@@ -2,7 +2,7 @@
 
 app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $routeProvider
-    .when('/', {templateUrl : 'index.html'})
+    .when('/', {templateUrl : 'main.html'})
     .when('/login', {
         templateUrl: 'login.html',
         controller: 'loginCtrl'

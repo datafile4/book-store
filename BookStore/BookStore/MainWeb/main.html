@@ -1,17 +1,204 @@
 ﻿<!DOCTYPE html>
-<html ng-app="app" ng-controller="loginCtrl">
+<html >
+
 <head>
-    <title></title>
     <meta charset="utf-8" />
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
-    <script src="main.js"></script>
-    <script src="login.js"></script>
-    
-    <link rel="stylesheet" href="style.css" type="text/css" />
-    <script src="GetBooks.js"></script>
-</head>
-<body >
-    <div ng-view></div>
+    <title> Book Store </title>
+    <link rel="icon" href="Books.ico" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.js"></script>
+    <link rel="stylesheet" href="style.css" type="text/css" /> </head>
+
+<body>
+    <div id="wrapper">
+        <header id="header-home">
+            <ul class="logo" id="title-bar">
+                <li> <img src="Books.ico" width="40" height="40" alt="BookStoreLogo" /> </li>
+                <li> <span id="TitleBarName">Practice Book Store</span> </li>
+            </ul>
+            <nav id="top-bar" role="navigation">
+                <ul class="has-dropdown">
+                    <li> <a href="#">Home</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="#/dashboard">New</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
+                        </ul>
+                    </li>
+                    <li class="divider">|</li>
+                    <li> <a href="#">Books</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="http://www.google.com">New Books</a> </li>
+                            <li class="tab-under-dropdown"> <a href="http://www.google.com">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="http://www.google.com">So On</a> </li>
+                        </ul>
+                    </li>
+                    <li class="divider">|</li>
+                    <li> <a href="#">About</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="google.com">Date</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
+                        </ul>
+                    </li>
+                    <li class="divider">|</li>
+                    <li id="contact"> <a href="#">Contact</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="google.com">Email</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <input type="text" id="search-text" />
+                <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
+            </div>
+            <!-- Burani Login zamani deyismek lazimdi -->
+            <div class="login-register">
+                <ul class="login-reg">
+                    <li><a href="#/register">Register</a></li>
+                    <li>|</li>
+                    <li><a href="#/login">Login</a></li>
+                </ul>
+            </div>
+            <!--<div class="user-icon">
+                <ul class="user-icon-list">
+                    <li><a href="user_page.html"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40"/></a></li>
+                    <li>|</li>
+                     <li><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" width="40" height="40"/></li>
+                     <li>|</li>
+                    <li class="username" ><a href="user_page.html">Username</a></li>
+                </ul>
+            </div>-->
+        </header>
+        <div class="text-on-slider"> <img src="Books.ico" width="100" height="100" alt="main-logo" />
+            <h1>Ac ol Kişi ol !</h1>
+            <h3>Sci-fi. Fantastic. Detective.</h3> </div>
+        <div class="slider">
+            <figure>
+                <div class="slide"> <img src="images/slide_one.jpg" > </div>
+                <div class="slide"> <img src="images/slide_three.jpg" > </div>
+                <div class="slide"> <img src="images/slide_four.jpg"> </div>
+                <div class="slide"> <img src="images/slide_five.jpg" > </div>
+                <div class="slide"> <img src="images/slide_two.jpg" > </div>
+            </figure>
+        </div>
+    </div>
+    <div class="products-container">
+        <ul class="product-list">
+            <li class="product">
+                <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
+                <div class="product-parameters">
+                    <ul class="product-parameters-list">
+                        <li class="parameters">Name: {{name}}</li>
+                        <li class="parameters">Author: {{author}}</li>
+                        <li class="parameters">Price: {{$100}}</li>
+                        <li class="parameters">Seller: {{seller}}</li>
+                        <li class="parameters">Language: {{englis}}</li>
+                        <li class="parameters">Genre: {{sci-fi}}</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="product">
+                <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
+                <div class="product-parameters">
+                    <ul class="product-parameters-list">
+                        <li class="parameters">Name: {{name}}</li>
+                        <li class="parameters">Author: {{author}}</li>
+                        <li class="parameters">Price: {{$100}}</li>
+                        <li class="parameters">Seller: {{seller}}</li>
+                        <li class="parameters">Language: {{englis}}</li>
+                        <li class="parameters">Genre: {{sci-fi}}</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="product">
+                <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
+                <div class="product-parameters">
+                    <ul class="product-parameters-list">
+                        <li class="parameters">Name: {{name}}</li>
+                        <li class="parameters">Author: {{author}}</li>
+                        <li class="parameters">Price: {{$100}}</li>
+                        <li class="parameters">Seller: {{seller}}</li>
+                        <li class="parameters">Language: {{englis}}</li>
+                        <li class="parameters">Genre: {{sci-fi}}</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="footer">
+        <div class="home-container">
+            <div class="paralel-containers">
+                <h5>Book Store </h5>
+                <p> Book Store supply with any kind of book <a href="/uses/internet-of-things.html">Sci-Fi</a>, <a href="/uses/webrtc.html">Documentary</a>, and <a href="/uses/social.html">Detective</a>.Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. </p>
+            </div>
+            <div class="paralel-containers">
+                <h5>
+                    It's cheap and high quality since 1999
+                </h5>
+                <p>, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
+            </div>
+            <div class="paralel-containers">
+                <h5>
+                    It's a
+                    <a href="/about/standards-process.html">living standard</a>
+                </h5>
+                <p> Engineers actively extend and improve it. Millions use and buy books <a href="/software">Book Store</a> daily to read. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC </p>
+            </div>
+        </div>
+    </div>
+    <div id="colleagues">
+        <ul class="our-col">
+            <li id="microsoft-logo">
+                <a href="http://microsoft.com" target="_blank"> <img src="https://assets.onestore.ms/cdnfiles/onestorerolling-1607-15000/shell/v3/images/logo/microsoft.png" /> </a>
+            </li>
+            <li id="atl-logo">
+                <a href="http://atl.az" target="_blank"> <img src="http://atl.az/images/svg/logo.svg" /> </a>
+            </li>
+            <li id="google-logo">
+                <a href="http://google.com" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google_Logo" width="181" height="61" /> </a>
+            </li>
+            <li id="apple-logo">
+                <a href="http://apple.com" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" alt="Apple_Logo" width="100" height="100" /> </a>
+            </li>
+        </ul>
+    </div>
+    <div class="bottom-part">
+        <div class="last-part">
+            <div class="col"> <strong class="title"><p>Company</p></strong>
+                <ul>
+                    <li class=""><a href="http://google.com">About Us</a></li>
+                    <li class=""><a href="http://google.com">Management</a></li>
+                    <li class=""><a href="http://google.com">CEOs</a></li>
+                </ul>
+            </div>
+            <div class="col"> <strong class="title"><p>Media</p></strong>
+                <ul>
+                    <li class=""><a href="http://google.com">Site News</a></li>
+                    <li class=""><a href="http://google.com">Site gallery</a></li>
+                </ul>
+            </div>
+            <div class="col"> <strong class="title"><p>Careers</p></strong>
+                <ul>
+                    <li class=""><a href="http://atl.az/en/careers/hr">Development</a></li>
+                    <li class=""><a href="http://atl.az/en/careers/internership-oportunities">Internship</a></li>
+                    <li class=""><a href="http://atl.az/en/careers/vacancies">Vacancies</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <strong class="title"><p>Adress</p></strong>
+                <ul>
+                    <li class=""><a class="fa fa-facebook" href="https://www.facebook.com">Facebook</a></li>
+                    <li class=""><a class="fa fa-instagram" href="http://instagram.com">Instagram</a></li>
+                    <li class=""><a class="fa fa-linkedin" href="https://www.linkedin.com">Linkedin</a></li>
+                    <li class=""><a class="fa fa-twitter" href="https://twitter.com">Twitter</a></li>
+                </ul>
+            </div>
+            </div>
+    </div>
+    <div class="copyright"> <div >Copyright © ATL_Practice_Group 2016. All Rights Reserved.</div> </div>
 </body>
+
 </html>

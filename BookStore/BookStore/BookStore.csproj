@@ -111,10 +111,10 @@
     <Content Include="MainWeb\images\slide_three.jpg" />
     <Content Include="MainWeb\images\slide_three4.jpg" />
     <Content Include="MainWeb\images\slide_two.jpg" />
-    <Content Include="MainWeb\index.html" />
+    <Content Include="MainWeb\main.html" />
     <Content Include="MainWeb\login.html" />
     <Content Include="MainWeb\login.js" />
-    <Content Include="MainWeb\main.html" />
+    <Content Include="MainWeb\index.html" />
     <Content Include="MainWeb\main.js" />
     <Content Include="MainWeb\mainPage.png" />
     <Content Include="MainWeb\products_in.html" />
