@@ -121,6 +121,7 @@
     <Content Include="style_log.css" />
     <Content Include="style_reg.css" />
     <Content Include="user_page.html" />
+    <Content Include="User_page.js" />
     <Content Include="Web.config" />
     <Content Include="web\contact.html" />
     <Content Include="web\css\bootstrap.css" />
