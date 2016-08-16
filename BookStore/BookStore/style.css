@@ -3,7 +3,7 @@ body {
     /*background-color: url("http://www.sheiness.com/wp-content/uploads/2014/08/2-Seamless-Grey-Carpet-Texture_thumb02.jpg");*/
     color: #303030;
     background-image: url(images/background2.jpg);
-        background-repeat: repeat-y | repeat-x;
+    background-repeat: repeat-y | repeat-x;
 }
 
 * {
@@ -445,8 +445,7 @@ header .login-register {
     float: right;
     background: #d9d9d9;
     width: 222px;
-    height: 38px;
-    border: 1px solid grey;
+    height: 40px;
 }
 
 .search {
@@ -550,12 +549,32 @@ header .login-register {
 }
 
 .admin-control {
-    padding: 50px;
-    margin-left: 200px;
-    width:890px;
+    padding: 30px;
+    width:1420px;
     float: left;
 }
 
 #prod-wrapper {
     height:40px;
+}
+
+.admin-control-table  {
+    float: left;
+    border: 1px solid black;
+    padding: 9px;
+    text-align: center;
+}
+
+.admin-control-table , th, td {
+    
+    border: 1px solid black;
+    
+}
+
+.confirm-button {
+    padding: 2px;
+    margin-bottom: 12px;
+    border: 1px solid #333;
+    background-color: aqua;
+    width: 60px;
 }
