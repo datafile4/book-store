@@ -563,6 +563,7 @@ header .login-register {
     border: 1px solid black;
     padding: 9px;
     text-align: center;
+    background-color: #36A8B7;
 }
 
 .admin-control-table , th, td {
