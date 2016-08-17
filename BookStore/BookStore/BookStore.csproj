@@ -82,16 +82,22 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Books.ico" />
+    <Content Include="CheckBoxArray.js" />
     <Content Include="GetBooks.js" />
     <Content Include="Global.asax" />
     <Content Include="images\26102.jpg" />
     <Content Include="images\3336-grey-texture-1920x1080-abstract-wallpaper.gif" />
+    <Content Include="images\background2.jpg" />
     <Content Include="images\Blue-Gradient-Wallpapers-Free-Download.png" />
     <Content Include="images\BookImage.JPG" />
     <Content Include="images\Brown-Gradient-Wallpapers.jpg" />
     <Content Include="images\download.jfif" />
     <Content Include="images\Gradient-Backgrouns-by-Adam-Dorman.jpg" />
     <Content Include="images\harry_potter.jpg" />
+    <Content Include="images\Jackie-Chan.jpg" />
+    <Content Include="images\Malala.jpg" />
+    <Content Include="images\nizami-gencevi.jpg" />
+    <Content Include="images\OLULER.jpg" />
     <Content Include="images\slide_eight.jpg" />
     <Content Include="images\slide_five.jpg" />
     <Content Include="images\slide_five3.jpg" />
@@ -112,12 +118,9 @@
     <Content Include="main.html" />
     <Content Include="main.js" />
     <Content Include="mainPage.png" />
-    <Content Include="Nothing.html" />
     <Content Include="products_in.html" />
     <Content Include="register.html" />
     <Content Include="Register.js" />
-    <Content Include="register1.html" />
-    <Content Include="SearchBox.html" />
     <Content Include="style.css" />
     <Content Include="style_log.css" />
     <Content Include="style_reg.css" />
