@@ -115,6 +115,7 @@
     <Content Include="Nothing.html" />
     <Content Include="products_in.html" />
     <Content Include="register.html" />
+    <Content Include="Register.js" />
     <Content Include="register1.html" />
     <Content Include="SearchBox.html" />
     <Content Include="style.css" />
