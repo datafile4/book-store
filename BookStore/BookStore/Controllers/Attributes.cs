@@ -14,7 +14,7 @@ using System.Web.Http.Filters;
 
 namespace BookStore.Attributes
 {
-    public class RequiresLoginAttribute : ActionFilterAttribute
+    public class RequiresRoleAttribute : ActionFilterAttribute
     {
 
         public const string LoginToken = "user-g";

@@ -95,7 +95,7 @@ namespace BookStore.Controllers
                 }
 
                 var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
-                var cookie = new CookieHeaderValue(RequiresLoginAttribute.LoginToken, GuidStr);
+                var cookie = new CookieHeaderValue(RequiresRoleAttribute.LoginToken, GuidStr);
                 cookie.Expires = expireDate;
                 cookie.Domain = Request.RequestUri.Host;
                 cookie.Path = "/";
@@ -159,7 +159,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin]
+        [RequiresRole]
         public IHttpActionResult AddToCart(int bookID)
         {
             using (var con = new SqlConnection(conStr))
@@ -196,7 +196,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin]
+        [RequiresRole]
         public IHttpActionResult RemoveFromCart(int bookID)
         {
             using (var con = new SqlConnection(conStr))
@@ -251,7 +251,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin]
+        [RequiresRole]
         public UserInfoModel GetCurrentUserInfo()
         {
             using (var con = new SqlConnection(conStr))
@@ -278,7 +278,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost, RequiresLogin]
+        [HttpPost, RequiresRole]
         public IEnumerable<BookModel> GetCartItems()
         {
             List<BookModel> returnModels = new List<BookModel>();
@@ -320,7 +320,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost, RequiresLogin, ValidateModel]
+        [HttpPost, RequiresRole, ValidateModel]
         public IHttpActionResult UploadBook(Book book)
         {
             using (var con = new SqlConnection(conStr))
