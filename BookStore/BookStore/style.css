@@ -578,4 +578,11 @@ header .login-register {
     border: 1px solid #333;
     background-color: aqua;
     width: 60px;
+    
 }
+
+.buttons{
+    margin-left: 1000px;
+}
+
+

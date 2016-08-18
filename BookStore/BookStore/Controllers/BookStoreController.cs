@@ -451,6 +451,32 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
+        public IHttpActionResult confirmCheckedBook(List<int> BooksID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspConfirmBook ", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var affectedRows = 0;
+                    foreach (var bookID in BooksID)
+                    {
+                        cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = bookID;
+                        affectedRows = cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                        if (affectedRows < 1)
+                            return Ok(false, "Not Confirmed !!! Try again ... ");
+                    }
+                    
+                }
+
+                return Ok(true, "The book is successfully Confirmed!!!");
+            }
+        }
+
+        [HttpPost]
         public IHttpActionResult deleteBook(int ID)
         {
             using (var con = new SqlConnection(conStr))

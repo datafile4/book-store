@@ -80,9 +80,7 @@
     <div class="admin-control" ng-controller="user_page">
         <div class="buttons">
             <input class="confirm-button" type="button" name="confirm" value="Check All" ng-click="checkAll()">
-            <button ng-click="uncheckAll();" style="margin-right: 10px">Uncheck all</button>
-            <button ng-click="checkNth(0)">Check first</button>
-            <button ng-click="checkAll()">Check all</button>
+            <input type="button" class="confirm-button" value="Confirm Selected" ng-click="confirmSelected()">
         </div>
         <table class="admin-control-table">
             <tr>
@@ -114,8 +112,8 @@
                     <input class="confirm-button" type="button" name="confirm" value="Confirm" ng-click="confirm($index)">
                     <input class="confirm-button" type="button" name="delete" value="Delete" ng-click="delete($index )"> </td>
                 <td>
-                    <input type="checkbox" ng-model="book.Selected" value="Check" class="checkbook" name="check" ng-change="toggle_user_id(book.ID)" />
-                    <!--     Selected   -->
+                   <!-- <input type="checkbox" ng-model="book.Selected" ng-click="toggle_book_id(book.ID)"> {{book.ID}}-->
+                   <input type="checkbox" ng-model="book.Selected" value="Check" />  {{book.ID}}
                 </td>
             </tr>
         </table>
