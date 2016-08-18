@@ -1,58 +1,30 @@
-﻿<div class="container" ng-app="app" ng-controller="registerCtrl">
-    <link rel="stylesheet" href="style_log.css" type="text/css" />
-    <link rel="stylesheet" href="style_reg.css" type="text/css" />
-    
-    <form name="frm">
-        <div class="wrapper">
-
-            <div class="main content clearfix">
-                <div id="rsi-card" class="card signin-card">
-
-                    <p class="profile-name">Registration</p>
-
-                    <span id="reauthEmail" class="reauth-email">New Registration </span>
-
-                    <div>
-                        <input type="text" name="firstname" placeholder="Firstname" ng-model="firstname" required>
-                        <span ng-show="frm.firstname.$dirty && frm.firstname.$error.required"> Required! </span>
-                        
+﻿<link href="style_log.css" rel="stylesheet" />
+<link href="style_reg.css" rel="stylesheet" />
+    <div class="container" ng-app="app" ng-controller="registerCtrl">
+        <link rel="stylesheet" href="style_log.css" type="text/css" />
+        <link rel="stylesheet" href="style_reg.css" type="text/css" />
+        <form name="frm">
+            <div class="wrapper">
+                <div class="main content clearfix">
+                    <div id="rsi-card" class="card signin-card">
+                        <p class="profile-name">Registration</p> <span id="reauthEmail" class="reauth-email">New Registration </span>
+                        <div>
+                            <input type="text" name="firstname" placeholder="Firstname" ng-model="firstname" required> <span ng-show="frm.firstname.$dirty && frm.firstname.$error.required"> Required! </span> </div>
+                        <div>
+                            <input type="text" name="lastname" placeholder="Lastname" ng-model="lastname" required> <span ng-show="frm.lastname.$dirty && frm.lastname.$error.required"> Required! </span> </div>
+                        <div>
+                            <input type="text" name="username" placeholder="Username" ng-model="username" required> <span ng-show="frm.username.$dirty && frm.username.$error.required"> Required! </span> </div>
+                        <div>
+                            <input type="email" name="email" placeholder="email" ng-model="email" required> <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span> <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span> </div>
+                        <div>
+                            <input type="password" name="password" placeholder="password" ng-model="password" required ng-minlength="5" ng-maxlength="10" /> <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span> <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span> <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span> </div>
+                        <input id="register" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Register_()">
+                        <a href="login.html">
+                            <p class="return_create">Create New Account</p>
+                        </a>
+                        <p class="error_message" style="color:#f00"></p>
                     </div>
-                    <div>
-                        <input type="text" name="lastname" placeholder="Lastname" ng-model="lastname" required>
-                        <span ng-show="frm.lastname.$dirty && frm.lastname.$error.required"> Required! </span>
-                    </div>
-                    <div>
-                        <input type="text" name="username" placeholder="Username" ng-model="username" required>
-                        <span ng-show="frm.username.$dirty && frm.username.$error.required"> Required! </span>
-                    </div>
-                    <div>
-                        <input type="email" name="email" placeholder="email" ng-model="email" required>
-                        <span ng-show="frm.email.$dirty && frm.email.$error.required"> Required! </span>
-                        <span ng-show="frm.email.$dirty && frm.email.$error.email"> Not an email! </span>
-                    </div>
-                    <div>
-                        <input type="password"
-                               name="password"
-                               placeholder="password"
-                               ng-model="password"
-                               required
-                               ng-minlength="5"
-                               ng-maxlength="10" />
-                        <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
-                        <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
-                        <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
-                        
-                    </div>
-
-                    <input id="register" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Register_()" >
-               
-                    <a href="login.html"><p class="return_create">Create New Account</p></a>
-                    <p class="error_message" style="color:#f00"></p>
-
-
                 </div>
             </div>
-
-        </div>
-    </form>
-</div>
+        </form>
+    </div>

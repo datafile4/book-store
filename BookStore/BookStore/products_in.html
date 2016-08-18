@@ -1,7 +1,5 @@
-﻿
-
-<link rel="stylesheet" href="style.css" type="text/css" />   
- <div id="prod-wrapper">
+﻿<link rel="stylesheet" href="style.css" type="text/css" /> 
+    <div id="prod-wrapper">
         <header id="header-home">
             <ul class="logo" id="title-bar">
                 <li> <img src="Books.ico" width="60" height="60" alt="BookStoreLogo" /> </li>
@@ -33,8 +31,7 @@
         </header>
     </div>
     <div class="products-container">
-        <ul class="product-list" ng-controller="GetBooks">
-            {{book.Name}}
+        <ul class="product-list" ng-controller="GetBooks"> {{book.Name}}
             <li class="product" ng-repeat="book in books">
                 <div class="product-image"><img src="{{book.ImageURL}}" width="200" height="290" /></div>
                 <div class="product-parameters">
@@ -78,4 +75,3 @@
             </ul>
         </div>
     </footer>
-
