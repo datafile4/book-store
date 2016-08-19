@@ -46,6 +46,7 @@ namespace BookStore.Models
     }
     public class BookModel
     {
+        public int ID { get; set; }
         public string Name { get; set; }
         public string Author { get; set; }
         public string ImageURL { get; set; }
@@ -54,6 +55,4 @@ namespace BookStore.Models
         public decimal Pirce { get; set; } 
         public UserInfoModel Uploader { get; set; }
     }
-
-
 }
