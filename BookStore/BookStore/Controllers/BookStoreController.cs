@@ -59,7 +59,7 @@ namespace BookStore.Controllers
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-             
+
                 int UserID;
                 using (var cmd = new SqlCommand("uspLoginProc", con))
                 {
@@ -71,13 +71,13 @@ namespace BookStore.Controllers
                     if (UserID < 1)
                         return Ok(false, "Login failed. Check your username/password");
                 }
-                
+
 
                 const string dtFormat = "yyyy-MM-dd HH:mm:ss.fffffff zzz";
                 var now = DateTimeOffset.Now;
                 var expireDate = now.AddMonths(3);
                 string GuidStr = Guid.NewGuid().ToString().ToLower();
-                              
+
                 using (var cmd = new SqlCommand("uspInsertIntoUserLogins", con))
                 {
 
@@ -95,7 +95,7 @@ namespace BookStore.Controllers
                 }
 
                 var responseMsg = new HttpResponseMessage(HttpStatusCode.OK);
-                var cookie = new CookieHeaderValue(RequiresLoginAttribute.LoginToken, GuidStr);
+                var cookie = new CookieHeaderValue(RequiresRoleAttribute.LoginToken, GuidStr);
                 cookie.Expires = expireDate;
                 cookie.Domain = Request.RequestUri.Host;
                 cookie.Path = "/";
@@ -159,7 +159,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin]
+        [RequiresRole]
         public IHttpActionResult AddToCart(int bookID)
         {
             using (var con = new SqlConnection(conStr))
@@ -196,7 +196,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin]
+        [RequiresRole]
         public IHttpActionResult RemoveFromCart(int bookID)
         {
             using (var con = new SqlConnection(conStr))
@@ -251,7 +251,7 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        [RequiresLogin]
+        [RequiresRole]
         public UserInfoModel GetCurrentUserInfo()
         {
             using (var con = new SqlConnection(conStr))
@@ -278,7 +278,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost, RequiresLogin]
+        [HttpPost, RequiresRole]
         public IEnumerable<BookModel> GetCartItems()
         {
             List<BookModel> returnModels = new List<BookModel>();
@@ -320,7 +320,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost, RequiresLogin, ValidateModel]
+        [HttpPost, RequiresRole, ValidateModel]
         public IHttpActionResult UploadBook(Book book)
         {
             using (var con = new SqlConnection(conStr))
@@ -346,8 +346,8 @@ namespace BookStore.Controllers
                 return Ok(true, "The book is successfully uploaded!");
             }
         }
-        ///////////////////////////////////////////////
-        [HttpGet]
+
+        [HttpPost]
         public IEnumerable<BookModel> GetAllBooks()
         {
             List<BookModel> allBookData = new List<BookModel>();
@@ -387,37 +387,37 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpGet]
-        public IEnumerable<BookModelWithID> GetBooksForAdmin()
+        [HttpPost]
+        public IEnumerable<BookModel> GetBookInfo(int bookid)
         {
-            List<BookModelWithID> allBookData = new List<BookModelWithID>();
+            List<BookModel> allBookData = new List<BookModel>();
 
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("spUserPageForAdmin", con))
+                using (var cmd = new SqlCommand("uspGetBooksInfo", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookid;
                     var reader = cmd.ExecuteReader();
 
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        var book = new BookModelWithID
+                        var book = new BookModel
                         {
-                            ID = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Author = reader.GetString(2),
-                            ImageURL = reader.GetString(3),
-                            Pirce = reader.GetDecimal(4),
-                            Language = reader.GetString(5),
-                            Genre = reader.GetString(6),
+                            Name = reader.GetString(0),
+                            Author = reader.GetString(1),
+                            ImageURL = reader.GetString(2),
+                            Pirce = reader.GetDecimal(3),
+                            Language = reader.GetString(4),
+                            Genre = reader.GetString(5),
                             Uploader = new UserInfoModel
                             {
-                                FirstName = reader.GetString(7),
-                                LastName = reader.GetString(8),
-                                Username = reader.GetString(9),
-                                Email = reader.GetString(10)
+                                FirstName = reader.GetString(6),
+                                LastName = reader.GetString(7),
+                                Username = reader.GetString(8),
+                                Email = reader.GetString(9)
                             }
                         };
 
@@ -426,75 +426,122 @@ namespace BookStore.Controllers
                     return allBookData;
                 }
             }
-
         }
 
-        [HttpPost]
-        public IHttpActionResult confirmBook(int ID)
+        [HttpPost, RequiresRole(Roles.Moderator)]
+        public IHttpActionResult ConfirmBook(int bookID)
         {
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-
-                using (var cmd = new SqlCommand("uspConfirmBook ", con))
+                using (var cmd = new SqlCommand("uspConfirmBook", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = ID;
-
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookID;
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
-                        return Ok(false, "Not Confirmed !!! Try again ... ");
-                }
-
-                return Ok(true, "The book is successfully Confirmed!!!");
-            }
-        }
-
-        [HttpPost]
-        public IHttpActionResult confirmCheckedBook(List<int> BooksID)
-        {
-            using (var con = new SqlConnection(conStr))
-            {
-                con.Open();
-
-                using (var cmd = new SqlCommand("uspConfirmBook ", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    var affectedRows = 0;
-                    foreach (var bookID in BooksID)
                     {
-                        cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = bookID;
-                        affectedRows = cmd.ExecuteNonQuery();
-                        cmd.Parameters.Clear();
-                        if (affectedRows < 1)
-                            return Ok(false, "Not Confirmed !!! Try again ... ");
+                        return Ok(false, "Error! Try again");
                     }
-                    
+
+                    return Ok(true, "Successful");
                 }
 
-                return Ok(true, "The book is successfully Confirmed!!!");
             }
+
         }
 
-        [HttpPost]
-        public IHttpActionResult deleteBook(int ID)
+
+        [RequiresRole(Roles.Admin)]
+        public IHttpActionResult SetRole(int UserID, int RoleID)
         {
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
-
-                using (var cmd = new SqlCommand("uspDeleteBook", con))
+                using (var cmd = new SqlCommand("uspSetRole", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = ID;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+                    cmd.Parameters.Add("@Role", SqlDbType.Int).Value = RoleID;
 
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
-                        return Ok(false, "Not deleted !!! Try again ... ");
+                    {
+                        return Ok(false, "Error! Try again");
+                    }
+
+                    return Ok(true, "Successful");
                 }
 
-                return Ok(true, "The book is successfully deleted !!!");
             }
+        }
+
+        [HttpPost, RequiresRole(Roles.User)]
+        public IHttpActionResult NumberOfSoldBooks()
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspNumberOfSold", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    var result = cmd.ExecuteReader();
+                    int count = 0;
+                    if (result.Read())
+                    {
+                        count = result.GetInt32(0);
+                    }
+
+                    return Ok(new { value = count });
+                }
+
+            }
+        }
+
+        [HttpPost, RequiresRole(Roles.User)]
+        public IHttpActionResult NumberOfAllBooks()
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspNumberOfBooks", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    var result = cmd.ExecuteReader();
+                    int count = 0;
+                    if (result.Read())
+                    {
+                        count = result.GetInt32(0);
+                    }
+
+                    return Ok(new { value = count });
+                }
+            }
+        }
+
+        [HttpPost, RequiresRole(Roles.User)]
+        public IHttpActionResult NumberOfUnSold()
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspNumberOfUnSoldBooks", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    var result = cmd.ExecuteReader();
+                    int count = 0;
+                    if (result.Read())
+                    {
+                        count = result.GetInt32(0);
+                    }
+
+                    return Ok(new { value = count });
+                }
+            }
+
         }
 
     }

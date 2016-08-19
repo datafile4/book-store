@@ -14,10 +14,26 @@ using System.Web.Http.Filters;
 
 namespace BookStore.Attributes
 {
-    public class RequiresLoginAttribute : ActionFilterAttribute
+
+    public enum Roles
+    {
+        User = 1,
+        Moderator,
+        Admin
+    }
+
+    public class RequiresRoleAttribute : ActionFilterAttribute
     {
 
         public const string LoginToken = "user-g";
+        private int roleID;
+
+        public RequiresRoleAttribute() { roleID = 1; }
+        public RequiresRoleAttribute(Roles Role)
+        {
+            roleID = (int) Role;
+        }
+
 
         private bool CheckDatabase(string guid)
         {
@@ -25,12 +41,12 @@ namespace BookStore.Attributes
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("uspGetUserID", con))
+                using (var cmd = new SqlCommand("uspGetUserRole", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Guid", SqlDbType.NVarChar).Value = guid;
-                    int result = (int)(cmd.ExecuteScalar() ?? 0);
-                    if (result < 1)
+                    int role = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (role < roleID)
                         return false;
                 }
 
@@ -80,9 +96,7 @@ namespace BookStore.Attributes
                 }
             }
 
-            var response = new HttpResponseMessage(HttpStatusCode.Redirect);
-            ///TODO: add return url into uri after successful log in.
-            response.Headers.Location = new Uri($"http://{actionContext.Request.RequestUri.Authority}/login.html");
+            var response = new HttpResponseMessage(HttpStatusCode.Unauthorized);
             actionContext.Response = response;
         }
     }
