@@ -81,8 +81,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Books.ico" />
-    <Content Include="CheckBoxArray.js" />
     <Content Include="GetBooks.js" />
     <Content Include="Global.asax" />
     <Content Include="images\26102.jpg" />

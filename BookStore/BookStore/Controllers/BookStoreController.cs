@@ -544,5 +544,16 @@ namespace BookStore.Controllers
 
         }
 
+        [HttpPost, RequiresRole(Roles.Admin)]
+        public IHttpActionResult isAdmin()
+        {
+            return Ok();
+        }
+
+        [HttpPost, RequiresRole]
+        public IHttpActionResult isUser()
+        {
+            return Ok();
+        }
     }
 }

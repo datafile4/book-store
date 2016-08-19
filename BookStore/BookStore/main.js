@@ -1,8 +1,8 @@
-﻿var app = angular.module('app', ['ngRoute']);
+﻿var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
 app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $routeProvider
-    .when('/', {templateUrl : 'main.html'})
+    .when('/', { templateUrl: 'main.html' })
     .when('/login', {
         templateUrl: 'login.html',
         controller: 'loginCtrl'

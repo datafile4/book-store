@@ -1,4 +1,4 @@
-﻿app.controller('user_page', function ($scope, $http, $window) {
+﻿app.controller('user_page', ['$scope', '$cookies', '$cookieStore', '$window', function($scope, $cookies, $cookieStore, $window)  {
     //console.log("In controller user_page !!");
     var res = $http.get("api/BookStore/GetBooksForAdmin");
     res.success(function (response) {
@@ -9,17 +9,20 @@
         // console.log("In controller !!" + JSON.stringify(response));
     })
 
-    $scope.checkAll = function () {
-        $scope.AllSelected = !$scope.AllSelected;
-        angular.forEach( $scope.books, function (book) {
-            book.Selected = $scope.AllSelected;
-        })
+    
+    $scope.GetCookies = function () {
+        console.log("Cookies burd");
+        console.log("Cookies burdadi :  " + $cookieStore.get('user-g'));
     }
 
 
 
-
-
+    $scope.checkAll = function () {
+        $scope.AllSelected = !$scope.AllSelected;
+        angular.forEach($scope.books, function (book) {
+            book.Selected = $scope.AllSelected;
+        })
+    }
     $scope.confirm = function (index) {
         console.log("BOOK[0] " + $scope.books[index].ID);
         var res = $http.post("api/BookStore/confirmBook?id=" + $scope.books[index].ID);
@@ -84,7 +87,7 @@
             }
         })
 
-        
+
 
         console.log(" smth1 ");
         var res = $http.post("api/BookStore/confirmCheckedBook", ID);
@@ -95,7 +98,7 @@
             console.log(" smth ");
             res.success(function (response) {
                 $scope.books = response;
-            
+
             });
             res.error(function (response) {
                 console.log("In controller !!" + JSON.stringify(response));
@@ -106,5 +109,5 @@
         })
     }
 
-});
+}]);
 
