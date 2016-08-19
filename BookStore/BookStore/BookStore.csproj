@@ -81,7 +81,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="GetBooks.js" />
     <Content Include="Global.asax" />
     <Content Include="images\26102.jpg" />
     <Content Include="images\3336-grey-texture-1920x1080-abstract-wallpaper.gif" />
@@ -110,20 +109,6 @@
     <Content Include="images\slide_three4.jpg" />
     <Content Include="images\slide_two.jpg" />
     <Content Include="images\slide_two331.png" />
-    <Content Include="index.html" />
-    <Content Include="login.html" />
-    <Content Include="login.js" />
-    <Content Include="main.html" />
-    <Content Include="main.js" />
-    <Content Include="mainPage.png" />
-    <Content Include="products_in.html" />
-    <Content Include="register.html" />
-    <Content Include="Register.js" />
-    <Content Include="style.css" />
-    <Content Include="style_log.css" />
-    <Content Include="style_reg.css" />
-    <Content Include="user_page.html" />
-    <Content Include="User_page.js" />
     <Content Include="Web.config" />
     <Content Include="web\contact.html" />
     <Content Include="web\css\bootstrap.css" />
@@ -202,7 +187,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\amiraslan - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\biatoms - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
