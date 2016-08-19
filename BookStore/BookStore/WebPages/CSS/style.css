@@ -2,7 +2,7 @@ body {
     font-family: "Trebuchet MS", Arial, "Comic Sans MS";
     /*background-color: url("http://www.sheiness.com/wp-content/uploads/2014/08/2-Seamless-Grey-Carpet-Texture_thumb02.jpg");*/
     color: #303030;
-    background-image: url(images/background2.jpg);
+    background-image: url(../images/background2.jpg);
     background-repeat: repeat-y | repeat-x;
 }
 

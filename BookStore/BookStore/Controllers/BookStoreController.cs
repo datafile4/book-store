@@ -25,17 +25,17 @@ namespace BookStore.Controllers
         ///anything  important :)
         ///
         ///TODO: save conectionString in Web.config file
-        public const string conStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //@"Data Source=superbookstore.database.windows.net;
-        //Initial Catalog = BookStore;
-        //Integrated Security = False;
-        //User ID = emiraslan;
-        //Password=Orxan12Aslan24;
-        //Connect Timeout = 15;
-        //Encrypt=False;
-        //TrustServerCertificate=True;
-        //ApplicationIntent=ReadWrite;
-        //MultiSubnetFailover=False";
+        public const string conStr = //@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        @"Data Source=superbookstore.database.windows.net;
+        Initial Catalog = BookStore;
+        Integrated Security = False;
+        User ID = emiraslan;
+        Password=Orxan12Aslan24;
+        Connect Timeout = 15;
+        Encrypt=False;
+        TrustServerCertificate=True;
+        ApplicationIntent=ReadWrite;
+        MultiSubnetFailover=False";
 
 
         #endregion
@@ -347,7 +347,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public IEnumerable<BookModel> GetAllBooks()
         {
             List<BookModel> allBookData = new List<BookModel>();
@@ -541,17 +541,17 @@ namespace BookStore.Controllers
                     return Ok(new { value = count });
                 }
             }
-
         }
 
-        [HttpGet]
-        public IEnumerable<BookModel> GetBooksForAdmin()
+        [HttpGet, RequiresRole(Roles.Moderator)]
+        public IEnumerable<BookModel> GetBooksForConfirmation()
         {
-            List<BookModel> AllBookData = new List<BookModel>();
+            List<BookModel> allBookData = new List<BookModel>();
 
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
+
                 using (var cmd = new SqlCommand("spUserPageForAdmin", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -577,13 +577,14 @@ namespace BookStore.Controllers
                             }
                         };
 
-                        AllBookData.Add(book);
+                        allBookData.Add(book);
                     }
-                    return AllBookData;
+                    return allBookData;
                 }
             }
 
         }
+
 
 
     }

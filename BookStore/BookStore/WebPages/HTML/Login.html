@@ -1,6 +1,7 @@
-<link href="style_log.css" rel="stylesheet" />
-<link href="style_reg.css" rel="stylesheet" />
-<div class="container" ng-app="app" ng-controller="loginCtrl">
+<link href="../CSS/style_log.css" rel="stylesheet" />
+<link href="../CSS/style_reg.css" rel="stylesheet" />
+
+<div class="container">
     <form name="frm">
         <div class="wrapper">
             <div class="main content clearfix">
@@ -19,10 +20,10 @@
                         <input type="password"
                                name="password"
                                placeholder="password"
-                               ng-model="password"
+                               ng-model="Password"
                                required
                                ng-minlength="3"
-                               ng-maxlength="30" />
+                               ng-maxlength="50" />
                         <span ng-show="frm.password.$dirty && frm.password.$error.required"> Required!  </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.minlength"> too short! </span>
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
