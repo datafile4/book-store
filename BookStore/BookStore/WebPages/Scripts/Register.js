@@ -1,6 +1,6 @@
 ﻿app.controller('RegisterCtrl', function ($scope, $http, $location, $rootScope) {
     
-    $scope.Register_ = function () {
+    $scope.Register = function () {
         
         var RegisterData = {
             Firstname: $scope.firstname,

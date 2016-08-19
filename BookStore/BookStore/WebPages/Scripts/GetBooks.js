@@ -1,5 +1,5 @@
 ﻿app.controller('GetBooks', function ($scope, $http) {
-    console.log("In controller !!" );
+    
     console.log("Geldiiii 1 \n");
     var res = $http.get("../../api/bookstore/GetAllBooks");
     console.log("Geldiiii 2 \n");

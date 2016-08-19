@@ -585,7 +585,52 @@ namespace BookStore.Controllers
 
         }
 
+        [HttpPost, RequiresRole(Roles.Moderator)]
+        public IHttpActionResult ConfirmBook(List<int> BooksID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
 
+                using (var cmd = new SqlCommand("uspConfirmBook ", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var affectedRows = 0;
+                    foreach (var bookID in BooksID)
+                    {
+                        cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = bookID;
+                        affectedRows = cmd.ExecuteNonQuery();
+                        cmd.Parameters.Clear();
+                        if (affectedRows < 1)
+                            return Ok(false, "Not Confirmed !!! Try again ... ");
+                    }
+
+                }
+
+                return Ok(true, "The book is successfully Confirmed!!!");
+            }
+        }
+
+        [HttpPost, RequiresRole(Roles.Moderator)]
+        public IHttpActionResult DeleteBook(int ID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+
+                using (var cmd = new SqlCommand("uspDeleteBook", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@bookID", SqlDbType.Int).Value = ID;
+
+                    var affectedRows = cmd.ExecuteNonQuery();
+                    if (affectedRows < 1)
+                        return Ok(false, "Not deleted !!! Try again ... ");
+                }
+
+                return Ok(true, "The book is successfully deleted !!!");
+            }
+        }
 
     }
 }

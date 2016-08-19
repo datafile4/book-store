@@ -27,7 +27,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     })
     .when('/UserPage', {
         templateUrl: 'UserPage.html',
-        controller: 'GetBooks'
+        controller: 'UserPage'
     })
     .otherwise({
         redirectTo: '/'
