@@ -91,6 +91,7 @@
     <Content Include="WebPages\HTML\HomePage.html" />
     <Content Include="WebPages\HTML\AllProducts.html" />
     <Content Include="WebPages\HTML\Register.html" />
+    <Content Include="WebPages\HTML\UploadBook.html" />
     <Content Include="WebPages\HTML\UserPage.html" />
     <Content Include="WebPages\images\26102.jpg" />
     <Content Include="WebPages\images\3336-grey-texture-1920x1080-abstract-wallpaper.gif" />
@@ -120,10 +121,12 @@
     <Content Include="WebPages\images\slide_three4.jpg" />
     <Content Include="WebPages\images\slide_two.jpg" />
     <Content Include="WebPages\images\slide_two331.png" />
+    <Content Include="WebPages\Scripts\angular.min.js" />
     <Content Include="WebPages\Scripts\GetBooks.js" />
     <Content Include="WebPages\Scripts\Login.js" />
     <Content Include="WebPages\Scripts\Main.js" />
     <Content Include="WebPages\Scripts\Register.js" />
+    <Content Include="WebPages\Scripts\UploadBook.js" />
     <Content Include="WebPages\Scripts\UserPage.js" />
   </ItemGroup>
   <ItemGroup>

@@ -29,6 +29,10 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         templateUrl: 'UserPage.html',
         controller: 'UserPage'
     })
+    .when('/UploadBook', {
+        templateUrl: 'UploadBook.html',
+        controller: 'UploadBook'
+    })
     .otherwise({
         redirectTo: '/'
     });
