@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Sql Queries\Procedures.sql" />
+    <Content Include="Sql Queries\Tables.sql" />
     <Content Include="test html\login.html" />
     <Content Include="test html\login.js" />
     <Content Include="Web.config" />

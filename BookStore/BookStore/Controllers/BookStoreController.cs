@@ -61,7 +61,7 @@ namespace BookStore.Controllers
                 con.Open();
 
                 int UserID;
-                using (var cmd = new SqlCommand("uspLoginProc", con))
+                using (var cmd = new SqlCommand("uspLogin", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
@@ -166,7 +166,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("uspAddToCartCheck", con))
+                using (var cmd = new SqlCommand("uspCheckBookInCart", con))
                 {
 
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -234,6 +234,37 @@ namespace BookStore.Controllers
                 UserInfoModel returnModel = null;
                 using (var cmd = new SqlCommand("uspGetUserInfo", con))
                 {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
+
+                    var reader = cmd.ExecuteReader();
+                    if (reader.Read())
+                    {
+                        returnModel = new UserInfoModel();
+                        returnModel.Email = reader.GetString(0);
+                        returnModel.LastName = reader.GetString(1);
+                        returnModel.FirstName = reader.GetString(2);
+                        returnModel.ID = reader.GetInt32(3);
+                        returnModel.Username = username;
+                    }
+
+                    return returnModel;
+                }
+            }
+        }
+        [HttpPost]
+        public UserInfoModel GetUserInfo(int userID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                //null if not found
+                UserInfoModel returnModel = null;
+                using (var cmd = new SqlCommand("uspGetUserInfoFromID", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = userID;
+
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
@@ -242,7 +273,8 @@ namespace BookStore.Controllers
                         returnModel.Email = reader.GetString(0);
                         returnModel.LastName = reader.GetString(1);
                         returnModel.FirstName = reader.GetString(2);
-                        returnModel.Username = username;
+                        returnModel.Username = reader.GetString(3);
+                        returnModel.ID = userID;
                     }
 
                     return returnModel;
@@ -254,28 +286,7 @@ namespace BookStore.Controllers
         [RequiresRole]
         public UserInfoModel GetCurrentUserInfo()
         {
-            using (var con = new SqlConnection(conStr))
-            {
-                con.Open();
-                UserInfoModel returnModel = null;
-                using (var cmd = new SqlCommand("uspGetUserInfo", con))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
-                    var reader = cmd.ExecuteReader();
-
-                    if (reader.Read())
-                    {
-                        returnModel = new UserInfoModel();
-                        returnModel.Email = reader.GetString(0);
-                        returnModel.LastName = reader.GetString(1);
-                        returnModel.FirstName = reader.GetString(2);
-                        returnModel.Username = reader.GetString(3);
-                    }
-
-                    return returnModel;
-                }
-            }
+            return GetUserInfo(CurrentUserID);
         }
 
         [HttpPost, RequiresRole]
@@ -311,6 +322,7 @@ namespace BookStore.Controllers
                                 Username = reader.GetString(8),
                                 Email = reader.GetString(9)
                             }
+
                         };
 
                         returnModels.Add(book);
@@ -377,7 +389,8 @@ namespace BookStore.Controllers
                                 LastName = reader.GetString(7),
                                 Username = reader.GetString(8),
                                 Email = reader.GetString(9)
-                            }
+                            },
+                            ID = reader.GetInt32(10)
                         };
 
                         allBookData.Add(book);
@@ -407,6 +420,7 @@ namespace BookStore.Controllers
                     {
                         var book = new BookModel
                         {
+                            ID = bookid,
                             Name = reader.GetString(0),
                             Author = reader.GetString(1),
                             ImageURL = reader.GetString(2),
