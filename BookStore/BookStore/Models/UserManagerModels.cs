@@ -35,6 +35,7 @@ namespace BookStore.Models
         [Required(ErrorMessage ="Password is required!")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters long.")]
         public string Password { get; set; }
+        public string Contact { get; set; }
     }
 
     public class UserInfoModel

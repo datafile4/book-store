@@ -146,6 +146,8 @@ namespace BookStore.Controllers
                     cmd.Parameters.Add("@UserName", SqlDbType.NVarChar).Value = model.Username;
                     cmd.Parameters.Add("@Password", SqlDbType.NVarChar).Value = model.Password;
                     cmd.Parameters.Add("@Email", SqlDbType.NVarChar).Value = model.Email;
+                    cmd.Parameters.Add("@Contact", SqlDbType.NVarChar).Value = model.Contact;
+
 
                     var affectedRows = cmd.ExecuteNonQuery();
                     if (affectedRows < 1)
