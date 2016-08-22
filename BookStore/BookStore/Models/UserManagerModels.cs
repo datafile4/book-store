@@ -37,6 +37,12 @@ namespace BookStore.Models
         public string Password { get; set; }
         public string Contact { get; set; }
     }
+    public class RoleAndId
+    {
+        public string RoleName { get; set; }
+        public int RoleID { get; set; }
+
+    }
 
     public class UserInfoModel
     {
