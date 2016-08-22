@@ -31,8 +31,8 @@
         </header>
     </div>
     <div class="products-container">
-        <ul class="product-list" ng-controller="GetBooks"> {{book.Name}}
-            <li class="product" ng-repeat="book in books">
+        <ul class="product-list"> {{book.Name}}
+            <li class="product" ng-repeat="book in Books">
                 <div class="product-image"><img src="{{book.ImageURL}}" width="200" height="290" /></div>
                 <div class="product-parameters">
                     <ul class="product-parameters-list">

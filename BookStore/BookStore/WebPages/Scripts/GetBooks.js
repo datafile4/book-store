@@ -5,7 +5,7 @@
     console.log("Geldiiii 2 \n");
     res.success(function (response) {
         console.log("Geldiiii ela \n");
-        $scope.books = response;
+        $scope.Books = response;
         console.log( JSON.stringify(response));
     });
     res.error(function (response) {

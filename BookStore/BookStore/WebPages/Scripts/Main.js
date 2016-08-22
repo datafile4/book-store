@@ -2,7 +2,7 @@
 
 app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $routeProvider
-    .when('/', {templateUrl : 'HomePage.html'})
+    .when('/', { templateUrl: 'HomePage.html' })
     .when('/Login', {
         templateUrl: 'Login.html',
         controller: 'LoginCtrl'
@@ -36,4 +36,44 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     .otherwise({
         redirectTo: '/'
     });
-}]);
+}]).run(function ($rootScope, $location, $http) {
+
+
+    $rootScope.UpdateRoleID = function () {
+
+        var res = $http.get("../../api/bookstore/GetUserRole");
+        res.success(function (data) {
+
+            $rootScope.RoleID = parseInt(data);
+            console.log("RoleID : " + $rootScope.RoleID);
+
+            //$rootScope.$on("$routeChangeStart", function (event, next, current) {
+            //    /*
+            //    if ($rootScope.RoleID == 0) { //noone
+            //        $location.path("/Login");
+            //    }
+            //    else if ($rootScope.RoleID == 3) { // admin
+            //        $location.path("/Dashboard");
+            //    }
+            //    else if ($rootScope.RoleID == 2) {//moderator
+            //        $location.path("/");
+            //    }
+            //    else if ($rootScope.RoleID == 1) {//
+            //        $location.path("/GetBooks");
+            //    }
+            //    else {
+            //        console.log("else : " + $rootScope.RoleID);
+            //    }
+            //    */
+            //});
+
+
+
+        });
+        res.error(function (data) {
+            console.log("Error in GetUserRole")
+        });
+    }
+
+    $rootScope.UpdateRoleID();
+});

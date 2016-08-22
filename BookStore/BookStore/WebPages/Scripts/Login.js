@@ -8,23 +8,19 @@
                 Password: $scope.Password
             };
 
-            var res = $http.post("api/BookStore/Login", LoginData);
+            var res = $http.post("../../api/BookStore/Login", LoginData);
             console.log("Parameters : " + LoginData.Username + "   Password: " + LoginData.Password);
             res.success(function (data) {
                 console.log("success: " + JSON.stringify(data));
+                $location.path('/Dashboard');
+                $rootScope.UpdateRoleID();
 
-                $rootScope.isLogged = data.success;
-                if ($rootScope.isLogged) {
-                    $location.path('/Dashboard');
-                } else {
-                    $scope.message = data.message;
-                    $scope.emiraslan = {
-                        color: 'red'
-                    }
-                }
             });
+
             res.error(function (data) {
+
                 console.log("Not Logged In ! Some Error Happened !");
+
             });
         };
 

@@ -45,14 +45,14 @@
                 <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
             </div>
             <!-- Burani Login zamani deyismek lazimdi -->
-            <div class="login-register" ng-show="true">
+            <div class="login-register" ng-hide="RoleID > 0">
                 <ul class="login-reg">
                     <li><a href="#/Register">Register</a></li>
                     <li>|</li>
                     <li><a href="#/Login">Login</a></li>
                 </ul>
             </div>
-            <div class="user-icon" ng-hide="true">
+            <div class="user-icon" ng-show="RoleID > 0">
                 <ul class="user-icon-list">
                     <li><a href="#/UserPage"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40"/></a></li>
                     <li>|</li>

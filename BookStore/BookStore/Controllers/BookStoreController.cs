@@ -632,5 +632,26 @@ namespace BookStore.Controllers
             }
         }
 
+        public string GetUserRole()
+        {
+            var login = Request.Headers.GetCookies(RequiresRoleAttribute.LoginToken).FirstOrDefault();
+
+            if (login != null)
+            {
+                string guid = login[RequiresRoleAttribute.LoginToken].Value;
+                using (var con = new SqlConnection(conStr))
+                {
+                    con.Open();
+
+                    using (var cmd = new SqlCommand("uspGetUserRole", con))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@Guid", SqlDbType.NVarChar).Value = guid;
+                        return (cmd.ExecuteScalar() ?? 0).ToString();
+                    }
+                }
+            }
+            return 0.ToString();
+        }
     }
 }
