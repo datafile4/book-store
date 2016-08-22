@@ -82,11 +82,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="WebPages\CSS\header.css" />
     <Content Include="WebPages\CSS\style.css" />
     <Content Include="WebPages\CSS\style_log.css" />
     <Content Include="WebPages\CSS\style_reg.css" />
-    <Content Include="WebPages\HTML\Index.html" />
+    <Content Include="WebPages\HTML\index.html" />
     <Content Include="WebPages\HTML\Login.html" />
     <Content Include="WebPages\HTML\HomePage.html" />
     <Content Include="WebPages\HTML\AllProducts.html" />
@@ -146,7 +149,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\amiraslan - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\biatoms - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

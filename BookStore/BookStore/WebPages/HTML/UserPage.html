@@ -1,86 +1,18 @@
 ﻿<link href="../CSS/style.css" rel="stylesheet" />
-<div id="smth">
-    <header id="header-home">
-        <ul class="logo" id="title-bar">
-            <li> <img src="../images/Books.ico" width="40" height="40" alt="BookStoreLogo" /> </li>
-            <li> <span id="TitleBarName">Practice Book Store</span> </li>
-        </ul>
-        <nav id="top-bar" role="navigation">
-            <ul class="has-dropdown">
-                <li>
-                    <a href="#">Home</a>
-                    <ul class="dropdown">
-                        <li class="tab-under-dropdown"> <a href="google.com">New</a> </li>
-                        <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
-                        <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
-                    </ul>
-                </li>
-                <li class="divider">|</li>
-                <li>
-                    <a href="#">Books</a>
-                    <ul class="dropdown">
-                        <li class="tab-under-dropdown"> <a href="http://www.google.com">New Books</a> </li>
-                        <li class="tab-under-dropdown"> <a href="http://www.google.com">Something</a> </li>
-                        <li class="tab-under-dropdown"> <a href="http://www.google.com">So On</a> </li>
-                    </ul>
-                </li>
-                <li class="divider">|</li>
-                <li>
-                    <a href="#">About</a>
-                    <ul class="dropdown">
-                        <li class="tab-under-dropdown"> <a href="google.com">Date</a> </li>
-                        <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
-                        <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
-                    </ul>
-                </li>
-                <li class="divider">|</li>
-                <li id="contact">
-                    <a href="#">Contact</a>
-                    <ul class="dropdown">
-                        <li class="tab-under-dropdown"> <a href="google.com">Email</a> </li>
-                        <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
-                        <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div class="search">
-            <input type="text" id="search-text" />
-            <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
-        </div>
 
-        <div class="login-register" ng-show="false">
-            <ul class="login-reg">
-                <li><a href="#/register">Register</a></li>
-                <li>|</li>
-                <li><a href="#/login">Login</a></li>
-            </ul>
-        </div>
-        <div class="user-icon" ng-hide="false">
-            <ul class="user-icon-list">
-                <li>
-                    <a href="#/user_page"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40" /></a>
-                </li>
-                <li>|</li>
-                <li><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" width="40" height="40" /></li>
-                <li>|</li>
-                <li class="username"><a href="#/UploadBook">Username</a></li>
-            </ul>
-        </div>
-    </header>
-</div>
 <div class="user_data_container">
     <div class="user_image"> <img src="../images/Jackie-Chan.jpg" height="267" width="220" /> </div>
     <div class="userdata-list">
         <ul class="user-parameters-list">
-            <li class="user-parameters">First Name: {{name}}</li>
-            <li class="user-parameters">Last Name: {{author}}</li>
-            <li class="user-parameters">Username: {{100}}</li>
-            <li class="user-parameters">Role: {{role}}</li>
-            <li class="user-parameters">Email: {{englis}}</li>
+            <li class="user-parameters">First Name: {{FirstName}}</li>
+            <li class="user-parameters">Last Name: {{LastName}}</li>
+            <li class="user-parameters">Username: {{Username}}</li>
+            <li class="user-parameters">Role: {{RoleID == 3 ? "Admin" : "User"}}</li>
+            <li class="user-parameters">Email: {{Email}}</li>
         </ul>
     </div>
 </div>
+
 <div class="admin-control">
     <div class="buttons">
         <input class="confirm-button" type="button" name="confirm" value="Check All" ng-click="CheckAll()">
@@ -114,7 +46,7 @@
             <td>{{book.Uploader.Email}}</td>
             <td>
                 <input class="confirm-button" type="button" name="confirm" value="Confirm" ng-click="Confirm($index)">
-                <input class="confirm-button" type="button" name="delete" value="Delete" ng-click="Delete($index )">
+                <input class="confirm-button" type="button" name="delete" value="Delete" ng-click="Delete($index)">
             </td>
             <td>
                 <!-- <input type="checkbox" ng-model="book.Selected" ng-click="toggle_book_id(book.ID)"> {{book.ID}}-->

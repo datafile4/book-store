@@ -1,6 +1,6 @@
 .banner h1 {
             font-family: 'Open Sans', arial;
-            -webkitfontsmoothing: antialiased;
+            -webkit-font-smoothing: antialiased;
             color: #555;
             font-size: 42px;
             font-weight: 300;

@@ -7,10 +7,23 @@
            console.log(JSON.stringify(response));
            console.log("Confirm alindi ela! \n");
     });
+
+
     res.error(function (response) {
          console.log("In controller !!" + JSON.stringify(response));
          console.log("Confirm alinmadi beerbat! \n");
     })
+
+    var res = $http.post("../../api/BookStore/GetCurrentUserInfo");
+
+    res.success(function (data) {
+        $scope.FirstName = data.FirstName;
+        $scope.LastName = data.LastName;
+        $scope.Email = data.Email;
+        $scope.Username = data.Username;
+    })
+
+   
 
     $scope.CheckAll = function () {
         $scope.AllSelected = !$scope.AllSelected;
@@ -18,6 +31,8 @@
             book.Selected = $scope.AllSelected;
         })
     }
+
+    
 
     $scope.Confirm = function (index) {
         console.log("BOOK[0] " + $scope.Books[index].ID);
