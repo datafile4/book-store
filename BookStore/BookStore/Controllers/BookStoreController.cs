@@ -361,7 +361,7 @@ namespace BookStore.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet]
         public IEnumerable<BookModel> GetAllBooks()
         {
             List<BookModel> allBookData = new List<BookModel>();
@@ -649,5 +649,97 @@ namespace BookStore.Controllers
                 return Ok(true, "The book is successfully deleted !!!");
             }
         }
+
+        [HttpPost]
+        public IEnumerable<RoleAndId> GetRoles()
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspGetRoles", con))
+                {
+                    List<RoleAndId> getroles = new List<RoleAndId>();
+
+
+                    var reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        var role = new RoleAndId
+                        {
+                            RoleID = reader.GetInt32(0),
+                            RoleName = reader.GetString(1)
+
+                        };
+                        getroles.Add(role);
+                    }
+
+                    return getroles;
+                }
+
+            }
+        }
+
+
+
+        [HttpPost]
+        public IEnumerable<Genre> GetGenres()
+        {
+            List<Genre> getgenres = new List<Genre>();
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspGetGenres", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var result = cmd.ExecuteReader();
+
+
+                    if (result.Read())
+                    {
+                        var genre = new Genre
+                        {
+                            ID = result.GetInt32(0),
+                            Name = result.GetString(1)
+                        };
+
+                        getgenres.Add(genre);
+                    }
+
+                    return getgenres;
+                }
+            }
+        }
+
+        [HttpPost]
+        public IEnumerable<Genre> GetLanguages()
+        {
+            List<Genre> getlangs = new List<Genre>();
+
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspGetLanguages", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var result = cmd.ExecuteReader();
+
+
+                    if (result.Read())
+                    {
+                        var lang = new Genre
+                        {
+                            ID = result.GetInt32(0),
+                            Name = result.GetString(1)
+                        };
+
+                        getlangs.Add(lang);
+                    }
+
+                    return getlangs;
+                }
+            }
+        }
+
     }
 }
