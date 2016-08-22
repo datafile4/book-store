@@ -133,9 +133,6 @@
     <Content Include="Scripts\UserPage.js" />
     <Content Include="Sql Queries\Procedures.sql" />
     <Content Include="Sql Queries\Tables.sql" />
-    <Content Include="test html\login.html" />
-    <Content Include="test html\login.js" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -153,7 +150,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Properties\PublishProfiles\amiraslan - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -163,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="WebPages\" />
   </ItemGroup>
   <PropertyGroup>
