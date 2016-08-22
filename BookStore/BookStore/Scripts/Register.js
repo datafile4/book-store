@@ -11,11 +11,11 @@
         };
 
         console.log(
-            "FirstName : " + registerData.Firstname +
-            "   LastName: " + registerData.Lastname +
-            "   Username: " + registerData.Username +
-            "     Email : " + registerData.Email +
-            "   Password: " + registerData.Password
+            "FirstName : " +  RegisterData.Firstname +
+            "   LastName: " + RegisterData.Lastname +
+            "   Username: " + RegisterData.Username +
+            "     Email : " + RegisterData.Email +
+            "   Password: " + RegisterData.Password
             );
 
         var res = $http.post("api/BookStore/Register", RegisterData);
