@@ -396,7 +396,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("uspGetBooksInfo", con))
+                using (var cmd = new SqlCommand("uspGetBookInfo", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = bookid;

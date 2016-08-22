@@ -8,7 +8,7 @@
                 Password: $scope.Password
             };
 
-            var res = $http.post("../../api/BookStore/Login", LoginData);
+            var res = $http.post("api/BookStore/Login", LoginData);
             console.log("Parameters : " + LoginData.Username + "   Password: " + LoginData.Password);
             res.success(function (data) {
                 console.log("success: " + JSON.stringify(data));

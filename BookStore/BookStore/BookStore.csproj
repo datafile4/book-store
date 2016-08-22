@@ -85,52 +85,52 @@
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="WebPages\CSS\header.css" />
-    <Content Include="WebPages\CSS\style.css" />
-    <Content Include="WebPages\CSS\style_log.css" />
-    <Content Include="WebPages\CSS\style_reg.css" />
-    <Content Include="WebPages\HTML\index.html" />
-    <Content Include="WebPages\HTML\Login.html" />
-    <Content Include="WebPages\HTML\HomePage.html" />
-    <Content Include="WebPages\HTML\AllProducts.html" />
-    <Content Include="WebPages\HTML\Register.html" />
-    <Content Include="WebPages\HTML\UploadBook.html" />
-    <Content Include="WebPages\HTML\UserPage.html" />
-    <Content Include="WebPages\images\26102.jpg" />
-    <Content Include="WebPages\images\3336-grey-texture-1920x1080-abstract-wallpaper.gif" />
-    <Content Include="WebPages\images\background2.jpg" />
-    <Content Include="WebPages\images\Blue-Gradient-Wallpapers-Free-Download.png" />
-    <Content Include="WebPages\images\BookImage.JPG" />
-    <Content Include="WebPages\images\Books.ico" />
-    <Content Include="WebPages\images\Brown-Gradient-Wallpapers.jpg" />
-    <Content Include="WebPages\images\download.jfif" />
-    <Content Include="WebPages\images\Gradient-Backgrouns-by-Adam-Dorman.jpg" />
-    <Content Include="WebPages\images\harry_potter.jpg" />
-    <Content Include="WebPages\images\Jackie-Chan.jpg" />
-    <Content Include="WebPages\images\Malala.jpg" />
-    <Content Include="WebPages\images\nizami-gencevi.jpg" />
-    <Content Include="WebPages\images\OLULER.jpg" />
-    <Content Include="WebPages\images\slide_eight.jpg" />
-    <Content Include="WebPages\images\slide_five.jpg" />
-    <Content Include="WebPages\images\slide_five3.jpg" />
-    <Content Include="WebPages\images\slide_four.jpg" />
-    <Content Include="WebPages\images\slide_four43.jpg" />
-    <Content Include="WebPages\images\slide_nine.jpg" />
-    <Content Include="WebPages\images\slide_one.jpg" />
-    <Content Include="WebPages\images\slide_one1 %282%29.jpg" />
-    <Content Include="WebPages\images\slide_one1.jpg" />
-    <Content Include="WebPages\images\slide_thre2e.jpg" />
-    <Content Include="WebPages\images\slide_three.jpg" />
-    <Content Include="WebPages\images\slide_three4.jpg" />
-    <Content Include="WebPages\images\slide_two.jpg" />
-    <Content Include="WebPages\images\slide_two331.png" />
-    <Content Include="WebPages\Scripts\angular.min.js" />
-    <Content Include="WebPages\Scripts\GetBooks.js" />
-    <Content Include="WebPages\Scripts\Login.js" />
-    <Content Include="WebPages\Scripts\Main.js" />
-    <Content Include="WebPages\Scripts\Register.js" />
-    <Content Include="WebPages\Scripts\UploadBook.js" />
-    <Content Include="WebPages\Scripts\UserPage.js" />
+    <Content Include="CSS\header.css" />
+    <Content Include="CSS\style.css" />
+    <Content Include="CSS\style_log.css" />
+    <Content Include="CSS\style_reg.css" />
+    <Content Include="index.html" />
+    <Content Include="HTML\Login.html" />
+    <Content Include="HTML\HomePage.html" />
+    <Content Include="HTML\AllProducts.html" />
+    <Content Include="HTML\Register.html" />
+    <Content Include="HTML\UploadBook.html" />
+    <Content Include="HTML\UserPage.html" />
+    <Content Include="images\26102.jpg" />
+    <Content Include="images\3336-grey-texture-1920x1080-abstract-wallpaper.gif" />
+    <Content Include="images\background2.jpg" />
+    <Content Include="images\Blue-Gradient-Wallpapers-Free-Download.png" />
+    <Content Include="images\BookImage.JPG" />
+    <Content Include="images\Books.ico" />
+    <Content Include="images\Brown-Gradient-Wallpapers.jpg" />
+    <Content Include="images\download.jfif" />
+    <Content Include="images\Gradient-Backgrouns-by-Adam-Dorman.jpg" />
+    <Content Include="images\harry_potter.jpg" />
+    <Content Include="images\Jackie-Chan.jpg" />
+    <Content Include="images\Malala.jpg" />
+    <Content Include="images\nizami-gencevi.jpg" />
+    <Content Include="images\OLULER.jpg" />
+    <Content Include="images\slide_eight.jpg" />
+    <Content Include="images\slide_five.jpg" />
+    <Content Include="images\slide_five3.jpg" />
+    <Content Include="images\slide_four.jpg" />
+    <Content Include="images\slide_four43.jpg" />
+    <Content Include="images\slide_nine.jpg" />
+    <Content Include="images\slide_one.jpg" />
+    <Content Include="images\slide_one1 %282%29.jpg" />
+    <Content Include="images\slide_one1.jpg" />
+    <Content Include="images\slide_thre2e.jpg" />
+    <Content Include="images\slide_three.jpg" />
+    <Content Include="images\slide_three4.jpg" />
+    <Content Include="images\slide_two.jpg" />
+    <Content Include="images\slide_two331.png" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\GetBooks.js" />
+    <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\Main.js" />
+    <Content Include="Scripts\Register.js" />
+    <Content Include="Scripts\UploadBook.js" />
+    <Content Include="Scripts\UserPage.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="WebPages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

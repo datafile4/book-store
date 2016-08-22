@@ -18,7 +18,7 @@
             "   Password: " + registerData.Password
             );
 
-        var res = $http.post("../../api/BookStore/Register", RegisterData);
+        var res = $http.post("api/BookStore/Register", RegisterData);
 
         res.success(function (data) {
             console.log("success: " + JSON.stringify(data));

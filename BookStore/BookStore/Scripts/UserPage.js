@@ -1,6 +1,6 @@
 ﻿app.controller('UserPage', function ($scope, $http, $window) {
     
-    var res = $http.get("../../api/BookStore/GetBooksForConfirmation");
+    var res = $http.get("api/BookStore/GetBooksForConfirmation");
     console.log("Confirm Bura geldi Tebrikler ! \n");
     res.success(function (response) {
         $scope.Books = response;
@@ -14,7 +14,7 @@
          console.log("Confirm alinmadi beerbat! \n");
     })
 
-    var res = $http.post("../../api/BookStore/GetCurrentUserInfo");
+    var res = $http.post("api/BookStore/GetCurrentUserInfo");
 
     res.success(function (data) {
         $scope.FirstName = data.FirstName;
@@ -36,10 +36,10 @@
 
     $scope.Confirm = function (index) {
         console.log("BOOK[0] " + $scope.Books[index].ID);
-        var res = $http.post("../../api/BookStore/ConfirmBook?bookID=" + $scope.Books[index].ID);
+        var res = $http.post("api/BookStore/ConfirmBook?bookID=" + $scope.Books[index].ID);
         res.success(function (response) {
             console.log(JSON.stringify(response));
-            var res = $http.get("../../api/BookStore/GetBooksForConfirmation");
+            var res = $http.get("api/BookStore/GetBooksForConfirmation");
             res.success(function (response) {
                 $scope.Books = response;
                 console.log(JSON.stringify(response));
@@ -57,10 +57,10 @@
         var DeleteUser = $window.confirm('Are you absolutely sure you want to delete?');
 
         if (DeleteUser) {
-            var res = $http.post("../../api/BookStore/DeleteBook?ID=" + $scope.Books[index].ID);
+            var res = $http.post("api/BookStore/DeleteBook?ID=" + $scope.Books[index].ID);
             res.success(function (response) {
                 console.log(JSON.stringify(response));
-                var res = $http.get("../../api/BookStore/GetBooksForConfirmation");
+                var res = $http.get("api/BookStore/GetBooksForConfirmation");
                 res.success(function (response) {
                     $scope.Books = response;
                     console.log(JSON.stringify(response));
@@ -86,10 +86,10 @@
         })
 
         //console.log(" smth1 ");
-        var res = $http.post("../../api/BookStore/ConfirmBook", BooksID);
+        var res = $http.post("api/BookStore/ConfirmBook", BooksID);
         //console.log(" smth2 ");
         res.success(function (response) {
-            var res = $http.get("../../api/BookStore/GetBooksForConfirmation");
+            var res = $http.get("api/BookStore/GetBooksForConfirmation");
             res.success(function (response) {
                 $scope.Books = response;
                 console.log(JSON.stringify(response));
