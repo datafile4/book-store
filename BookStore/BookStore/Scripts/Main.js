@@ -1,4 +1,4 @@
-﻿var app = angular.module('app', ['ngRoute']);
+﻿var app = angular.module('app', ['ngRoute', 'ngCookies']);
 
 app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $routeProvider
@@ -57,11 +57,14 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     .otherwise({
         redirectTo: '/'
     });
-}]).run(function ($rootScope, $location, $http) {
+}]).run(function ($rootScope, $location, $http, $cookies) {
 
-
+    $rootScope.Logout = function() {
+        $cookies.remove('user-g');
+        $rootScope.UpdateRoleID();
+        $location.path('/');
+    }
     $rootScope.UpdateRoleID = function () {
-
         $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {
             $rootScope.Username = data.Username;
         })
@@ -98,6 +101,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
 
         });
         res.error(function (data) {
+            $rootScope.RoleID = 0;
             console.log("Error in GetUserRole")
         });
     }
