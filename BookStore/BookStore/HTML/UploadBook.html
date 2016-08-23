@@ -2,7 +2,18 @@
 
 <div class="products-container">
     <h1>This Is Upload A Book</h1>
-    <ul class="product-list">
+    <input type="text" ng-model="bookName" placeholder="Name of the book"> <br />
+    <input type="text" ng-model="Author" placeholder="Author"><br />
+    <input type="text" ng-model="ImageURL" placeholder="Image"><br />
+
+    <select ng-model="selectedLang" ng-options="l.Name for l in languages"></select>
+    <select ng-model="selectedGenre" ng-options="g.Name for g in genres"></select>
+
+    <input type="text" ng-model="Price" placeholder="Price"><br />
+    <input type="button" ng-click="upload()" value="Upload the book"><br />
+    <p ng-style="messageStyle">{{message}}</p>
+
+    <!--<ul class="product-list">
         <li class="product">
             <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
             <div class="product-parameters">
@@ -16,7 +27,7 @@
                 </ul>
             </div>
         </li>
-    </ul>
+    </ul>-->
 </div>
 <div class="footer">
     <div class="home-container">
