@@ -82,6 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Sql Queries\Database builder.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -131,8 +132,6 @@
     <Content Include="Scripts\Register.js" />
     <Content Include="Scripts\UploadBook.js" />
     <Content Include="Scripts\UserPage.js" />
-    <Content Include="Sql Queries\Procedures.sql" />
-    <Content Include="Sql Queries\Tables.sql" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
@@ -142,10 +141,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\Cart.cs" />
-    <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\Lang.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserManagerModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -1,22 +1,18 @@
 ﻿app.controller('UserPage', function ($scope, $http, $window) {
     
-    var res = $http.get("api/BookStore/GetBooksForConfirmation");
-    console.log("Confirm Bura geldi Tebrikler ! \n");
-    res.success(function (response) {
-        $scope.Books = response;
-           console.log(JSON.stringify(response));
-           console.log("Confirm alindi ela! \n");
-    });
+    var GetUnconfirmedBooks = function () {
+        $http.get("api/BookStore/GetUnconfirmedBooks").then(
+        function (response) {
+            $scope.Books = response.data;
+        },
+        function (reason) {
+            console.log(reason);
+        })
+    };
 
-
-    res.error(function (response) {
-         console.log("In controller !!" + JSON.stringify(response));
-         console.log("Confirm alinmadi beerbat! \n");
-    })
-
-    var res = $http.post("api/BookStore/GetCurrentUserInfo");
-
-    res.success(function (data) {
+    GetUnconfirmedBooks();
+    $http.get("api/BookStore/GetCurrentUserInfo")
+        .success(function (data) {
         $scope.FirstName = data.FirstName;
         $scope.LastName = data.LastName;
         $scope.Email = data.Email;
@@ -32,91 +28,50 @@
         })
     }
 
-    
+    var confirmOrdelete = function (url, obj) {
+        
+        var config = null;
+        var data = null;
 
-    $scope.Confirm = function (index) {
-        console.log("BOOK[0] " + $scope.Books[index].ID);
-        var res = $http.post("api/BookStore/ConfirmBook?bookID=" + $scope.Books[index].ID);
-        res.success(function (response) {
-            console.log(JSON.stringify(response));
-            var res = $http.get("api/BookStore/GetBooksForConfirmation");
-            res.success(function (response) {
-                $scope.Books = response;
-                console.log(JSON.stringify(response));
-            });
-            res.error(function (response) {
-                console.log("In controller !!" + JSON.stringify(response));
-            })
-        });
-        res.error(function (response) {
-            console.log(JSON.stringify(response));
-        })
+        if (obj.params)
+            config = obj
+        else
+            data = obj
+
+        $http.post(url, data, config).then(
+            function (response) {
+                console.log(response.data)
+                if (response.data.success) {
+                    GetUnconfirmedBooks();
+                }
+            },
+            function (reason) {
+                console.log(reason.data);
+            }
+    )
+    };
+
+    $scope.Confirm = function(index) {
+        confirmOrdelete('api/BookStore/ConfirmBook', { params: { ID: $scope.Books[index].ID } });
     }
 
     $scope.Delete = function (index) {
         var DeleteUser = $window.confirm('Are you absolutely sure you want to delete?');
 
         if (DeleteUser) {
-            var res = $http.post("api/BookStore/DeleteBook?ID=" + $scope.Books[index].ID);
-            res.success(function (response) {
-                console.log(JSON.stringify(response));
-                var res = $http.get("api/BookStore/GetBooksForConfirmation");
-                res.success(function (response) {
-                    $scope.Books = response;
-                    console.log(JSON.stringify(response));
-                });
-                res.error(function (response) {
-                    console.log("In controller !!" + JSON.stringify(response));
-                })
-            });
-            res.error(function (response) {
-                console.log(JSON.stringify(response));
-            })
+            confirmOrdelete('api/BookStore/DeleteBook', { params: { ID: $scope.Books[index].ID } });
         }
     }
 
-    var BooksID = [];
-
     $scope.ConfirmSelected = function () {
-        BooksID = [];
+        var BooksID = [];
         angular.forEach($scope.Books, function (book) {
             if (book.Selected) {
                 BooksID.push(book.ID);
             }
         })
 
-        //console.log(" smth1 ");
-        var res = $http.post("api/BookStore/ConfirmBook", BooksID);
-        //console.log(" smth2 ");
-        res.success(function (response) {
-            var res = $http.get("api/BookStore/GetBooksForConfirmation");
-            res.success(function (response) {
-                $scope.Books = response;
-                console.log(JSON.stringify(response));
-                console.log("Confirm alindi ela! \n");
-            });
-            res.error(function (response) {
-                console.log("In controller !!" + JSON.stringify(response));
-                console.log("Confirm alinmadi beerbat! \n");
-            })
-        });
-        res.error(function (response) {
-            console.log(JSON.stringify(response));
-        })
+        confirmOrdelete("api/BookStore/ConfirmBooks", BooksID);
     }
 
 });
-
-    //$scope.toggle_book_id = function (id) {
-    //    console.log("inside toggle_book_id");
-    //    if (ID.indexOf(id) == -1) {
-    //        ID.push(id);
-    //        console.log("push");
-    //    }
-    //    else {
-    //        ID.splice(ID.indexOf(id), 1);
-    //        console.log("splice");
-    //    }
-    //    console.log("ID.length = " + ID.length)
-    //    for
-    //}

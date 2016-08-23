@@ -57,7 +57,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
 
     $rootScope.UpdateRoleID = function () {
 
-        $http.post("api/bookstore/GetCurrentUserInfo").success(function(data) {
+        $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {
             $rootScope.Username = data.Username;
         })
 

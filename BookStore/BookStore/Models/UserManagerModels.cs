@@ -15,43 +15,42 @@ namespace BookStore.Models
     }
     public class RegisterModel
     {
-
         [Required(ErrorMessage = "First name is required!")]
         public string FirstName { get; set; }
-
 
         [Required(ErrorMessage = "Last name is required!")]
         public string LastName { get; set; }
 
-        [Required (ErrorMessage ="Username is required!")]
+        [Required(ErrorMessage = "Username is required!")]
         [StringLength(20, MinimumLength = 5, ErrorMessage = "Username must be at least 5 characters long.")]
         public string Username { get; set; }
-
 
         [Required(ErrorMessage = "The email address is required!")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
-        [Required(ErrorMessage ="Password is required!")]
+        [Required(ErrorMessage = "Password is required!")]
         [StringLength(30, MinimumLength = 6, ErrorMessage = "Password must be at least 6 characters long.")]
         public string Password { get; set; }
-        public string Contact { get; set; }
     }
-    public class RoleAndId
+
+    public class NameIDModel
     {
-        public string RoleName { get; set; }
-        public int RoleID { get; set; }
-
+        public int ID { get; set; }
+        public string Name { get; set; }
     }
 
-    public class UserInfoModel
+    public class UserModel
     {
         public int ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
         public string Email { get; set; }
+        public string ImageUrl { get; set; }
+        public int RoleID { get; set; }
     }
+
     public class BookModel
     {
         public int ID { get; set; }
@@ -60,7 +59,7 @@ namespace BookStore.Models
         public string ImageURL { get; set; }
         public string Genre { get; set; }
         public string Language { get; set; }
-        public decimal Pirce { get; set; } 
-        public UserInfoModel Uploader { get; set; }
+        public decimal Price { get; set; }
+        public UserModel Uploader { get; set; }
     }
 }
