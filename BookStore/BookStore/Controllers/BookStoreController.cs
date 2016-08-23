@@ -466,9 +466,9 @@ namespace BookStore.Controllers
 
         }
 
-
+        [HttpPost]
         [RequiresRole(Roles.Admin)]
-        public IHttpActionResult SetRole(int UserID, int RoleID)
+        public IHttpActionResult SetRole(string username, int RoleID)
         {
             using (var con = new SqlConnection(conStr))
             {
@@ -476,7 +476,7 @@ namespace BookStore.Controllers
                 using (var cmd = new SqlCommand("uspSetRole", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = UserID;
+                    cmd.Parameters.Add("@Username", SqlDbType.NVarChar).Value = username;
                     cmd.Parameters.Add("@Role", SqlDbType.Int).Value = RoleID;
 
                     var affectedRows = cmd.ExecuteNonQuery();
@@ -646,7 +646,7 @@ namespace BookStore.Controllers
                     var result = cmd.ExecuteReader();
 
 
-                    if (result.Read())
+                    while (result.Read())
                     {
                         var genre = new Genre
                         {
@@ -676,7 +676,7 @@ namespace BookStore.Controllers
                     var result = cmd.ExecuteReader();
 
 
-                    if (result.Read())
+                    while (result.Read())
                     {
                         var lang = new Genre
                         {
