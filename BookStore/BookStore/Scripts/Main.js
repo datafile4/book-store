@@ -49,6 +49,11 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         templateUrl: 'HTML/UploadBook.html',
         controller: 'UploadBook'
     })
+    .when('/SetRole', {
+        templateUrl: 'HTML/SetRole.html',
+        controller: 'setRoleCtrl'
+    })
+
     .otherwise({
         redirectTo: '/'
     });

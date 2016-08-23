@@ -82,6 +82,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="HTML\SetRole.html" />
+    <Content Include="Scripts\setRoleCtrl.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
