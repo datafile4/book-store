@@ -2,10 +2,10 @@
      var vm = $scope;
 
 
-     $http.post('api/BookStore/GetLanguages').success(function (data) {
+     $http.get('api/BookStore/GetLanguages').success(function (data) {
          vm.languages = data
      });
-     $http.post('api/BookStore/GetGenres').success(function (data) {
+     $http.get('api/BookStore/GetGenres').success(function (data) {
          vm.genres = data
      });
 

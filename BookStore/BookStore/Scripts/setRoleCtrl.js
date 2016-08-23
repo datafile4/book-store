@@ -1,11 +1,16 @@
 ﻿
 app.controller('setRoleCtrl', function ($scope, $http) {
     var vm = $scope;
-    $http.post('api/BookStore/GetRoles').then(function (response) {
+    $http.get('api/BookStore/GetRoles').then(function (response) {
         vm.roles = response.data
     })
     vm.apply = function () {
-        $http.post('api/BookStore/SetRole?username=' + vm.username + '&RoleID=' + vm.selectedRoleID.RoleID).then(
+        var setRoleModel = {
+            username: vm.username,
+            roleID: vm.selectedRoleID.ID
+        }
+
+        $http.post('api/BookStore/SetRole', null, { params: setRoleModel }).then(
             function (response) {
                 vm.message = response.data.message,
                 vm.messageStyle = { color: (response.data.success ? 'green' : 'red') };
@@ -14,4 +19,4 @@ app.controller('setRoleCtrl', function ($scope, $http) {
                 console.log(reason);
             })
     }
-})
+});
