@@ -585,7 +585,8 @@ namespace BookStore.Controllers
                     cmd.CommandType = CommandType.StoredProcedure;
                     var result = cmd.ExecuteReader();
 
-                    if (result.Read())
+
+                    while (result.Read())
                     {
                         var genre = new NameIDModel
                         {
@@ -615,7 +616,7 @@ namespace BookStore.Controllers
                     var result = cmd.ExecuteReader();
 
 
-                    if (result.Read())
+                    while (result.Read())
                     {
                         var lang = new NameIDModel
                         {
