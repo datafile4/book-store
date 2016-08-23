@@ -25,17 +25,17 @@ namespace BookStore.Controllers
         ///anything  important :)
         ///
         ///TODO: save conectionString in Web.config file
-        public const string conStr = @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        //@"Data Source=superbookstore.database.windows.net;
-        //Initial Catalog = BookStore;
-        //Integrated Security = False;
-        //User ID = emiraslan;
-        //Password=Orxan12Aslan24;
-        //Connect Timeout = 15;
-        //Encrypt=False;
-        //TrustServerCertificate=True;
-        //ApplicationIntent=ReadWrite;
-        //MultiSubnetFailover=False";
+        public const string conStr = //@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=BookStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+        @"Data Source=superbookstore.database.windows.net;
+        Initial Catalog = BookStore;
+        Integrated Security = False;
+        User ID = emiraslan;
+        Password=Orxan12Aslan24;
+        Connect Timeout = 15;
+        Encrypt=False;
+        TrustServerCertificate=True;
+        ApplicationIntent=ReadWrite;
+        MultiSubnetFailover=False";
 
 
         #endregion
