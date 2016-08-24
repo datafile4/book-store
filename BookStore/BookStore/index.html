@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html ng-app="app" >
+<head>
+    <title> Book Store</title>
+    <meta charset="utf-8" />
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
+
+    <script src="Scripts/Main.js"></script>
+    <script src="Scripts/Login.js"></script>
+    <script src="Scripts/Register.js"></script>
+    <script src="Scripts/UserPage.js"></script>
+    <script src="Scripts/GetBooks.js"></script>
+    <script src="Scripts/UploadBook.js"></script>
+    <script src="Scripts/setRoleCtrl.js"></script>
+
+
+    <link href="CSS/header.css" rel="stylesheet" />
+    <link rel="icon" href="images/Books.ico" />
+</head>
+<body>
+    <div id="smth">
+        <header id="header-home">
+            <ul class="logo" id="title-bar">
+                <li> <img src="images/Books.ico" width="40" height="40" alt="BookStoreLogo" /> </li>
+                <li> <span id="TitleBarName">Practice Book Store</span> </li>
+            </ul>
+            <nav id="top-bar" role="navigation">
+                <ul class="has-dropdown">
+                    <li>
+                        <a href="#/Dashboard">Home</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">New</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="google.com">So On</a> </li>
+                        </ul>
+                    </li>
+                    <li class="divider">|</li>
+                    <li>
+                        <a href="#/Dashboard">Books</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">New Books</a> </li>
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">So On</a> </li>
+                        </ul>
+                    </li>
+                    <li class="divider">|</li>
+                    <li>
+                        <a href="#/Dashboard">About</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">Date</a> </li>
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">So On</a> </li>
+                        </ul>
+                    </li>
+                    <li class="divider">|</li>
+                    <li id="contact">
+                        <a href="#/Dashboard">Contact</a>
+                        <ul class="dropdown">
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">Email</a> </li>
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">Something</a> </li>
+                            <li class="tab-under-dropdown"> <a href="#/Dashboard">So On</a> </li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+            <div class="search">
+                <input type="text" id="search-text" />
+                <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
+            </div>
+
+            <div class="login-register" ng-hide="RoleID > 0">
+                <ul class="login-reg">
+                    <li><a href="#/Register">Register</a></li>
+                    <li>|</li>
+                    <li><a href="#/Login">Login</a></li>
+                </ul>
+            </div>
+            <div class="user-icon" ng-show="RoleID > 0">
+                <ul class="user-icon-list">
+                    <li><a href="#/UserPage"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40" /></a></li>
+                    <li>|</li>
+                    <li><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" width="40" height="40" /></li>
+                    <li>|</li>
+                    <li class="username"><a href="#/UserPage">{{Username}}</a></li>
+                </ul>
+            </div>
+        </header>
+        <button ng-click="Logout()">Logout</button>
+    </div>
+    <ng-view></ng-view>
+</body>
+</html>

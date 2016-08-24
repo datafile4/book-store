@@ -82,22 +82,71 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="HTML\SetRole.html" />
+    <Content Include="Scripts\setRoleCtrl.js" />
+    <Content Include="Sql Queries\Database builder.sql" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="CSS\header.css" />
+    <Content Include="CSS\style.css" />
+    <Content Include="CSS\style_log.css" />
+    <Content Include="CSS\style_reg.css" />
+    <Content Include="index.html" />
+    <Content Include="HTML\Login.html" />
+    <Content Include="HTML\HomePage.html" />
+    <Content Include="HTML\AllProducts.html" />
+    <Content Include="HTML\Register.html" />
+    <Content Include="HTML\UploadBook.html" />
+    <Content Include="HTML\UserPage.html" />
+    <Content Include="images\26102.jpg" />
+    <Content Include="images\3336-grey-texture-1920x1080-abstract-wallpaper.gif" />
+    <Content Include="images\background2.jpg" />
+    <Content Include="images\Blue-Gradient-Wallpapers-Free-Download.png" />
+    <Content Include="images\BookImage.JPG" />
+    <Content Include="images\Books.ico" />
+    <Content Include="images\Brown-Gradient-Wallpapers.jpg" />
+    <Content Include="images\download.jfif" />
+    <Content Include="images\Gradient-Backgrouns-by-Adam-Dorman.jpg" />
+    <Content Include="images\harry_potter.jpg" />
+    <Content Include="images\Jackie-Chan.jpg" />
+    <Content Include="images\Malala.jpg" />
+    <Content Include="images\nizami-gencevi.jpg" />
+    <Content Include="images\OLULER.jpg" />
+    <Content Include="images\slide_eight.jpg" />
+    <Content Include="images\slide_five.jpg" />
+    <Content Include="images\slide_five3.jpg" />
+    <Content Include="images\slide_four.jpg" />
+    <Content Include="images\slide_four43.jpg" />
+    <Content Include="images\slide_nine.jpg" />
+    <Content Include="images\slide_one.jpg" />
+    <Content Include="images\slide_one1 %282%29.jpg" />
+    <Content Include="images\slide_one1.jpg" />
+    <Content Include="images\slide_thre2e.jpg" />
+    <Content Include="images\slide_three.jpg" />
+    <Content Include="images\slide_three4.jpg" />
+    <Content Include="images\slide_two.jpg" />
+    <Content Include="images\slide_two331.png" />
+    <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\GetBooks.js" />
+    <Content Include="Scripts\Login.js" />
+    <Content Include="Scripts\Main.js" />
+    <Content Include="Scripts\Register.js" />
+    <Content Include="Scripts\UploadBook.js" />
+    <Content Include="Scripts\UserPage.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\Attributes.cs" />
+    <Compile Include="Controllers\BookStoreController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Book.cs" />
-    <Compile Include="Models\Card.cs" />
-    <Compile Include="Models\Genre.cs" />
-    <Compile Include="Models\Lang.cs" />
-    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserManagerModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -107,7 +156,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\" />
+    <Folder Include="Properties\PublishProfiles\" />
+    <Folder Include="WebPages\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
