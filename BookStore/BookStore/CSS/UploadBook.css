@@ -1,0 +1,22 @@
+﻿.upload-book-container {
+    width: 100%;
+    background-color: #ddd;
+    height: 300px;
+    text-align: center;
+}
+
+.upload-book-form {
+    display: inline;
+    width:400px;
+}
+
+.text-on-upload{
+    text-align: center;
+    padding: 6px;
+    margin: 8px;
+}
+
+.element-upload-book {
+    padding: 6px;
+    margin: 8px;
+}

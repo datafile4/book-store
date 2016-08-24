@@ -1,18 +1,19 @@
 ﻿<link href="CSS/style.css" rel="stylesheet" />
-
+<link href="../CSS/UploadBook.css" rel="stylesheet" />
 <div class="products-container">
-    <h1>This Is Upload A Book</h1>
-    <input type="text" ng-model="bookName" placeholder="Name of the book"> <br />
-    <input type="text" ng-model="Author" placeholder="Author"><br />
-    <input type="text" ng-model="ImageURL" placeholder="Image"><br />
-
-    <select ng-model="selectedLang" ng-options="l.Name for l in languages"></select>
-    <select ng-model="selectedGenre" ng-options="g.Name for g in genres"></select>
-
-    <input type="text" ng-model="Price" placeholder="Price"><br />
-    <input type="button" ng-click="upload()" value="Upload the book"><br />
-    <p ng-style="messageStyle">{{message}}</p>
-
+    <div class="upload-book-container">
+        <h1>Upload A Book</h1>
+        <form class="upload-book-form">
+            <input type="text" ng-model="bookName" placeholder="Book Name" class="text-on-upload"> <br />
+            <input type="text" ng-model="Author" placeholder="Book Author" class="text-on-upload"><br />
+            <input type="file" ng-model="ImageURL" placeholder="Image" class="element-upload-book"><br />
+            <select ng-model="selectedLang" ng-options="l.Name for l in languages" class="element-upload-book"></select>
+            <select ng-model="selectedGenre" ng-options="g.Name for g in genres" class="element-upload-book"></select><br/>
+            <input type="text" ng-model="Price" placeholder="Price" class="text-on-upload"><br />
+            <input type="button" ng-click="upload()" value="Upload the Book" class="element-upload-book"><br />
+            <p ng-style="messageStyle">{{message}}</p>
+        </form>
+    </div>
     <!--<ul class="product-list">
         <li class="product">
             <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
@@ -66,40 +67,3 @@
         </li>
     </ul>
 </div>
-<div class="bottom-part">
-    <div class="last-part">
-        <div class="col">
-            <strong class="title"><p>Company</p></strong>
-            <ul>
-                <li class=""><a href="http://google.com">About Us</a></li>
-                <li class=""><a href="http://google.com">Management</a></li>
-                <li class=""><a href="http://google.com">CEOs</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <strong class="title"><p>Media</p></strong>
-            <ul>
-                <li class=""><a href="http://google.com">Site News</a></li>
-                <li class=""><a href="http://google.com">Site gallery</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <strong class="title"><p>Careers</p></strong>
-            <ul>
-                <li class=""><a href="http://atl.az/en/careers/hr">Development</a></li>
-                <li class=""><a href="http://atl.az/en/careers/internership-oportunities">Internship</a></li>
-                <li class=""><a href="http://atl.az/en/careers/vacancies">Vacancies</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <strong class="title"><p>Adress</p></strong>
-            <ul>
-                <li class=""><a class="fa fa-facebook" href="https://www.facebook.com">Facebook</a></li>
-                <li class=""><a class="fa fa-instagram" href="http://instagram.com">Instagram</a></li>
-                <li class=""><a class="fa fa-linkedin" href="https://www.linkedin.com">Linkedin</a></li>
-                <li class=""><a class="fa fa-twitter" href="https://twitter.com">Twitter</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="copyright"> <div>Copyright © ATL_Practice_Group 2016. All Rights Reserved.</div> </div>

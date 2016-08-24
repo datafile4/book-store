@@ -51,7 +51,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     })
     .when('/SetRole', {
         templateUrl: 'HTML/SetRole.html',
-        controller: 'setRoleCtrl'
+        controller: 'RoleCtrl'
     })
 
     .otherwise({

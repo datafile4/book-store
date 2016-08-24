@@ -1,14 +1,13 @@
-﻿header {
-    width: 100%;
+header {
+    width: 1000px;
     height: 40px;
-    margin: 0 auto;
-    float: left;
-    background-color: #EEEEEE;
+    margin: auto;
+    background-color: f8f8f8;
 }
 
 header .logo {
     float: left;
-    width: 300px;
+    width: 200px;
     height: 40px;
     text-align: center;
 }
@@ -16,6 +15,7 @@ header .logo {
 header .logo li {
     float: left;
     margin-left: 16px;
+     
     height: 40px;
     text-align: center;
 }
@@ -105,10 +105,11 @@ header nav .has-dropdown li li:hover{
 
 header .login-register {   
     width: 170px;
-    float: right;
+    float: left;
     height: 40px;
     text-align: center;
     background: #c6c6c6;
+    margin-left: 30px;
 }
 
 .login-register .login-reg li {
@@ -124,4 +125,136 @@ header .login-register {
     text-decoration: none;
     color: #ffffff;
     font-size: 16px;
+}
+
+
+
+.bottom-part {
+    float: left;
+    width: 100%;
+    height: 280px;
+    background-color: #d8d8d8;
+    text-align: center;
+}
+
+.bottom-part .col {
+    float: left;
+    margin: 20px 20px;
+    font-size: 14px;
+    
+}
+
+.bottom-part .col a{
+    display: block;
+   color: black;
+    padding-top: 5px;
+    
+}
+
+.bottom-part .col a:hover{
+    color: #f4f4f4;
+    
+}
+
+.title {
+    padding: 20px;
+    display: block;
+}
+
+
+.last-part {
+    margin: 38px auto;
+    width: 590px;
+    height: 200px;
+}
+
+
+
+
+.dropbtn {
+    background-color: #eaeaea;
+    color: white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropbtn:hover, .dropbtn:focus {
+    background-color: #3e8e41;
+}
+
+.dropdown-user-info {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position:static;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown a:hover {background-color: #f1f1f1}
+
+.show {display:block;}
+
+
+
+.search #search-text {
+    float: left;
+    width: 180px;
+    height: 20px;
+    border-radius: 6px;
+    border: 2px solid #d5d5d5;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 8px;
+}
+
+.search #search-button {
+    float: left;
+    margin-top: 5px;
+    width: 28px;
+    height: 28px;
+    margin-left: 5px;
+    border: 2px solid #d5d5d5;
+    border-radius: 6px;
+}
+
+#top-bar {
+    width: 380px;
+    height: 40px;
+}
+
+
+.search {
+    width: 220px;
+    height: 40px;
+    float: left;
+    
+}
+
+
+
+
+
+
+.full-header {
+    width: 100%;
+    height: 40px;
+    background-color: #f8f8f8;
+}
+
+#header-home img {
+    margin-top: 4px;
 }
