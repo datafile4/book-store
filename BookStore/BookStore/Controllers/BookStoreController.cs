@@ -714,6 +714,54 @@ namespace BookStore.Controllers
             return returnModel;
         }
 
+        [HttpGet]
+        public string NumberOfBooksInGenre(int ID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspNumberOfBooksInGenre", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+
+                    var count = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (count > 0)
+                    {
+                        return count.ToString();
+
+                    }
+                    return "0";
+                }
+            }
+
+        }
+
+        [HttpGet]
+        public string NumberOfBooksInLang(int ID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspNumberOfBooksInLang", con))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@ID", SqlDbType.Int).Value = ID;
+                    int count = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (count > 0)
+                    {
+                        return count.ToString();
+                    }
+                    return "0";
+                }
+            }
+            return "0";
+        }
+
+
+
+
+
         private static DataTable CreateItemTable<T>(IEnumerable<T> items)
         {
             DataTable table = new DataTable();

@@ -599,6 +599,20 @@ and
 end
 go
 
+create procedure uspNumberOfBooksInGenre
+	@ID int
+as
+begin
+	select count(ID) from Books where Books.GenreID=@ID
+end
+go
+create procedure uspNumberOfBooksInLang
+	@ID int
+as
+begin
+	select count(ID) from Books where Books.LangID=@ID
+end
+
 
 insert into Stars values
 ('1 Star'),
