@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html ng-app="app">
 
 <head>
@@ -16,38 +16,19 @@
     <script src="Scripts/RoleCtrl.js"></script>
     <link href="CSS/Index.css" rel="stylesheet" />
     <link rel="icon" href="images/Books.ico" />
-    <script>
-        /* When the user clicks on the button,
-                        toggle between hiding and showing the dropdown content */
-        function DropDown() {
-            document.getElementById("myDropdown").classList.toggle("show");
-        }
-        // Close the dropdown if the user clicks outside of it
-        window.onclick = function (event) {
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                        openDropdown.classList.remove('show');
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
 <body>
     <div class="full-header">
         <header id="header-home">
             <ul class="logo" id="title-bar">
-                <li> <img src="images/Books.ico" width="31" height="31" alt="BookStoreLogo" /> </li>
-                <li> <span id="TitleBarName"> Book Store</span> </li>
+                <li> <a href="#/"><img src="images/Books.ico" width="31" height="31" alt="BookStoreLogo" /> </a></li>
+                <li> <a href="#/"><span id="TitleBarName"> Book Store</span> </a></li>
             </ul>
             <nav id="top-bar" role="navigation">
                 <ul class="has-dropdown">
-                    <li> <a href="#/Dashboard">Home</a>
+                    <li>
+                        <a href="#/Dashboard">Home</a>
                         <ul class="dropdown">
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">New</a> </li>
                             <li class="tab-under-dropdown"> <a href="google.com">Something</a> </li>
@@ -55,7 +36,8 @@
                         </ul>
                     </li>
                     <li class="divider">|</li>
-                    <li> <a href="#/Dashboard">Books</a>
+                    <li>
+                        <a href="#/Dashboard">Books</a>
                         <ul class="dropdown">
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">New Books</a> </li>
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">Something</a> </li>
@@ -63,7 +45,8 @@
                         </ul>
                     </li>
                     <li class="divider">|</li>
-                    <li> <a href="#/Dashboard">About</a>
+                    <li>
+                        <a href="#/Dashboard">About</a>
                         <ul class="dropdown">
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">Date</a> </li>
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">Something</a> </li>
@@ -71,7 +54,8 @@
                         </ul>
                     </li>
                     <li class="divider">|</li>
-                    <li id="contact"> <a href="#/Dashboard">Contact</a>
+                    <li id="contact">
+                        <a href="#/Dashboard">Contact</a>
                         <ul class="dropdown">
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">Email</a> </li>
                             <li class="tab-under-dropdown"> <a href="#/Dashboard">Something</a> </li>
@@ -84,59 +68,61 @@
                 <input type="text" id="search-text" />
                 <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
             </div>
-            <div class="login-register" ng-hide="false">
+            <div class="login-register" ng-hide="RoleID > 0">
                 <ul class="login-reg">
                     <li><a href="#/Register">Register</a></li>
                     <li>|</li>
                     <li><a href="#/Login">Login</a></li>
                 </ul>
             </div>
-            <!--<div class="user-icon" ng-show="true">
-                <ul class="user-icon-list">
-                    <li>
-                        
-                        <div class="dropdown-user-info">
-                            <img onclick="DropDown()" class="dropbtn" src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40" />
-                            <div id="myDropdown" class="dropdown-content">
-                                <a href="#home"><img ng-src="{{ImageURL}}" />{{Username}}</a>
-                                <a href="#about">Something</a>
-                                <a href="#contact">Log Out</a>
-                            </div>
+            <div class="login-register" ng-show="RoleID > 0">
+                <div class="user-icon-list">
+                    <div class="upload-image" style="display:inline-block;">
+                        <a href="#/UploadBook"><img src="images/upload.png" width="31" height="31" /></a>
+                    </div>
+                    <div class="MyDropdown" style="margin:auto; display:inline-block;">
+                        <img class="dropbtn" ng-src="{{UserImageURL}}" width="33" height="33" style="border-radius:50%; border:3px solid white;" />
+                        <div class="MyDropdown-content">
+                            <a href="#/UserPage">{{Username}}</a>
+                            <a href="#/Dashboard">Favorite Books</a>
+                            <a href="#/" ng-click="Logout()">Log Out</a>
                         </div>
-                    </li>
-                    <li>|</li>
-                    <li><a href="#/UploadBook"><img src="images/upload.png" width="31" height="31" /></a></li>
+                    </div>
 
-                    <li class="username"><a href="#/UserPage"> Upload Book </a></li>
-                </ul>
-            </div>-->
+
+                </div>
+            </div>
         </header>
     </div>
-    <button ng-click="Logout()">Logout</button>
+
     <ng-view></ng-view>
     <div class="bottom-part">
         <div class="last-part">
-            <div class="col"> <strong class="title"><p>Company</p></strong>
+            <div class="col">
+                <strong class="title"><p>Company</p></strong>
                 <ul>
                     <li class=""><a href="http://google.com">About Us</a></li>
                     <li class=""><a href="http://google.com">Management</a></li>
                     <li class=""><a href="http://google.com">CEOs</a></li>
                 </ul>
             </div>
-            <div class="col"> <strong class="title"><p>Media</p></strong>
+            <div class="col">
+                <strong class="title"><p>Media</p></strong>
                 <ul>
                     <li class=""><a href="http://google.com">Site News</a></li>
                     <li class=""><a href="http://google.com">Site gallery</a></li>
                 </ul>
             </div>
-            <div class="col"> <strong class="title"><p>Careers</p></strong>
+            <div class="col">
+                <strong class="title"><p>Careers</p></strong>
                 <ul>
                     <li class=""><a href="http://atl.az/en/careers/hr">Development</a></li>
                     <li class=""><a href="http://atl.az/en/careers/internership-oportunities">Internship</a></li>
                     <li class=""><a href="http://atl.az/en/careers/vacancies">Vacancies</a></li>
                 </ul>
             </div>
-            <div class="col"> <strong class="title"><p>Adress</p></strong>
+            <div class="col">
+                <strong class="title"><p>Adress</p></strong>
                 <ul>
                     <li class=""><a class="fa fa-facebook" href="https://www.facebook.com">Facebook</a></li>
                     <li class=""><a class="fa fa-instagram" href="http://instagram.com">Instagram</a></li>
