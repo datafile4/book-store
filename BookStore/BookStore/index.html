@@ -1,31 +1,29 @@
 ﻿<!DOCTYPE html>
-<html ng-app="app" >
+<html ng-app="app">
+
 <head>
     <title> Book Store</title>
     <meta charset="utf-8" />
-
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-route.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular-cookies.js"></script>
-
     <script src="Scripts/Main.js"></script>
     <script src="Scripts/Login.js"></script>
     <script src="Scripts/Register.js"></script>
     <script src="Scripts/UserPage.js"></script>
     <script src="Scripts/GetBooks.js"></script>
     <script src="Scripts/UploadBook.js"></script>
-    <script src="Scripts/setRoleCtrl.js"></script>
-
-
-    <link href="CSS/header.css" rel="stylesheet" />
+    <script src="Scripts/RoleCtrl.js"></script>
+    <link href="CSS/Index.css" rel="stylesheet" />
     <link rel="icon" href="images/Books.ico" />
 </head>
+
 <body>
-    <div id="smth">
+    <div class="full-header">
         <header id="header-home">
             <ul class="logo" id="title-bar">
-                <li> <img src="images/Books.ico" width="40" height="40" alt="BookStoreLogo" /> </li>
-                <li> <span id="TitleBarName">Practice Book Store</span> </li>
+                <li> <a href="#/"><img src="images/Books.ico" width="31" height="31" alt="BookStoreLogo" /> </a></li>
+                <li> <a href="#/"><span id="TitleBarName"> Book Store</span> </a></li>
             </ul>
             <nav id="top-bar" role="navigation">
                 <ul class="has-dropdown">
@@ -70,7 +68,6 @@
                 <input type="text" id="search-text" />
                 <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
             </div>
-
             <div class="login-register" ng-hide="RoleID > 0">
                 <ul class="login-reg">
                     <li><a href="#/Register">Register</a></li>
@@ -78,18 +75,66 @@
                     <li><a href="#/Login">Login</a></li>
                 </ul>
             </div>
-            <div class="user-icon" ng-show="RoleID > 0">
-                <ul class="user-icon-list">
-                    <li><a href="#/UserPage"><img src="http://iconshow.me/media/images/ui/ios7-icons/png/256/contact-outline.png" width="40" height="40" /></a></li>
-                    <li>|</li>
-                    <li><img src="https://d30y9cdsu7xlg0.cloudfront.net/png/28468-200.png" width="40" height="40" /></li>
-                    <li>|</li>
-                    <li class="username"><a href="#/UserPage">{{Username}}</a></li>
-                </ul>
+            <div class="login-register" ng-show="RoleID > 0">
+                <div class="user-icon-list">
+                    <div class="upload-image" style="display:inline-block;">
+                        <a href="#/UploadBook"><img src="images/upload.png" width="31" height="31" /></a>
+                    </div>
+                    <div class="MyDropdown" style="margin:auto; display:inline-block;">
+                        <img class="dropbtn" ng-src="{{UserImageURL}}" width="33" height="33" style="border-radius:50%; border:3px solid white;" />
+                        <div class="MyDropdown-content">
+                            <a href="#/UserPage">{{Username}}</a>
+                            <a href="#/Dashboard">Favorite Books</a>
+                            <a href="#/" ng-click="Logout()">Log Out</a>
+                        </div>
+                    </div>
+
+
+                </div>
             </div>
         </header>
-        <button ng-click="Logout()">Logout</button>
     </div>
+
     <ng-view></ng-view>
+    <div class="bottom-part">
+        <div class="last-part">
+            <div class="col">
+                <strong class="title"><p>Company</p></strong>
+                <ul>
+                    <li class=""><a href="http://google.com">About Us</a></li>
+                    <li class=""><a href="http://google.com">Management</a></li>
+                    <li class=""><a href="http://google.com">CEOs</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <strong class="title"><p>Media</p></strong>
+                <ul>
+                    <li class=""><a href="http://google.com">Site News</a></li>
+                    <li class=""><a href="http://google.com">Site gallery</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <strong class="title"><p>Careers</p></strong>
+                <ul>
+                    <li class=""><a href="http://atl.az/en/careers/hr">Development</a></li>
+                    <li class=""><a href="http://atl.az/en/careers/internership-oportunities">Internship</a></li>
+                    <li class=""><a href="http://atl.az/en/careers/vacancies">Vacancies</a></li>
+                </ul>
+            </div>
+            <div class="col">
+                <strong class="title"><p>Adress</p></strong>
+                <ul>
+                    <li class=""><a class="fa fa-facebook" href="https://www.facebook.com">Facebook</a></li>
+                    <li class=""><a class="fa fa-instagram" href="http://instagram.com">Instagram</a></li>
+                    <li class=""><a class="fa fa-linkedin" href="https://www.linkedin.com">Linkedin</a></li>
+                    <li class=""><a class="fa fa-twitter" href="https://twitter.com">Twitter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="copyright">
+        <div>Copyright © ATL_Practice_Group 2016. All Rights Reserved.</div>
+    </div>
 </body>
+
 </html>

@@ -81,17 +81,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CSS\AllProducts.css" />
+    <Content Include="CSS\UploadBook.css" />
     <Content Include="Global.asax" />
     <Content Include="HTML\SetRole.html" />
-    <Content Include="Scripts\setRoleCtrl.js" />
+    <Content Include="images\upload.png" />
+    <Content Include="Scripts\RoleCtrl.js" />
     <Content Include="Sql Queries\Database builder.sql" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="CSS\header.css" />
-    <Content Include="CSS\style.css" />
-    <Content Include="CSS\style_log.css" />
-    <Content Include="CSS\style_reg.css" />
+    <Content Include="CSS\Index.css" />
+    <Content Include="CSS\Style.css" />
+    <Content Include="CSS\StyleLog.css" />
+    <Content Include="CSS\StyleReg.css" />
     <Content Include="index.html" />
     <Content Include="HTML\Login.html" />
     <Content Include="HTML\HomePage.html" />
@@ -147,6 +150,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Properties\PublishProfiles\amiraslan - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -156,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Properties\PublishProfiles\" />
     <Folder Include="WebPages\" />
   </ItemGroup>
   <PropertyGroup>

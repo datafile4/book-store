@@ -1,18 +1,19 @@
 ﻿<link href="CSS/style.css" rel="stylesheet" />
-
+<link href="../CSS/UploadBook.css" rel="stylesheet" />
 <div class="products-container">
-    <h1>This Is Upload A Book</h1>
-    <input type="text" ng-model="bookName" placeholder="Name of the book"> <br />
-    <input type="text" ng-model="Author" placeholder="Author"><br />
-    <input type="text" ng-model="ImageURL" placeholder="Image"><br />
-
-    <select ng-model="selectedLang" ng-options="l.Name for l in languages"></select>
-    <select ng-model="selectedGenre" ng-options="g.Name for g in genres"></select>
-
-    <input type="text" ng-model="Price" placeholder="Price"><br />
-    <input type="button" ng-click="upload()" value="Upload the book"><br />
-    <p ng-style="messageStyle">{{message}}</p>
-
+    <div class="upload-book-container">
+        <h1>Upload A Book</h1>
+        <form class="upload-book-form">
+            <input type="text" ng-model="bookName" placeholder="Book Name" class="text-on-upload"> <br />
+            <input type="text" ng-model="Author" placeholder="Book Author" class="text-on-upload"><br />
+            <input type="file" ng-model="ImageURL" placeholder="Image" class="element-upload-book"><br />
+            <select ng-model="selectedLang" ng-options="l.Name for l in languages" class="element-upload-book"></select>
+            <select ng-model="selectedGenre" ng-options="g.Name for g in genres" class="element-upload-book"></select><br />
+            <input type="text" ng-model="Price" placeholder="Price" class="text-on-upload"><br />
+            <input type="button" ng-click="upload()" value="Upload the Book" class="element-upload-book-button"><br />
+            <p ng-style="messageStyle">{{message}}</p>
+        </form>
+    </div>
     <!--<ul class="product-list">
         <li class="product">
             <div class="product-image"><img src="images/BookImage.JPG" width="200" height="290" /></div>
@@ -28,78 +29,5 @@
             </div>
         </li>
     </ul>-->
+
 </div>
-<div class="footer">
-    <div class="home-container">
-        <div class="paralel-containers">
-            <h5>Book Store </h5>
-            <p> Book Store supply with any kind of book <a href="/uses/internet-of-things.html">Sci-Fi</a>, <a href="/uses/webrtc.html">Documentary</a>, and <a href="/uses/social.html">Detective</a>.Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32. </p>
-        </div>
-        <div class="paralel-containers">
-            <h5>
-                It's cheap and high quality since 1999
-            </h5>
-            <p>, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-        </div>
-        <div class="paralel-containers">
-            <h5>
-                It's a
-                <a href="/about/standards-process.html">living standard</a>
-            </h5>
-            <p> Engineers actively extend and improve it. Millions use and buy books <a href="/software">Book Store</a> daily to read. Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC </p>
-        </div>
-    </div>
-</div>
-<div id="colleagues">
-    <ul class="our-col">
-        <li id="microsoft-logo">
-            <a href="http://microsoft.com" target="_blank"> <img src="https://assets.onestore.ms/cdnfiles/onestorerolling-1607-15000/shell/v3/images/logo/microsoft.png" /> </a>
-        </li>
-        <li id="atl-logo">
-            <a href="http://atl.az" target="_blank"> <img src="http://atl.az/images/svg/logo.svg" /> </a>
-        </li>
-        <li id="google-logo">
-            <a href="http://google.com" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google_Logo" width="181" height="61" /> </a>
-        </li>
-        <li id="apple-logo">
-            <a href="http://apple.com" target="_blank"> <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/2000px-Apple_logo_black.svg.png" alt="Apple_Logo" width="100" height="100" /> </a>
-        </li>
-    </ul>
-</div>
-<div class="bottom-part">
-    <div class="last-part">
-        <div class="col">
-            <strong class="title"><p>Company</p></strong>
-            <ul>
-                <li class=""><a href="http://google.com">About Us</a></li>
-                <li class=""><a href="http://google.com">Management</a></li>
-                <li class=""><a href="http://google.com">CEOs</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <strong class="title"><p>Media</p></strong>
-            <ul>
-                <li class=""><a href="http://google.com">Site News</a></li>
-                <li class=""><a href="http://google.com">Site gallery</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <strong class="title"><p>Careers</p></strong>
-            <ul>
-                <li class=""><a href="http://atl.az/en/careers/hr">Development</a></li>
-                <li class=""><a href="http://atl.az/en/careers/internership-oportunities">Internship</a></li>
-                <li class=""><a href="http://atl.az/en/careers/vacancies">Vacancies</a></li>
-            </ul>
-        </div>
-        <div class="col">
-            <strong class="title"><p>Adress</p></strong>
-            <ul>
-                <li class=""><a class="fa fa-facebook" href="https://www.facebook.com">Facebook</a></li>
-                <li class=""><a class="fa fa-instagram" href="http://instagram.com">Instagram</a></li>
-                <li class=""><a class="fa fa-linkedin" href="https://www.linkedin.com">Linkedin</a></li>
-                <li class=""><a class="fa fa-twitter" href="https://twitter.com">Twitter</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
-<div class="copyright"> <div>Copyright © ATL_Practice_Group 2016. All Rights Reserved.</div> </div>
