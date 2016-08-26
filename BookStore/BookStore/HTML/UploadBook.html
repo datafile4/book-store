@@ -8,9 +8,13 @@
             <input type="text" ng-model="bookName" placeholder="Book Name" class="text-on-upload"> <br />
             <input type="text" ng-model="Author" placeholder="Book Author" class="text-on-upload"><br />
             <input type="file" ng-model="ImageURL" placeholder="Image" class="element-upload-book"><br />
-            <select ng-model="selectedLang" ng-options="l.Name for l in languages" class="element-upload-book"></select>
-            <select ng-model="selectedGenre" ng-options="g.Name for g in genres" class="element-upload-book"></select><br />
-            <input type="number" ng-model="Price" placeholder="Price" class="text-on-upload"><br />
+            <select ng-model="selectedLang" ng-options="l.Name for l in languages" class="element-upload-book">
+                <option class="placeholder" selected disabled value="">Select language</option>
+            </select>
+            <select ng-model="selectedGenre" ng-options="g.Name for g in genres" class="element-upload-book">
+                <option class="placeholder" selected disabled value="">Select genre</option>
+            </select><br />
+            <input type="number" ng-model="Price" placeholder="Price" class="text-on-upload" ><br />
             <input type="button" ng-click="upload()" value="Upload the Book" class="element-upload-book-button"><br />
             <p ng-style="messageStyle">{{message}}</p>
         </form>

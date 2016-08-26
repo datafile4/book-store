@@ -3,19 +3,26 @@
 <div class="sidebar-container">
     <div class="filter-container">
         <form>
-            <!-- Burda NG-REPEATE yazilmalidi -->
-            <ul id="genre-filter" class="container-box-filters">
-                <li><input type="checkbox" /></li>
+            <ul>
+                <li class="filters-li">Languages</li>
+                <li class="filters-li">
+                    <ul class="container-box-filters">
+                        <li ng-repeat="lang in Languages"><input type="checkbox" /> {{lang.Name}}</li>
+                    </ul>
+                </li>
+                <li class="filters-li">Genres</li>
+                <li class="filters-li">
+                    <ul class="container-box-filters">
+                        <li ng-repeat="genre in Genres"><input type="checkbox" /> {{genre.Name}}</li>
+                    </ul>
+                </li>
             </ul>
-            <ul id="lang-filter" class="container-box-filters">
-                <li><input type="checkbox" /></li>
-            </ul>
-
-            <div data-role="rangeslider">
-                <label for="price-min">Price:</label>
-                <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
-                
+            <div>
+                <label for="price-min">Price Range:</label><br/>
+                <span>Min Cost: </span><input type="number" name="price-min" id="price-min" value="0" min="0" max="1000">
+                <span>Max Cost: </span><input type="number" name="price-max" id="price-max" value="1000" min="0" max="1000">
             </div>
+            <input type="button" value="Filter Out" class="element-upload-book-button"/>
         </form>
         
     </div>
