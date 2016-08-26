@@ -9,8 +9,9 @@
     float: left;
     margin-left: 60px;
     width: 280px;
-    height: 500px;
     background-color: #F5F5F5;
+    margin-top: 40px;
+    overflow: auto;
 }
 
 .product {
@@ -71,19 +72,41 @@
     
 }
 
+
+.filters-li{
+    padding: 9px;
+    background-color:white;
+    border: 1px solid #82d9ff;
+    display:block;
+    margin: auto;
+    margin-top: 8px;
+    width:200px;
+}
+
 .element-upload-book-button{
     display:block;
     background-color:#007acc;
     padding: 9px;
     margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
     color: white;
+    border-radius: 4px;
 }
 
-.filters-li{
-    background-color:white;
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+td input{
     border: 1px solid #007acc;
-    display:block;
-    margin: auto;
-    margin-top: 8px;
-    width:200px;
+    text-align:center;
+    
 }

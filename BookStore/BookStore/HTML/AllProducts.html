@@ -7,24 +7,40 @@
                 <li class="filters-li">Languages</li>
                 <li class="filters-li">
                     <ul class="container-box-filters">
-                        <li ng-repeat="lang in Languages"><input type="checkbox" /> {{lang.Name}}</li>
+                        <li ng-repeat="lang in Languages"><input type="checkbox" ng-model="lang.Selected"/> {{lang.Name}}</li>
                     </ul>
                 </li>
                 <li class="filters-li">Genres</li>
                 <li class="filters-li">
                     <ul class="container-box-filters">
-                        <li ng-repeat="genre in Genres"><input type="checkbox" /> {{genre.Name}}</li>
+                        <li ng-repeat="genre in Genres"><input type="checkbox" ng-model="genre.Selected" /> {{genre.Name}}</li>
                     </ul>
                 </li>
+                <li class="filters-li">
+                    <label for="price-min">Price Range:</label><br />
+                </li>
+                <li class="filters-li">
+                    <table>
+                        <thead>
+                            <tr>
+                                <td><span>Min Cost </span></td>
+                                <td><span>Max Cost </span></td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" name="price-max" id="price-max" ng-init="LowPrice=0" min="0" max="1000"  ng-model="LowPrice"></td>
+                                <td><input type="number" name="price-min" id="price-min" ng-init="HighPrice=1000" min="0" max="1000" ng-model="HighPrice"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </li>
             </ul>
-            <div>
-                <label for="price-min">Price Range:</label><br/>
-                <span>Min Cost: </span><input type="number" name="price-min" id="price-min" value="0" min="0" max="1000">
-                <span>Max Cost: </span><input type="number" name="price-max" id="price-max" value="1000" min="0" max="1000">
-            </div>
-            <input type="button" value="Filter Out" class="element-upload-book-button"/>
+
+            <input type="button" value="Apply" class="element-upload-book-button" ng-click="ApplySelectedFilters()"/>
+
         </form>
-        
+
     </div>
 </div>
 <div class="products-container">
@@ -36,7 +52,7 @@
                 <ul class="product-parameters-list">
                     <li class="parameters">Name: {{book.Name}}</li>
                     <li class="parameters">Author: {{book.Author}}</li>
-                    <li class="parameters">Price: {{book.Pirce}}</li>
+                    <li class="parameters">Price: {{book.Price}}</li>
                     <li class="parameters">Seller: {{book.Uploader.FirstName}}</li>
                     <li class="parameters">Language: {{book.Language}}</li>
                     <li class="parameters">Genre: {{book.Genre}}</li>

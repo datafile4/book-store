@@ -1,5 +1,5 @@
-﻿app.controller('UserPage', function ($scope, $http, $window) {
-    
+﻿app.controller('UserPage', function ($scope, $http, $routeParams, $window) {
+
     var GetUnconfirmedBooks = function () {
         $http.get("api/BookStore/GetUnconfirmedBooks").then(
         function (response) {
@@ -10,16 +10,25 @@
         })
     };
 
-    GetUnconfirmedBooks();
-    $http.get("api/BookStore/GetCurrentUserInfo")
-        .success(function (data) {
+    var SetUserData = function (data) {
         $scope.FirstName = data.FirstName;
         $scope.LastName = data.LastName;
         $scope.Email = data.Email;
         $scope.Username = data.Username;
-    })
+    };
 
-   
+    GetUnconfirmedBooks();
+
+    if ($routeParams.ID) {
+        $http.get("api/BookStore/GetUserInfo", { params: {ID: $routeParams.ID}})
+            .success(SetUserData)
+    } else {
+
+        $http.get("api/BookStore/GetCurrentUserInfo")
+            .success(SetUserData)
+    }
+
+
 
     $scope.CheckAll = function () {
         $scope.AllSelected = !$scope.AllSelected;
@@ -29,7 +38,7 @@
     }
 
     var confirmOrdelete = function (url, obj) {
-        
+
         var config = null;
         var data = null;
 
@@ -51,7 +60,7 @@
     )
     };
 
-    $scope.Confirm = function(index) {
+    $scope.Confirm = function (index) {
         confirmOrdelete('api/BookStore/ConfirmBook', { params: { ID: $scope.Books[index].ID } });
     }
 

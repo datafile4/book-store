@@ -33,7 +33,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         templateUrl: 'HTML/AllProducts.html',
         controller: 'GetBooks'
     })
-    .when('/UserPage', {
+    .when('/UserPage/:ID?', {
         resolve: {
             "check": function ($location, $rootScope) {
                 console.log("$rootScope.RoleID: " + $rootScope.RoleID);
@@ -45,6 +45,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         templateUrl: 'HTML/UserPage.html',
         controller: 'UserPage'
     })
+
     .when('/UploadBook', {
         templateUrl: 'HTML/UploadBook.html',
         controller: 'UploadBook'
@@ -66,7 +67,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     }
     $rootScope.UpdateRoleID = function () {
         $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {
-            $rootScope.Username = data.Username;
+            $rootScope.CurrentUsername = data.Username;
             console.log(data);
             $rootScope.UserImageURL = data.ImageUrl;
         })
