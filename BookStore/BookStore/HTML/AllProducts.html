@@ -1,13 +1,30 @@
-﻿<link href="CSS/style.css" rel="stylesheet" />
+﻿<link href="../CSS/AllProducts.css" rel="stylesheet" />
+
 <div class="sidebar-container">
+    <div class="filter-container">
+        <form>
+            <!-- Burda NG-REPEATE yazilmalidi -->
+            <ul id="genre-filter" class="container-box-filters">
+                <li><input type="checkbox" /></li>
+            </ul>
+            <ul id="lang-filter" class="container-box-filters">
+                <li><input type="checkbox" /></li>
+            </ul>
 
-
+            <div data-role="rangeslider">
+                <label for="price-min">Price:</label>
+                <input type="range" name="price-min" id="price-min" value="200" min="0" max="1000">
+                
+            </div>
+        </form>
+        
+    </div>
 </div>
 <div class="products-container">
     <ul class="product-list">
         {{book.Name}}
         <li class="product" ng-repeat="book in Books">
-            <div class="product-image"><img src="{{book.ImageURL}}" width="200" height="290" /></div>
+            <div class="product-image"><img src="{{book.ImageURL}}" width="200" height="300" /></div>
             <div class="product-parameters">
                 <ul class="product-parameters-list">
                     <li class="parameters">Name: {{book.Name}}</li>
