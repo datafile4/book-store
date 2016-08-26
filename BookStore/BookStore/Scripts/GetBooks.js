@@ -4,7 +4,7 @@
 
 
     console.log("Geldiiii 1 \n");
-    var res = $http.post("api/bookstore/GetBooks", { PageNumber: 0, PageLength: 5 });
+    var res = $http.post("api/bookstore/GetBooks", { PageNumber: 0, PageLength: 10 });
     console.log("Geldiiii 2 \n");
     res.success(function (response) {
         f.Books = response;

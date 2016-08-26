@@ -61,10 +61,13 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
 }]).run(function ($rootScope, $location, $http, $cookies) {
 
     $rootScope.Logout = function() {
+        $cookies.remove('user-g', { domain: '.amiraslan.azurewebsites.net' });
         $cookies.remove('user-g');
         $rootScope.UpdateRoleID();
         $location.path('/');
     }
+    
+
     $rootScope.UpdateRoleID = function () {
         $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {
             $rootScope.CurrentUsername = data.Username;
