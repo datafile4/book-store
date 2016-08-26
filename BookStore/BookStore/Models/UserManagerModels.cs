@@ -34,6 +34,16 @@ namespace BookStore.Models
         public string Password { get; set; }
     }
 
+
+    public class RatingModel
+    {
+        public int Star1 { get; set; }
+        public int Star2 { get; set; }
+        public int Star3 { get; set; }
+        public int Star4 { get; set; }
+        public int Star5 { get; set; }
+    }
+
     public class NameIDModel
     {
         public int ID { get; set; }
@@ -49,6 +59,7 @@ namespace BookStore.Models
         public string Email { get; set; }
         public string ImageUrl { get; set; }
         public int RoleID { get; set; }
+        public RatingModel Ratings { get; set; }
     }
 
     public class BookModel
@@ -61,5 +72,22 @@ namespace BookStore.Models
         public string Language { get; set; }
         public decimal Price { get; set; }
         public UserModel Uploader { get; set; }
+    }
+
+
+    public class FilterModel
+    {
+        public IEnumerable<int> GenreIDs;
+        public IEnumerable<int> LangIDs;
+        public IEnumerable<string> SearchTerms;
+        public decimal LowPrice { get; set; }
+        public decimal HighPrice { get; set; }
+        public PaginationModel Pagination {get;set;}
+    }
+
+    public class PaginationModel
+    {
+        public int PageNumber { get; set; }
+        public int PageLength { get; set; }
     }
 }

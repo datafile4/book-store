@@ -10,7 +10,14 @@ go
 use BookStore
 go
 
+create table Stars
+(
+ID INT not null identity(1,1),
+Name nvarchar(50) not null,
 
+constraint PK_Stars_ID Primary Key(ID),
+constraint UQ_Stars_Name unique(Name)
+)
 
 Create Table Langs(
 ID INT not null identity(1,1),
@@ -51,6 +58,19 @@ constraint UQ_User_Username unique (Username),
 constraint UQ_User_Email unique(Email),
 constraint FK_Users_RoleID Foreign key (RoleID) references Roles(ID)
 );
+
+create table Ratings
+(
+ ID  int not null identity(1,1),
+ UserID  int not null,
+ GiverID int not null,
+ StarID  int not null,
+
+constraint PK_Ratings_ID primary key(ID),
+constraint FK_Ratings_UserID foreign key(UserID) references Users(ID),
+constraint FK_Ratings_GiverID foreign key(GiverID) references Users(ID),
+constraint FK_Ratings_StarID foreign key(StarID) references Stars(ID)
+)
 
 Create Table UserLogins(
 ID int not null identity(1,1),
@@ -150,9 +170,14 @@ begin
 select 
    Books.ID,
    Books.Name, Author,
-   Books.ImageUrl, Price,
+   Price, Books.ImageUrl,
    Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 from Carts
 inner join Users on Users.ID = Carts.UserID
 inner join Books on Books.ID = Carts.BookID
@@ -162,19 +187,58 @@ where Carts.UserID = @UserID
 end
 go
 
-create procedure uspGetAllBooks
+create procedure uspGetRandomBooks
+(
+@PageLength int
+)
 as
-begin 
-   select Books.ID,
+begin  
+   select 
+   Books.ID,
    Books.Name, Author,
-   Books.ImageUrl, Price,
+   Price, Books.ImageUrl,
    Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 
    from Books
     inner join Users on  Books.UserID=Users.ID
 	inner join Langs on Books.LangID=Langs.ID 
 	inner join Genres on Books.GenreID=Genres.ID
+
+   order by	NEWID() offset 0 Rows Fetch Next @PageLength Rows only;
+end
+go
+
+create procedure uspGetBooks
+(
+@PageNumber int,
+@PageLength int
+)
+as
+begin  
+   select 
+   Books.ID,
+   Books.Name, Author,
+   Price, Books.ImageUrl,
+   Langs.Name, Genres.Name,
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
+
+   from Books
+    inner join Users on  Books.UserID=Users.ID
+	inner join Langs on Books.LangID=Langs.ID 
+	inner join Genres on Books.GenreID=Genres.ID
+
+   order by	Books.ID desc offset @PageNumber * @PageLength Rows Fetch Next @PageLength Rows only;
 end
 go
 
@@ -185,10 +249,16 @@ create procedure uspGetBookInfo
 as 
 begin 
    select
+   Books.ID,
    Books.Name, Author,
-   Books.ImageUrl, Price,
+   Price, Books.ImageUrl, 
    Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 
    from Books
     inner join Users on  Books.UserID=Users.ID
@@ -201,11 +271,17 @@ go
 create procedure uspGetUnconfirmedBooks
 as
 begin
-select Books.ID,
+   select 
+   Books.ID,
    Books.Name, Author,
-   Books.ImageUrl, Price,
+   Price, Books.ImageUrl,
    Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 
    from Books
     inner join Users on  Books.UserID=Users.ID
@@ -233,25 +309,20 @@ begin
 end
 go
 
-create procedure uspGetUserInfoFromID
+create procedure uspGetUserInfo
 (
 	@UserID int
 )
 as 
 begin
-	select  email, lastname, firstname, username, roleID from Users
-	where ID = @UserID
-end
-go
-
-create procedure uspGetUserInfo
-(
-	@Username nvarchar(100)
-)
-as 
-begin
-	select id, email, lastname, firstname, roleID from Users
-	where username = @Username
+	select  ID, FirstName, LastName, Username, Email, ImageUrl, RoleID,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
+	from Users
+	where Users.ID = @UserID
 end
 go
 
@@ -353,6 +424,11 @@ create type IntListType
 as table(item int)
 go
 
+create type StringListType
+as table(item nvarchar(100))
+go
+
+
 create procedure uspConfirmBooks
 (
   @BookIDs IntListType readonly
@@ -451,6 +527,100 @@ begin
 end
 go
 
+create procedure uspRateUser
+(
+ @UserID int,
+ @GiverID int,
+ @StarID int
+)
+as
+begin 
+	declare @RatingID int = (select ID from Ratings where UserID = @UserID and GiverID = @GiverID)
+
+	if @RatingID is not null
+	
+		if (@StarID = 0)
+			delete from Ratings where ID = @RatingID
+		else	
+			update Ratings
+				set UserID = @UserID,
+					GiverID = @GiverID,
+					StarID = @StarID
+				where ID = @RatingID
+	else
+		if (@StarID != 0)
+			insert into Ratings values (@UserID, @GiverID, @StarID)
+end
+go
+
+create procedure uspGetRatedStar
+(
+ @UserID int,
+ @GiverID int
+)
+as
+begin
+	select StarID from Ratings
+	where UserID = @UserID and GiverID = @GiverID
+end
+go
+
+create procedure uspGetFilteredBooks
+(
+@GenreIDs IntListType readonly,
+@LangIDs IntListType readonly,
+@SearchTexts StringListType readonly,
+@LowPrice decimal,
+@HighPrice decimal,
+@PageNumber int,
+@PageLength int
+)
+as
+begin 
+  select 
+  Books.ID,
+  Books.Name, Author,
+  Price, Books.ImageUrl,
+  Langs.Name, Genres.Name,
+  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+
+  from Books
+   inner join Users on  Books.UserID=Users.ID
+inner join Langs on Books.LangID=Langs.ID 
+inner join Genres on Books.GenreID=Genres.ID
+where 
+((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
+and
+((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
+and
+(Price between @LowPrice and @HighPrice) 
+
+ order by Books.ID offset @PageNumber * @PageLength Rows Fetch Next @PageLength Rows only;
+end
+go
+
+create procedure uspNumberOfBooksInGenre
+	@ID int
+as
+begin
+	select count(ID) from Books where Books.GenreID=@ID
+end
+go
+create procedure uspNumberOfBooksInLang
+	@ID int
+as
+begin
+	select count(ID) from Books where Books.LangID=@ID
+end
+
+
+insert into Stars values
+('1 Star'),
+('2 Star'),
+('3 Star'),
+('4 Star'),
+('5 Star')
+
 insert into Roles values
 ('User'),
 ('Moderator'),
@@ -478,6 +648,10 @@ insert into Langs values
 ('Russian'),
 ('Spanish'),
 ('Turkish')
+
+exec uspRateUser 1,2,5;
+exec uspRateUser 1,3,5;
+exec uspRateUser 1,5,5;
 
 insert into Books (Name, Author, ImageUrl, Price, LangID, GenreID, UserID) Values 
 ('BrakingBad','Wince Gilligan','../images/BookImage.JPG',120,1,2,1),
