@@ -569,7 +569,7 @@ create procedure uspGetFilteredBooks
 (
 @GenreIDs IntListType readonly,
 @LangIDs IntListType readonly,
-@SearchTexts StringListType readonly,
+@SearchTerms StringListType readonly,
 @LowPrice decimal,
 @HighPrice decimal,
 @PageNumber int,
@@ -582,7 +582,12 @@ begin
   Books.Name, Author,
   Price, Books.ImageUrl,
   Langs.Name, Genres.Name,
-  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+     (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 
   from Books
    inner join Users on  Books.UserID=Users.ID
