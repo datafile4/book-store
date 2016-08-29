@@ -1,7 +1,10 @@
-﻿body {
+﻿
+
+body {
     font-family: "Trebuchet MS", Arial, "Comic Sans MS";
     color: #303030;
-    background-image: url('http://www.thebeautifultentcompany.co.uk/The_Beautiful_Tent_Company/Transport_files/light%20grey%20floral%20background_1.jpg');
+    background-image: url('http://wallpapercave.com/wp/tk2j9LI.jpg');
+    background-size: cover;
 }
 
 
@@ -15,8 +18,9 @@
 }
 
 .product {
-    background-color: #eee;
-    height: 300px;
+    background-image: url('http://wallpapercave.com/wp/f2nbsPJ.jpg');
+    background-size: cover;
+    height: 250px;
     width: 760px;
     float: left;
     margin: 13px;
@@ -28,23 +32,22 @@
 
 .product-list {
     margin: auto;
-    color: #000000; /* #e8cd2a;*/
+    color: #fff; /* #e8cd2a;*/
     width: 60%;
-    text-align: center;
     min-height: 100px;
-    overflow: auto;
+    overflow: hidden;
     margin-top: 40px;
     margin-bottom: 40px;
 }
 
 .product-parameters {
     float: left;
-    text-align: center;
+    margin-left: 20px;
     font-size: 14px;
-    margin-top: 3px;
-    line-height: 40px;
+    margin-top: 10px;
     height: 274px;
-    width: 540px;
+    width: 440px;
+    
 }
 
 .product .product-image {
@@ -53,25 +56,60 @@
     border-radius: 5px;
 }
 
-.product-parameters-list .parameters {
-    background-color: #eee;
-    border: 1px solid white;
-    padding: 2px;
-    margin-top: 2px;
-    width: 550px;
+.product-parameters-list > li{
+    width: 250px;
+    height: 30px;
+}
+
+.product-parameters-list > li.book-name
+{
+    font-size: 23px;
+    height:auto;
+    color: #fff;
+    
+}
+
+
+.book-price
+{
+    margin-top: 20px;
+    font-size: 26px;
+    display: inline;
+}
+
+.book-seller
+{
+    display: inline-block;
+    margin-left: 200px; 
+}
+
+.book-lang{
+    font-size: 15px
+}
+.book-genre{
+    font-size: 15px
+}
+
+.book-author{
+    font-size: 13px;
+    display: block;
+}
+
+.book-seller a{
+    color: #007acc;
+}
+
+.seller-info{
+    display:inline-block;
 }
 
 .container-box-filters {
-    
     padding: 20px;
     height: 100px;
-    
     display:block;
     width:200px;
     margin:auto;
-    
 }
-
 
 .filters-li{
     padding: 9px;
@@ -108,5 +146,4 @@ th, td {
 td input{
     border: 1px solid #007acc;
     text-align:center;
-    
 }

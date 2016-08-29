@@ -7,7 +7,7 @@
                 <li class="filters-li">Languages</li>
                 <li class="filters-li">
                     <ul class="container-box-filters">
-                        <li ng-repeat="lang in Languages"><input type="checkbox" ng-model="lang.Selected"/> {{lang.Name}}</li>
+                        <li ng-repeat="lang in Languages"><input type="checkbox" ng-model="lang.Selected" /> {{lang.Name}}</li>
                     </ul>
                 </li>
                 <li class="filters-li">Genres</li>
@@ -29,7 +29,7 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="number" name="price-max" id="price-max" ng-init="LowPrice=0" min="0" max="1000"  ng-model="LowPrice"></td>
+                                <td><input type="number" name="price-max" id="price-max" ng-init="LowPrice=0" min="0" max="1000" ng-model="LowPrice"></td>
                                 <td><input type="number" name="price-min" id="price-min" ng-init="HighPrice=1000" min="0" max="1000" ng-model="HighPrice"></td>
                             </tr>
                         </tbody>
@@ -37,7 +37,7 @@
                 </li>
             </ul>
 
-            <input type="button" value="Apply" class="element-upload-book-button" ng-click="ApplySelectedFilters()"/>
+            <input type="button" value="Apply" class="element-upload-book-button" ng-click="ApplySelectedFilters()" />
 
         </form>
 
@@ -45,17 +45,22 @@
 </div>
 <div class="products-container">
     <ul class="product-list">
-        {{book.Name}}
         <li class="product" ng-repeat="book in Books">
-            <div class="product-image"><img src="{{book.ImageURL}}" width="200" height="300" /></div>
+            <div class="product-image"><img src="{{book.ImageURL}}" width="180" height="250" /></div>
             <div class="product-parameters">
                 <ul class="product-parameters-list">
-                    <li class="parameters">Name: {{book.Name}}</li>
-                    <li class="parameters">Author: {{book.Author}}</li>
-                    <li class="parameters">Price: {{book.Price}}</li>
-                    <li class="parameters">Seller: {{book.Uploader.FirstName}}</li>
-                    <li class="parameters">Language: {{book.Language}}</li>
-                    <li class="parameters">Genre: {{book.Genre}}</li>
+                    <li class="book-name">{{book.Name}}</li>
+                    <li class="book-author">by {{book.Author}}</li>
+                    <li class="book-price">${{book.Price}}</li>
+                    <li class="book-seller">
+                        <ul class="seller-info">
+                            <li>Seller: <a href="#/UserPage/{{book.Uploader.ID}}">{{book.Uploader.FirstName}}</a></li>
+                            <li>Rate : <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAkklEQVR4AdXTMQrDMAyF4UIgmydBB68BDwZBQEf7709rjFtwRdRka/M2oW94Ir49LuaXwfwhyDz5BhS9ABCsRc4D7UBPAhI2kgLASuJOpqBvoBRymyZWDyoWpHqwBKSy+A7HpK0flH4Rv+6Bu9B0qQCIAxKD7ECOwTbWSov1bCHopZU0+ihGjcGOfPyGuwf//qafuZqXBK6OLwsAAAAASUVORK5CYII=" /></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="book-lang">in {{book.Language}}</li>
+                    <li class="book-genre">{{book.Genre}} genre</li>
                 </ul>
             </div>
         </li>

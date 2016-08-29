@@ -13,7 +13,7 @@
     </div>
 </div>
 
-<div class="admin-control" ng-show="Books.length">
+<div class="admin-control" ng-show="Books.length && CurrentUsername == Username ">
     <div class="buttons">
         <input class="confirm-button" type="button" name="confirm" value="Check All" ng-click="CheckAll()">
         <input type="button" class="confirm-button" value="Confirm Selected" ng-click="ConfirmSelected()">
@@ -58,6 +58,6 @@
         </tbody>
     </table>
 </div>
-<div class="no-data" ng-show="!Books.length">
+<div class="no-data" ng-show="!Books.length && CurrentUsername == Username">
     <span  >No Unconfirmed Book is Available</span>
 </div>
