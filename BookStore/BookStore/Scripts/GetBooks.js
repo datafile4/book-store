@@ -1,18 +1,20 @@
 ﻿app.controller('GetBooks', function ($scope, $http) {
 
+    var f = $scope;
+
+
     console.log("Geldiiii 1 \n");
-    var res = $http.post("api/bookstore/GetBooks", { PageNumber : 0, PageLength : 10});
+    var res = $http.post("api/bookstore/GetBooks", { PageNumber: 0, PageLength: 10 });
     console.log("Geldiiii 2 \n");
     res.success(function (response) {
-        $scope.Books = response;
+        f.Books = response;
     });
     res.error(function (response) {
-       
+
         console.log("In controller error!!" + JSON.stringify(response));
     })
 
 
-    var f = $scope;
 
 
     $http.get('api/BookStore/GetLanguages').success(function (data) {
@@ -47,5 +49,40 @@
 
     }
 
+    $scope.ApplySelectedFilters = function () {
+        var LangsID = [];
+        angular.forEach(f.Languages, function (lang) {
+            if (lang.Selected) {
+                LangsID.push(lang.ID);
+            }
+        })
 
-})
+        var GenresID = [];
+        angular.forEach(f.Genres, function (genre) {
+            if (genre.Selected) {
+                GenresID.push(genre.ID);
+            }
+        })
+
+        var Filter = {
+            GenreIDs: GenresID,
+            LangIDs: LangsID,
+            SearchTerms: [], 
+            LowPrice: f.LowPrice,
+            HighPrice: f.HighPrice,
+            Pagination: {
+                PageNumber: 0,
+                PageLength: 10
+            }
+        };
+
+        $http.post("api/BookStore/GetFilteredBooks", Filter)
+        .then(
+        function (response) {
+            f.Books = response.data;
+        },
+        function (response) {
+            console.log(response);
+        });
+    }
+});

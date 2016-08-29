@@ -569,7 +569,7 @@ create procedure uspGetFilteredBooks
 (
 @GenreIDs IntListType readonly,
 @LangIDs IntListType readonly,
-@SearchTexts StringListType readonly,
+@SearchTerms StringListType readonly,
 @LowPrice decimal,
 @HighPrice decimal,
 @PageNumber int,
@@ -582,7 +582,12 @@ begin
   Books.Name, Author,
   Price, Books.ImageUrl,
   Langs.Name, Genres.Name,
-  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID
+  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+     (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 
   from Books
    inner join Users on  Books.UserID=Users.ID
@@ -654,6 +659,9 @@ exec uspRateUser 1,3,5;
 exec uspRateUser 1,5,5;
 
 insert into Books (Name, Author, ImageUrl, Price, LangID, GenreID, UserID) Values 
+('A Brief History of Time', 'Stephen Hawking', 'https://upload.wikimedia.org/wikipedia/en/a/a3/BriefHistoryTime.jpg', 200, 4, 1 , 2 ),
+('Mein Kampf', 'Adolf Hilter', 'https://images-na.ssl-images-amazon.com/images/I/41tTZSUxoyL._SX317_BO1,204,203,200_.jpg', 73, 2, 1 , 2 ),
+('Algorithms', 'Thomas Cormen', 'https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg', 100, 4, 1 , 1 ),
 ('BrakingBad','Wince Gilligan','../images/BookImage.JPG',120,1,2,1),
 ('Harry Potter','J. K. Rowling','../images/harry_potter.jpg',180,1,5,2),
 ('Ya Malala','Ya Malala','../images/Malala.jpg',15,2,6,5),

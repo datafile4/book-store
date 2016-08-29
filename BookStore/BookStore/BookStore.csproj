@@ -83,6 +83,7 @@
   <ItemGroup>
     <Content Include="CSS\AllProducts.css" />
     <Content Include="CSS\UploadBook.css" />
+    <Content Include="CSS\UserPage.css" />
     <Content Include="Global.asax" />
     <Content Include="HTML\SetRole.html" />
     <Content Include="images\upload.png" />

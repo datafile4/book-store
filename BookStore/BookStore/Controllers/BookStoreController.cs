@@ -714,7 +714,7 @@ namespace BookStore.Controllers
                 using (var cmd = new SqlCommand("uspGetFilteredBooks", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
-                    Param = cmd.Parameters.AddWithValue("@BookIDs", CreateItemTable(filter.GenreIDs));
+                    Param = cmd.Parameters.AddWithValue("@GenreIDs", CreateItemTable(filter.GenreIDs));
                     Param.SqlDbType = SqlDbType.Structured;
                     Param.TypeName = "IntListType";
 

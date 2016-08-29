@@ -80,12 +80,12 @@
             <div class="login-register" ng-show="RoleID > 0">
                 <div class="user-icon-list">
                     <div class="upload-image" style="display:inline-block;">
-                        <a href="#/UploadBook"><img src="images/upload.png" width="31" height="31" /></a>
+                        <a href="#/UploadBook" style="display:block; height:2px;"><img src="images/upload.png" width="30" height="31" /></a>
                     </div>
                     <div class="MyDropdown" style="margin:auto; display:inline-block;">
-                        <img class="dropbtn" ng-src="{{UserImageURL}}" width="33" height="33" style="border-radius:50%; border:3px solid white;" />
+                        <img class="dropbtn" ng-src="{{UserImageURL}}" width="30" height="30" style="border-radius:50%; border:3px solid white;" />
                         <div class="MyDropdown-content">
-                            <a href="#/UserPage">{{Username}}</a>
+                            <a href="#/UserPage">{{CurrentUsername}}</a>
                             <a href="#/Dashboard">Favorite Books</a>
                             <a href="#/" ng-click="Logout()">Log Out</a>
                         </div>

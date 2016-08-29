@@ -7,13 +7,12 @@
 
 .sidebar-container {
     float: left;
-    margin-left: 10px;
+    margin-left: 60px;
     width: 280px;
-    height: 500px;
     background-color: #F5F5F5;
+    margin-top: 40px;
+    overflow: auto;
 }
-
-
 
 .product {
     background-color: #eee;
@@ -21,6 +20,7 @@
     width: 760px;
     float: left;
     margin: 13px;
+    margin-left:5px;
     border-radius: 3px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
 }
@@ -61,9 +61,52 @@
     width: 550px;
 }
 
-container-box-filters {
-    border: 2px solid #ccc;
-    width: 300px;
+.container-box-filters {
+    
+    padding: 20px;
     height: 100px;
-    overflow-y: scroll;
+    
+    display:block;
+    width:200px;
+    margin:auto;
+    
+}
+
+
+.filters-li{
+    padding: 9px;
+    background-color:white;
+    border: 1px solid #82d9ff;
+    display:block;
+    margin: auto;
+    margin-top: 8px;
+    width:200px;
+}
+
+.element-upload-book-button{
+    display:block;
+    background-color:#007acc;
+    padding: 9px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    color: white;
+    border-radius: 4px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+td input{
+    border: 1px solid #007acc;
+    text-align:center;
+    
 }
