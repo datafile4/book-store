@@ -1,0 +1,112 @@
+body {
+    font-family: "Trebuchet MS", Arial, "Comic Sans MS";
+    color: #303030;
+    background-image: url('http://www.thebeautifultentcompany.co.uk/The_Beautiful_Tent_Company/Transport_files/light%20grey%20floral%20background_1.jpg');
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    text-decoration: none;
+}
+
+
+.user-icon-list {
+    height: 40px;
+}
+
+    .user-icon-list li {
+        float: right;
+        padding-left: 5px;
+        line-height: 38px;
+    }
+
+.username a {
+    text-decoration: none;
+    font-size: 20px;
+    line-height: 38px;
+    color: azure;
+}
+
+.user-icon {
+    float: right;
+    background: #d9d9d9;
+    width: 222px;
+    height: 40px;
+}
+
+.user_data_container {
+    margin: 100px;
+    margin-left: 200px;
+    width: 990px;
+    height: 360px;
+    background: #36a8b7;
+}
+
+.user_image {
+    width: 220px;
+    height: 267px;
+    background-color: #eee;
+    float: left;
+}
+
+.userdata-list {
+    float: left;
+    height: 235px;
+    padding-top: 31px;
+    padding-left: 40px;
+    width: 720px;
+}
+
+.user-parameters {
+    padding: 13px;
+    font-family: "Arial";
+    font-weight: bold;
+    color: antiquewhite;
+}
+
+
+#prod-wrapper {
+    height: 40px;
+}
+
+.confirm-button {
+    padding: 5px;
+    background-color: #303030;
+    display: block;
+    width: auto;
+    margin: auto;
+    margin-bottom: 3px;
+    color: aliceblue;
+}
+
+.buttons {
+    display: block;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: aliceblue;
+    margin-bottom: 180px;
+}
+
+th, td {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.no-data {
+    background-color: white;
+    width: 30%;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+    margin: auto;
+    border-radius: 7px;
+    margin-bottom: 100px;
+}

@@ -324,17 +324,6 @@ body {
     height:40px;
 }
 
-.admin-control-table  {
-    float: left;
-    border: 1px solid black;
-    padding: 9px;
-    text-align: center;
-    background-color: #36A8B7;
-}
-
-.admin-control-table , th, td {
-    border: 1px solid black;
-}
 
 .confirm-button {
     padding: 2px;

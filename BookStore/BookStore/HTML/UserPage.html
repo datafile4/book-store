@@ -1,4 +1,4 @@
-﻿<link href="CSS/Style.css" rel="stylesheet" />
+﻿<link href="../CSS/UserPage.css" rel="stylesheet" />
 
 <div class="user_data_container">
     <div class="user_image"> <img src="images/Jackie-Chan.jpg" height="267" width="220" /> </div>
@@ -13,44 +13,51 @@
     </div>
 </div>
 
-<div class="admin-control">
+<div class="admin-control" ng-show="Books.length">
     <div class="buttons">
         <input class="confirm-button" type="button" name="confirm" value="Check All" ng-click="CheckAll()">
         <input type="button" class="confirm-button" value="Confirm Selected" ng-click="ConfirmSelected()">
     </div>
     <table class="admin-control-table">
-        <tr>
-            <th>Index</th>
-            <th>Book Name</th>
-            <th>Author</th>
-            <th>Image</th>
-            <th>Price</th>
-            <th>Language</th>
-            <th>Genre</th>
-            <th>Uploader Name</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Confirm</th>
-            <th>Select Book</th>
-        </tr>
-        <tr ng-repeat="book in Books">
-            <td>{{$index+1}}</td>
-            <td>{{book.Name}}</td>
-            <td>{{book.Author}} </td>
-            <td><img ng-src="{{book.ImageURL}}" height="80" width="60" /></td>
-            <td>{{book.Price}}</td>
-            <td>{{book.Language}}</td>
-            <td>{{book.Genre}}</td>
-            <td>{{book.Uploader.FirstName}} {{book.Uploader.LastName}}</td>
-            <td>{{book.Uploader.Username}}</td>
-            <td>{{book.Uploader.Email}}</td>
-            <td>
-                <input class="confirm-button" type="button" name="confirm" value="Confirm" ng-click="Confirm($index)">
-                <input class="confirm-button" type="button" name="delete" value="Delete" ng-click="Delete($index)">
-            </td>
-            <td>
-                <input type="checkbox" ng-model="book.Selected" value="Check" />  
-            </td>
-        </tr>
+        <thead>
+            <tr>
+                <td>Index</td>
+                <td>Book Name</td>
+                <td>Author</td>
+                <td>Image</td>
+                <td>Price</td>
+                <td>Language</td>
+                <td>Genre</td>
+                <td>Uploader Name</td>
+                <td>Username</td>
+                <td>Email</td>
+                <td>Confirm</td>
+                <td>Select Book</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="book in Books">
+                <td>{{$index+1}}</td>
+                <td>{{book.Name}}</td>
+                <td>{{book.Author}} </td>
+                <td><img ng-src="{{book.ImageURL}}" height="80" width="60" /></td>
+                <td>{{book.Price}}</td>
+                <td>{{book.Language}}</td>
+                <td>{{book.Genre}}</td>
+                <td>{{book.Uploader.FirstName}} {{book.Uploader.LastName}}</td>
+                <td>{{book.Uploader.Username}}</td>
+                <td>{{book.Uploader.Email}}</td>
+                <td>
+                    <input class="confirm-button" type="button" name="confirm" value="Confirm" ng-click="Confirm($index)">
+                    <input class="confirm-button" type="button" name="delete" value="Delete" ng-click="Delete($index)">
+                </td>
+                <td>
+                    <input type="checkbox" ng-model="book.Selected" value="Check" />
+                </td>
+            </tr>
+        </tbody>
     </table>
+</div>
+<div class="no-data" ng-show="!Books.length">
+    <span  >No Unconfirmed Book is Available</span>
 </div>
