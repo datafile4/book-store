@@ -7,7 +7,7 @@
         <form class="upload-book-form">
             <input type="text" ng-model="bookName" placeholder="Book Name" class="text-on-upload"> <br />
             <input type="text" ng-model="Author" placeholder="Book Author" class="text-on-upload"><br />
-            <input type="file" ng-model="ImageURL" placeholder="Image" class="element-upload-book"><br />
+            <input type="file" id="BookImage" ng-model="ImageURL" placeholder="Image" class="element-upload-book"><br />
             <select ng-model="selectedLang" ng-options="l.Name for l in languages" class="element-upload-book">
                 <option class="placeholder" selected disabled value="">Select language</option>
             </select>

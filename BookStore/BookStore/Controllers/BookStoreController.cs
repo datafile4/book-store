@@ -13,6 +13,10 @@ using BookStore.Models;
 using System.Text;
 using Newtonsoft.Json;
 using BookStore.Attributes;
+using System.Drawing;
+using System.IO;
+using System.Drawing.Imaging;
+using System.Web;
 
 namespace BookStore.Controllers
 {
@@ -279,9 +283,37 @@ namespace BookStore.Controllers
             }
         }
 
+
+        private static string WriteImage(byte[] arr)
+        {
+            var filename = $@"images\{DateTime.Now.Ticks}.";
+
+            using (var im = Image.FromStream(new MemoryStream(arr)))
+            {
+                ImageFormat frmt;
+                if (ImageFormat.Png.Equals(im.RawFormat))
+                {
+                    filename += "png";
+                    frmt = ImageFormat.Png;
+                }
+                else
+                {
+                    filename += "jpg";
+                    frmt = ImageFormat.Jpeg;
+                }
+                string path = HttpContext.Current.Server.MapPath("~/") + filename;
+                im.Save(path, frmt);
+            }
+
+            return filename;
+        }
+
+
         [HttpPost, RequiresRole, ValidateModel]
         public IHttpActionResult UploadBook(Book model)
         {
+            var relativeImgUrl = WriteImage(model.ImageBytes.ToArray());
+            var imgUrl = $@"http:\\{Request.RequestUri.Host }\{relativeImgUrl}";
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
@@ -291,7 +323,7 @@ namespace BookStore.Controllers
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@name", SqlDbType.NVarChar).Value = model.Name;
                     cmd.Parameters.Add("@author", SqlDbType.NVarChar).Value = model.Author;
-                    cmd.Parameters.Add("@ImageURL", SqlDbType.NVarChar).Value = model.ImageURL;
+                    cmd.Parameters.Add("@ImageURL", SqlDbType.NVarChar).Value = imgUrl;
                     cmd.Parameters.Add("@price", SqlDbType.Decimal).Value = model.Price;
                     cmd.Parameters.Add("@langID", SqlDbType.Int).Value = model.LanguageID;
                     cmd.Parameters.Add("@genreID", SqlDbType.Int).Value = model.GenreID;

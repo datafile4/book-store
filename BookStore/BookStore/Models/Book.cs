@@ -13,11 +13,10 @@ namespace BookStore.Models
         public string Name { get; set; }
         [Required]
         public string Author { get; set; }
-        [Url]
         [Required]
-        public string ImageURL { get; set; }
+        public IEnumerable<byte> ImageBytes { get; set; }
         [Required]
-        [Range(0,1000)]
+        [Range(0, 1000)]
         public decimal? Price { get; set; }
         [Required]
         public int? GenreID { get; set; }
