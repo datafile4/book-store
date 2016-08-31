@@ -212,7 +212,7 @@ begin
     inner join Users on  Books.UserID=Users.ID
 	inner join Langs on Books.LangID=Langs.ID 
 	inner join Genres on Books.GenreID=Genres.ID
-
+	where Books.Confirmed='true'
    order by	NEWID() offset 0 Rows Fetch Next @PageLength Rows only;
 end
 go
@@ -240,7 +240,7 @@ begin
     inner join Users on  Books.UserID=Users.ID
 	inner join Langs on Books.LangID=Langs.ID 
 	inner join Genres on Books.GenreID=Genres.ID
-
+	where Books.Confirmed='true'
    order by	Books.ID desc offset @PageNumber * @PageLength Rows Fetch Next @PageLength Rows only;
 end
 go
@@ -587,7 +587,8 @@ from Books
 inner join Users on  Books.UserID=Users.ID
 inner join Langs on Books.LangID=Langs.ID 
 inner join Genres on Books.GenreID=Genres.ID
-where 
+where Books.Confirmed='true'
+and
 ((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
 and
 ((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
@@ -613,6 +614,8 @@ and
 inner join Langs on Books.LangID=Langs.ID 
 inner join Genres on Books.GenreID=Genres.ID
 where 
+Books.Confirmed='true'
+and
 ((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
 and
 ((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
