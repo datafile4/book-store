@@ -77,6 +77,11 @@ namespace BookStore.Models
         public UserModel Uploader { get; set; }
     }
 
+    public class FilterResponseModel
+    {
+        public IEnumerable<BookModel> Books { get; set; }
+        public int TotalCount { get; set; }
+    }
 
     public class FilterModel
     {
@@ -85,7 +90,7 @@ namespace BookStore.Models
         public IEnumerable<string> SearchTerms;
         public decimal LowPrice { get; set; }
         public decimal HighPrice { get; set; }
-        public PaginationModel Pagination {get;set;}
+        public PaginationModel Pagination { get; set; }
     }
 
     public class PaginationModel

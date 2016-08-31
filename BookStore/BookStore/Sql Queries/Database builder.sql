@@ -580,6 +580,22 @@ create procedure uspGetFilteredBooks
 )
 as
 begin 
+
+
+select count(*)
+from Books
+inner join Users on  Books.UserID=Users.ID
+inner join Langs on Books.LangID=Langs.ID 
+inner join Genres on Books.GenreID=Genres.ID
+where 
+((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
+and
+((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
+and
+((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like '%'+item+'%') or (Books.Author = '%'+item+'%'))))	
+and
+(Price between @LowPrice and @HighPrice) 
+
   select 
   Books.ID,
   Books.Name, Author,

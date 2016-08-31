@@ -704,9 +704,9 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<BookModel> GetFilteredBooks(FilterModel filter)
+        public FilterResponseModel GetFilteredBooks(FilterModel filter)
         {
-            var returnModel = new List<BookModel>();
+            var books = new List<BookModel>();
             SqlParameter Param;
             using (var con = new SqlConnection(conStr))
             {
@@ -732,18 +732,26 @@ namespace BookStore.Controllers
                     cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = filter.Pagination.PageNumber;
                     cmd.Parameters.Add("@PageLength", SqlDbType.Int).Value = filter.Pagination.PageLength;
 
-
                     var reader = cmd.ExecuteReader();
+                    int count = 0;
 
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        returnModel.Add(CreateBook(reader));
+                        count = reader.GetInt32(0);
                     }
 
+                    reader.NextResult();
+                    while (reader.Read())
+                    {
+                        books.Add(CreateBook(reader));
+                    }
+                    return new FilterResponseModel
+                    {
+                        Books = books,
+                        TotalCount = count
+                    };
                 }
             }
-
-            return returnModel;
         }
 
         [HttpGet]
