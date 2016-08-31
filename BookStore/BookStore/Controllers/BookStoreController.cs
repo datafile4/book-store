@@ -816,6 +816,8 @@ namespace BookStore.Controllers
                 Email = reader.GetString(startFrom++),
                 ImageUrl = reader.GetString(startFrom++),
                 RoleID = reader.GetInt32(startFrom++),
+                Location = reader.GetString(startFrom++),
+                PhoneNumber = reader.GetString(startFrom++),
                 Ratings = new RatingModel
                 {
                     Star1 = reader.GetInt32(startFrom++),
@@ -839,6 +841,7 @@ namespace BookStore.Controllers
                 ImageURL = reader.GetString(startFrom++),
                 Language = reader.GetString(startFrom++),
                 Genre = reader.GetString(startFrom++),
+                Review = reader.GetString(startFrom++),
                 Uploader = CreateUser(reader, startFrom)
             };
         }

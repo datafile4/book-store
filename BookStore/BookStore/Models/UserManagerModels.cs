@@ -58,6 +58,8 @@ namespace BookStore.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public string ImageUrl { get; set; }
+        public string Location { get; set; }
+        public string PhoneNumber { get; set; }
         public int RoleID { get; set; }
         public RatingModel Ratings { get; set; }
     }
@@ -70,6 +72,7 @@ namespace BookStore.Models
         public string ImageURL { get; set; }
         public string Genre { get; set; }
         public string Language { get; set; }
+        public string Review { get; set; }
         public decimal Price { get; set; }
         public UserModel Uploader { get; set; }
     }
