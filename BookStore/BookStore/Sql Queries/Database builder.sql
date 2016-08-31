@@ -52,6 +52,8 @@ Password nvarchar(100) not null,
 Email nvarchar(100) not null,
 RoleID int default (1) not null,
 ImageUrl nvarchar (1000) default ('http://www.w3schools.com/w3css/img_avatar3.png') not null,
+Location nvarchar(100) default('') not null,
+PhoneNumber nvarchar(30)default('') not null,
 
 constraint PK_User_ID primary key(ID),
 constraint UQ_User_Username unique (Username),
@@ -97,6 +99,7 @@ GenreID int not null,
 UserID int not null,
 Confirmed   bit  DEFAULT (0) NOT NULL,
 IsSold      bit    DEFAULT (0) NOT NULL,
+Review nvarchar(1000) default('') not null
 
 constraint PK_Books_ID Primary Key (ID),
 constraint FK_Books_LangID Foreign key (LangID) references Langs(ID),
@@ -171,8 +174,8 @@ select
    Books.ID,
    Books.Name, Author,
    Price, Books.ImageUrl,
-   Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   Langs.Name, Genres.Name, Review,
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,  Location, PhoneNumber,
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
@@ -197,8 +200,8 @@ begin
    Books.ID,
    Books.Name, Author,
    Price, Books.ImageUrl,
-   Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   Langs.Name, Genres.Name, Review,
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,  Location, PhoneNumber,
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
@@ -225,8 +228,8 @@ begin
    Books.ID,
    Books.Name, Author,
    Price, Books.ImageUrl,
-   Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   Langs.Name, Genres.Name, Review,
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,  Location, PhoneNumber,
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
@@ -252,8 +255,8 @@ begin
    Books.ID,
    Books.Name, Author,
    Price, Books.ImageUrl, 
-   Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   Langs.Name, Genres.Name, Review,
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID, Location, PhoneNumber,
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
@@ -275,8 +278,8 @@ begin
    Books.ID,
    Books.Name, Author,
    Price, Books.ImageUrl,
-   Langs.Name, Genres.Name,
-   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
+   Langs.Name, Genres.Name, Review,
+   Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID, Location, PhoneNumber,
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
@@ -577,13 +580,29 @@ create procedure uspGetFilteredBooks
 )
 as
 begin 
+
+
+select count(*)
+from Books
+inner join Users on  Books.UserID=Users.ID
+inner join Langs on Books.LangID=Langs.ID 
+inner join Genres on Books.GenreID=Genres.ID
+where 
+((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
+and
+((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
+and
+((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like '%'+item+'%') or (Books.Author = '%'+item+'%'))))	
+and
+(Price between @LowPrice and @HighPrice) 
+
   select 
   Books.ID,
   Books.Name, Author,
   Price, Books.ImageUrl,
-  Langs.Name, Genres.Name,
-  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,
-     (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
+  Langs.Name, Genres.Name, Review,
+  Users.ID, FirstName, LastName, Username, Email, Users.ImageUrl, RoleID,  Location, PhoneNumber,
+   (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 4),
@@ -594,9 +613,11 @@ begin
 inner join Langs on Books.LangID=Langs.ID 
 inner join Genres on Books.GenreID=Genres.ID
 where 
+((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
+and
 ((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
 and
-((not Exists (select 1 from @LangIDs))	or Exists (Select 1 from @LangIDs where item = Langs.ID))
+((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like '%'+item+'%') or (Books.Author = '%'+item+'%'))))	
 and
 (Price between @LowPrice and @HighPrice) 
 
@@ -617,7 +638,7 @@ as
 begin
 	select count(ID) from Books where Books.LangID=@ID
 end
-
+go
 
 insert into Stars values
 ('1 Star'),
@@ -659,12 +680,11 @@ exec uspRateUser 1,3,5;
 exec uspRateUser 1,5,5;
 
 insert into Books (Name, Author, ImageUrl, Price, LangID, GenreID, UserID) Values 
-('A Brief History of Time', 'Stephen Hawking', 'https://upload.wikimedia.org/wikipedia/en/a/a3/BriefHistoryTime.jpg', 200, 4, 1 , 2 ),
-('Mein Kampf', 'Adolf Hilter', 'https://images-na.ssl-images-amazon.com/images/I/41tTZSUxoyL._SX317_BO1,204,203,200_.jpg', 73, 2, 1 , 2 ),
-('Algorithms', 'Thomas Cormen', 'https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg', 100, 4, 1 , 1 ),
-('BrakingBad','Wince Gilligan','../images/BookImage.JPG',120,1,2,1),
-('Harry Potter','J. K. Rowling','../images/harry_potter.jpg',180,1,5,2),
-('Ya Malala','Ya Malala','../images/Malala.jpg',15,2,6,5),
-('Oluler','Celil Memmedquluzade','../images/OLULER.jpg',131,3,2,6),
-('Olasilsiizlik','Adam','http://i.idefix.com/cache/600x600-0/originals/0000000204878-1.jpg',20,3,3,3)
-
+('A Brief History of Time', 'Stephen Hawking', 'https://upload.wikimedia.org/wikipedia/en/a/a3/BriefHistoryTime.jpg', 200.99, 4, 1 , 2 ),
+('Mein Kampf', 'Adolf Hilter', 'https://images-na.ssl-images-amazon.com/images/I/41tTZSUxoyL._SX317_BO1,204,203,200_.jpg', 73.99, 2, 1 , 2 ),
+('Algorithms', 'Thomas Cormen', 'https://upload.wikimedia.org/wikipedia/en/4/41/Clrs3.jpeg', 100.99, 4, 1 , 1 ),
+('BrakingBad','Wince Gilligan','../images/BookImage.JPG',120.99,1,2,1),
+('Harry Potter','J. K. Rowling','../images/harry_potter.jpg',180.99,1,5,2),
+('Ya Malala','Ya Malala','../images/Malala.jpg',15.99,2,6,5),
+('Oluler','Celil Memmedquluzade','../images/OLULER.jpg',131.99,3,2,6),
+('Olasilsiizlik','Adam','http://i.idefix.com/cache/600x600-0/originals/0000000204878-1.jpg',20.99,3,3,3)

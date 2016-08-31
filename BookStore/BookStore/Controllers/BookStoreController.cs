@@ -704,9 +704,9 @@ namespace BookStore.Controllers
         }
 
         [HttpPost]
-        public IEnumerable<BookModel> GetFilteredBooks(FilterModel filter)
+        public FilterResponseModel GetFilteredBooks(FilterModel filter)
         {
-            var returnModel = new List<BookModel>();
+            var books = new List<BookModel>();
             SqlParameter Param;
             using (var con = new SqlConnection(conStr))
             {
@@ -732,18 +732,26 @@ namespace BookStore.Controllers
                     cmd.Parameters.Add("@PageNumber", SqlDbType.Int).Value = filter.Pagination.PageNumber;
                     cmd.Parameters.Add("@PageLength", SqlDbType.Int).Value = filter.Pagination.PageLength;
 
-
                     var reader = cmd.ExecuteReader();
+                    int count = 0;
 
-                    while (reader.Read())
+                    if (reader.Read())
                     {
-                        returnModel.Add(CreateBook(reader));
+                        count = reader.GetInt32(0);
                     }
 
+                    reader.NextResult();
+                    while (reader.Read())
+                    {
+                        books.Add(CreateBook(reader));
+                    }
+                    return new FilterResponseModel
+                    {
+                        Books = books,
+                        TotalCount = count
+                    };
                 }
             }
-
-            return returnModel;
         }
 
         [HttpGet]
@@ -816,6 +824,8 @@ namespace BookStore.Controllers
                 Email = reader.GetString(startFrom++),
                 ImageUrl = reader.GetString(startFrom++),
                 RoleID = reader.GetInt32(startFrom++),
+                Location = reader.GetString(startFrom++),
+                PhoneNumber = reader.GetString(startFrom++),
                 Ratings = new RatingModel
                 {
                     Star1 = reader.GetInt32(startFrom++),
@@ -839,6 +849,7 @@ namespace BookStore.Controllers
                 ImageURL = reader.GetString(startFrom++),
                 Language = reader.GetString(startFrom++),
                 Genre = reader.GetString(startFrom++),
+                Review = reader.GetString(startFrom++),
                 Uploader = CreateUser(reader, startFrom)
             };
         }
