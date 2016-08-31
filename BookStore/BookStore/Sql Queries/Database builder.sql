@@ -318,7 +318,7 @@ create procedure uspGetUserInfo
 )
 as 
 begin
-	select  ID, FirstName, LastName, Username, Email, ImageUrl, RoleID,
+	select  ID, FirstName, LastName, Username, Email, ImageUrl, RoleID, Location, PhoneNumber,
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 1),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 2),
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 3),
