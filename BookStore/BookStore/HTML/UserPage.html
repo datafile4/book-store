@@ -1,14 +1,16 @@
 ﻿<link href="../CSS/UserPage.css" rel="stylesheet" />
-<link href="http://www.w3schools.com/lib/w3.css" rel="stylesheet" />
+
 <div class="user_data_container">
     <div class="user_image"> <img src="{{ImageURL}}" height="267" width="240" /> </div>
     <div class="userdata-list">
         <ul class="user-parameters-list">
-            <li class="user-parameters">First Name: {{FirstName}}</li>
-            <li class="user-parameters">Last Name: {{LastName}}</li>
-            <li class="user-parameters">Username: {{Username}}</li>
-            <li class="user-parameters">Role: {{RoleID == 3 ? "Admin" : "User"}}</li>
-            <li class="user-parameters">Email: {{Email}}</li>
+            <li class="user-parameters-name"> {{FirstName}} {{LastName}} </li>
+            <li class="user-parameters-username"><i class="material-icons"></i> <span>{{Username}}</span></li>
+            <li class="user-parameters-role"><i class="material-icons"></i> {{RoleID == 3 ? "Admin" : "User"}} </li>
+            <li class="user-parameters-email"><i class="material-icons">&#xE0BE;</i> {{Email}} </li>
+            <li class="user-parameters-email"><i class="material-icons"></i> Location{{Location}} </li>
+            <li class="user-parameters-email"><i class="material-icons">phone</i> Phone Number{{PhoneNumber}} </li>
+
         </ul>
     </div>
 </div>

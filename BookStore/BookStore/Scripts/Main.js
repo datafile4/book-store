@@ -76,7 +76,6 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $rootScope.UpdateRoleID = function () {
         $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {
             $rootScope.CurrentUsername = data.Username;
-            console.log(data);
             $rootScope.UserImageURL = data.ImageUrl;
         })
 

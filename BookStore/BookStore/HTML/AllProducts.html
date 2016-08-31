@@ -46,12 +46,12 @@
 <div class="products-container">
     <ul class="product-list">
         <li class="product" ng-repeat="book in Books">
-            <div class="product-image"><a href="#/UserPage/{{book.ID}}"><img src="{{book.ImageURL}}" width="180" height="250" /></a></div>
+            <div class="product-image"><a href="#/BookPage/{{book.ID}}"><img src="{{book.ImageURL}}" width="180" height="250" /></a></div>
             <div class="product-parameters">
                 <ul class="product-parameters-list">
                     <li class="book-name">{{book.Name}}</li>
                     <li class="book-author">by {{book.Author}}</li>
-                    <li class="book-price">{{book.Price | number: 2 }}&#8380;</li>
+                    <li class="book-price">{{book.Price - 0.5 | number:0 }}<sup style="font-size: 55%;">{{ !((book.Price*100)%100) ? "00" : (book.Price*100)%100}}</sup>&#8380;</li>
                     <li class="book-seller">
                         <ul class="seller-info">
                             <li>Seller: <a href="#/UserPage/{{book.Uploader.ID}}">{{book.Uploader.FirstName}}</a></li>

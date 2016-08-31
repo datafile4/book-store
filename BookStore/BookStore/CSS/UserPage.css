@@ -12,6 +12,31 @@ body {
     text-decoration: none;
 }
 
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Material Icons'), local('MaterialIcons-Regular'), url(https://fonts.gstatic.com/s/materialicons/v17/2fcrYFNaTjcS6g4U3t-Y5ZjZjT5FdEJ140U2DJYC3mY.woff2) format('woff2');
+}
+
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  margin-top: 10px;
+  margin-right: 40px;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
 
 .user-icon-list {
     height: 40px;
@@ -56,16 +81,34 @@ body {
 .userdata-list {
     float: left;
     height: 235px;
-    padding-top: 31px;
+    padding-top: 11px;
     padding-left: 40px;
     width: 720px;
 }
 
-.user-parameters {
+.user-parameters-name {
     padding: 13px;
     font-family: "Arial";
-    font-weight: bold;
     color: #303030;
+    font-size: 35px;
+}
+
+.user-parameters-username {
+    padding-left: 21px;
+    font-family: "Arial";
+    color: #b3b3b3;
+}
+
+.user-parameters-role {
+    padding-left: 21px;
+    font-family: "Arial";
+    color: #b3b3b3;
+}
+
+.user-parameters-email {
+    padding-left: 21px;
+    font-family: "Arial";
+    color: #b3b3b3;
 }
 
 

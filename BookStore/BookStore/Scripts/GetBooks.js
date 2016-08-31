@@ -13,8 +13,6 @@
         return input;
     };
 
-    
-
     $scope.FindPage = function (pageNumber) {
         var res = $http.post("api/bookstore/GetBooks", { PageNumber: pageNumber-1, PageLength: 5 });
 
