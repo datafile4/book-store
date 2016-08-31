@@ -1,21 +1,34 @@
-﻿app.controller('GetBooks', function ($scope, $http) {
-
+﻿app.controller('GetBooks', function ($scope, $http, $rootScope) {
     var f = $scope;
 
+    $rootScope.StartPage = 1;
+    $rootScope.ActivePage= 1;
 
-    console.log("Geldiiii 1 \n");
-    var res = $http.post("api/bookstore/GetBooks", { PageNumber: 0, PageLength: 10 });
-    console.log("Geldiiii 2 \n");
-    res.success(function (response) {
-        f.Books = response;
-    });
-    res.error(function (response) {
+    $scope.range = function (min, max, step) {
+        step = step || 1;
+        var input = [];
+        for (var i = min; i <= max; i += step) {
+            input.push(i);
+        }
+        return input;
+    };
 
-        console.log("In controller error!!" + JSON.stringify(response));
-    })
+    
 
+    $scope.FindPage = function (pageNumber) {
+        var res = $http.post("api/bookstore/GetBooks", { PageNumber: pageNumber-1, PageLength: 5 });
 
+        res.success(function (response) {
+            f.Books = response;
+            console.log(response);
+        });
+        res.error(function (response) {
+            console.log("In controller error!!" + JSON.stringify(response));
+        })
 
+    };
+
+    $scope.FindPage($rootScope.ActivePage);
 
     $http.get('api/BookStore/GetLanguages').success(function (data) {
         f.Languages = data

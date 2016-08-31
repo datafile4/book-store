@@ -46,23 +46,30 @@
 <div class="products-container">
     <ul class="product-list">
         <li class="product" ng-repeat="book in Books">
-            <div class="product-image"><img src="{{book.ImageURL}}" width="180" height="250" /></div>
+            <div class="product-image"><a href="#/UserPage/{{book.ID}}"><img src="{{book.ImageURL}}" width="180" height="250" /></a></div>
             <div class="product-parameters">
                 <ul class="product-parameters-list">
                     <li class="book-name">{{book.Name}}</li>
                     <li class="book-author">by {{book.Author}}</li>
-                    <li class="book-price">${{book.Price}}</li>
+                    <li class="book-price">{{book.Price | number: 2 }}&#8380;</li>
                     <li class="book-seller">
                         <ul class="seller-info">
                             <li>Seller: <a href="#/UserPage/{{book.Uploader.ID}}">{{book.Uploader.FirstName}}</a></li>
                             <li>Rate : <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAkklEQVR4AdXTMQrDMAyF4UIgmydBB68BDwZBQEf7709rjFtwRdRka/M2oW94Ir49LuaXwfwhyDz5BhS9ABCsRc4D7UBPAhI2kgLASuJOpqBvoBRymyZWDyoWpHqwBKSy+A7HpK0flH4Rv+6Bu9B0qQCIAxKD7ECOwTbWSov1bCHopZU0+ihGjcGOfPyGuwf//qafuZqXBK6OLwsAAAAASUVORK5CYII=" /></li>
-                            
                         </ul>
                     </li>
                     <li class="book-lang">in {{book.Language}}</li>
-                    <li class="book-genre">{{book.Genre}} genre</li>
+                    <li class="book-genre">{{book.Genre}}</li>
                 </ul>
             </div>
         </li>
     </ul>
+    <div class="pagination-class">
+        <ul class="pagination">
+            <li><a href="#">«</a></li>
+            <li ng-repeat="n in range(0,6)" ><a ng-click="FindPage($index+1)">{{$index+1}}</a></li>
+            <li><a href="#">...</a></li>
+            <li><a href="#">»</a></li>
+        </ul>
+    </div>
 </div>

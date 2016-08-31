@@ -50,6 +50,11 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         templateUrl: 'HTML/UploadBook.html',
         controller: 'UploadBook'
     })
+
+    .when('/BookPage/:ID?', {
+        templateUrl: 'HTML/BookPage.html',
+        controller: 'BookPage'
+    })
     .when('/SetRole', {
         templateUrl: 'HTML/SetRole.html',
         controller: 'RoleCtrl'

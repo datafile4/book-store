@@ -1,7 +1,7 @@
 body {
     font-family: "Trebuchet MS", Arial, "Comic Sans MS";
     color: #303030;
-    background-image: url('http://www.thebeautifultentcompany.co.uk/The_Beautiful_Tent_Company/Transport_files/light%20grey%20floral%20background_1.jpg');
+    background-color: #f2f2f2;
 }
 
 * {
@@ -42,7 +42,8 @@ body {
     margin-left: 200px;
     width: 990px;
     height: 360px;
-    background: #36a8b7;
+    background: #f9f9f9;
+    box-shadow: 0px 6px 6px 1px rgba(0, 0, 0, 0.2);
 }
 
 .user_image {
@@ -64,7 +65,7 @@ body {
     padding: 13px;
     font-family: "Arial";
     font-weight: bold;
-    color: antiquewhite;
+    color: #303030;
 }
 
 
@@ -100,6 +101,7 @@ th, td {
 }
 
 .no-data {
+    border: 1px solid #303030;
     background-color: white;
     width: 30%;
     padding: 20px;
@@ -109,4 +111,5 @@ th, td {
     margin: auto;
     border-radius: 7px;
     margin-bottom: 100px;
+    box-shadow: 0px 6px 6px 1px rgba(0, 0, 0, 0.2);
 }

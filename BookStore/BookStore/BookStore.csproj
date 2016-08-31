@@ -82,11 +82,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\AllProducts.css" />
+    <Content Include="CSS\BookPage.css" />
     <Content Include="CSS\UploadBook.css" />
     <Content Include="CSS\UserPage.css" />
     <Content Include="Global.asax" />
+    <Content Include="HTML\BookPage.html" />
     <Content Include="HTML\SetRole.html" />
     <Content Include="images\upload.png" />
+    <Content Include="Scripts\BookPage.js" />
     <Content Include="Scripts\RoleCtrl.js" />
     <Content Include="Sql Queries\Database builder.sql" />
     <Content Include="Web.config">

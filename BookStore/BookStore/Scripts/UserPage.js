@@ -11,6 +11,7 @@
     };
 
     var SetUserData = function (data) {
+        $scope.ImageURL = data.ImageUrl;
         $scope.FirstName = data.FirstName;
         $scope.LastName = data.LastName;
         $scope.Email = data.Email;

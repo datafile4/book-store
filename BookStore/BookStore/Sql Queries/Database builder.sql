@@ -51,7 +51,7 @@ Username nvarchar(100) not null,
 Password nvarchar(100) not null,
 Email nvarchar(100) not null,
 RoleID int default (1) not null,
-ImageUrl nvarchar (1000) default ('images/Jackie-Chan.jpg') not null,
+ImageUrl nvarchar (1000) default ('http://www.w3schools.com/w3css/img_avatar3.png') not null,
 
 constraint PK_User_ID primary key(ID),
 constraint UQ_User_Username unique (Username),
@@ -91,7 +91,7 @@ ID INT NOT NULL identity(1,1),
 Name nvarchar(50) Null,
 Author nvarchar(50) null,
 ImageUrl nvarchar(1000) null,
-Price decimal null,
+Price decimal(5, 2) null,
 LangID int not null,
 GenreID int not null,
 UserID int not null,
@@ -297,7 +297,7 @@ create procedure uspUploadBook
 	@name nvarchar(100),
 	@author nvarchar(100),
 	@ImageUrl nvarchar(100),
-	@price decimal,
+	@price decimal(5, 2),
 	@langID int, 
 	@genreID int,
 	@userID int
@@ -570,8 +570,8 @@ create procedure uspGetFilteredBooks
 @GenreIDs IntListType readonly,
 @LangIDs IntListType readonly,
 @SearchTerms StringListType readonly,
-@LowPrice decimal,
-@HighPrice decimal,
+@LowPrice decimal(5, 2),
+@HighPrice decimal(5, 2),
 @PageNumber int,
 @PageLength int
 )
@@ -667,3 +667,4 @@ insert into Books (Name, Author, ImageUrl, Price, LangID, GenreID, UserID) Value
 ('Ya Malala','Ya Malala','../images/Malala.jpg',15,2,6,5),
 ('Oluler','Celil Memmedquluzade','../images/OLULER.jpg',131,3,2,6),
 ('Olasilsiizlik','Adam','http://i.idefix.com/cache/600x600-0/originals/0000000204878-1.jpg',20,3,3,3)
+

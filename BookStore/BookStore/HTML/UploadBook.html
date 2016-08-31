@@ -14,7 +14,7 @@
             <select ng-model="selectedGenre" ng-options="g.Name for g in genres" class="element-upload-book">
                 <option class="placeholder" selected disabled value="">Select genre</option>
             </select><br />
-            <input type="number" ng-model="Price" placeholder="Price" class="text-on-upload" ><br />
+            <input type="number" step="0.01"  ng-model="Price" placeholder="Price" class="text-on-upload" ><br />
             <input type="button" ng-click="upload()" value="Upload the Book" class="element-upload-book-button"><br />
             <p ng-style="messageStyle">{{message}}</p>
         </form>
