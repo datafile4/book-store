@@ -1,9 +1,10 @@
 ﻿app.controller('GetBooks', function ($scope, $http, $rootScope) {
     var f = $scope;
-   
+
 
     $rootScope.StartPage = 1;
     $rootScope.ActivePage = 1;
+    $rootScope.PageLength = 5;
 
     $scope.range = function (min, max, step) {
         step = step || 1;
@@ -15,7 +16,7 @@
     };
 
     $scope.FindPage = function (pageNumber) {
-        var res = $http.post("api/bookstore/GetBooks", { PageNumber: pageNumber - 1, PageLength: 10 });
+        var res = $http.post("api/bookstore/GetBooks", { PageNumber: pageNumber - 1, PageLength: $rootScope.PageLength });
 
         res.success(function (response) {
             f.Books = response;
@@ -27,7 +28,9 @@
 
     };
 
-    $scope.FindPage($rootScope.ActivePage);
+
+
+    //$scope.FindPage($rootScope.ActivePage);
 
     $http.get('api/BookStore/GetLanguages').success(function (data) {
         f.Languages = data
@@ -61,7 +64,7 @@
 
     }
 
-    $scope.ApplySelectedFilters = function () {
+    $rootScope.ApplySelectedFilters = function (pageNumber) {
         console.log("ApplySelectedFilters");
         var LangsID = [];
         angular.forEach(f.Languages, function (lang) {
@@ -87,13 +90,12 @@
             var count_loop = f.countOf(f.SearchTerm)
             for (var i = 0 ; i < count_loop ; i++) {
                 SearchTerms.push(f.SearchTerm.split(" ")[i]);
-                console.log("Bura bax -> :" + count_loop);
             }
         };
 
 
         f.myWordSplitter();
-        console.log(SearchTerms);
+        
 
         var Filter = {
             GenreIDs: GenresID,
@@ -102,8 +104,8 @@
             LowPrice: 1,
             HighPrice: 999,
             Pagination: {
-                PageNumber: 0,
-                PageLength: 10
+                PageNumber: pageNumber-1,
+                PageLength: $rootScope.PageLength
             }
         };
 
@@ -113,10 +115,38 @@
         .then(
         function (response) {
             f.Books = response.data.Books;
+            f.AmountPage = Math.floor(response.data.TotalCount / $rootScope.PageLength);
+            console.log("BURDAYAM  -> " + f.AmountPage);
             console.log("F.BOOKS :   !  " + JSON.stringify(f.Books));
         },
         function (response) {
             console.log(response);
         });
+    }
+
+    $scope.ApplySelectedFilters();
+
+    var PaginationAlgorithm = function () {
+        f.startPage = 1;
+        f.endPage = 15;
+        f.currentPage = 9;
+        if (totalPages <= 7) {
+            // less than 10 total pages so show all
+            startPage = 1;
+            endPage = totalPages;
+        } else {
+            // more than 10 total pages so calculate start and end pages
+            if (currentPage <= 6) {
+                startPage = 1;
+                endPage = 10;
+            } else if (currentPage + 4 >= totalPages) {
+                startPage = totalPages - 9;
+                endPage = totalPages;
+            } else {
+                startPage = currentPage - 5;
+                endPage = currentPage + 4;
+            }
+        }
+
     }
 });

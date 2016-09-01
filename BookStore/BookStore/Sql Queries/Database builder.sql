@@ -624,7 +624,7 @@ and
 and
 (Price between @LowPrice and @HighPrice) 
 
- order by Books.ID offset @PageNumber * @PageLength Rows Fetch Next @PageLength Rows only;
+ order by Books.ID desc offset @PageNumber * @PageLength Rows Fetch Next @PageLength Rows only;
 end
 go
 

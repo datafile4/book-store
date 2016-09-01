@@ -72,9 +72,6 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         $location.path('/');
     }
     
-    $rootScope.routeToDashboard = function ($location, $rootScope) {
-        $location.path('/Dashboard');
-    }
 
     $rootScope.UpdateRoleID = function () {
         $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {

@@ -8,6 +8,9 @@
         $scope.Language = data.Language;
         $scope.Price = data.Price;
         $scope.SellerName = data.Uploader.FirstName;
+        $scope.SellerID = data.Uploader.ID;
+
+
     };
 
     

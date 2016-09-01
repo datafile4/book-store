@@ -16,6 +16,8 @@
         $scope.LastName = data.LastName;
         $scope.Email = data.Email;
         $scope.Username = data.Username;
+        $scope.PhoneNumber = data.PhoneNumber;
+        $scope.Location = data.Location;
     };
 
     GetUnconfirmedBooks();

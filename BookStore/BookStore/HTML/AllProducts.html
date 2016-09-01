@@ -49,7 +49,7 @@
             <div class="product-image"><a href="#/BookPage/{{book.ID}}"><img src="{{book.ImageURL}}" width="180" height="250" /></a></div>
             <div class="product-parameters">
                 <ul class="product-parameters-list">
-                    <li class="book-name">{{book.Name}}</li>
+                    <li class="book-name"><a href="#/BookPage/{{book.ID}}">{{book.Name}}</a></li>
                     <li class="book-author">by {{book.Author}}</li>
                     <li class="book-price">{{book.Price - 0.5 | number:0 }}<sup style="font-size: 55%;">{{ !((book.Price*100)%100) ? "00" : ((book.Price*100)%100 | number:0)}}</sup>&#8380;</li>
                     <li class="book-seller">
@@ -66,10 +66,10 @@
     </ul>
     <div class="pagination-class">
         <ul class="pagination">
-            <li><a href="#">«</a></li>
-            <li ng-repeat="n in range(0,6)" ><a ng-click="FindPage($index+1)">{{$index+1}}</a></li>
-            <li><a href="#">...</a></li>
-            <li><a href="#">»</a></li>
+            <li><a ng-click="ApplySelectedFilters(1)">«</a></li>
+            <li ng-repeat="n in range(0,AmountPage)" ><a ng-click="ApplySelectedFilters($index+1)">{{$index+1}}</a></li>
+            
+            <li><a ng-click="ApplySelectedFilters(AmountPage+1)">»</a></li>
         </ul>
     </div>
 </div>

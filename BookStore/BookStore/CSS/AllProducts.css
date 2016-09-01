@@ -59,7 +59,7 @@ body {
     color: #2f2f2f;
 }
 
-    .product-parameters-list > li.book-name {
+    .product-parameters-list > li.book-name > a {
         font-size: 23px;
         height: auto;
         color: #34b3a0;
