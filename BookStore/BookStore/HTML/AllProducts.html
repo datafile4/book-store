@@ -51,7 +51,7 @@
                 <ul class="product-parameters-list">
                     <li class="book-name">{{book.Name}}</li>
                     <li class="book-author">by {{book.Author}}</li>
-                    <li class="book-price">{{book.Price - 0.5 | number:0 }}<sup style="font-size: 55%;">{{ !((book.Price*100)%100) ? "00" : (book.Price*100)%100}}</sup>&#8380;</li>
+                    <li class="book-price">{{book.Price - 0.5 | number:0 }}<sup style="font-size: 55%;">{{ !((book.Price*100)%100) ? "00" : ((book.Price*100)%100 | number:0)}}</sup>&#8380;</li>
                     <li class="book-seller">
                         <ul class="seller-info">
                             <li>Seller: <a href="#/UserPage/{{book.Uploader.ID}}">{{book.Uploader.FirstName}}</a></li>
