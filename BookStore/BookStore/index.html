@@ -1,9 +1,6 @@
 ﻿<!DOCTYPE html>
 <html ng-app="app">
-
 <head>
-
-    
     <title> Book Store</title>
     <meta charset="utf-8" />
     
@@ -71,8 +68,8 @@
                 </ul>
             </nav>
             <div class="search">
-                <input type="text" id="search-text" />
-                <button id="search-button"><img src="http://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/search-icon.png" width="21" height="21" /></button>
+                <input type="text" ng-model="SearchTerm" id="search-text" />
+                <input type="button" id="search-button" ng-click="ApplySelectedFilters()" /><i class="material-icons">&#xE8B6;</i>
             </div>
             <div class="login-register" ng-hide="RoleID > 0">
                 <ul class="login-reg">
@@ -94,8 +91,6 @@
                             <a href="#/" ng-click="Logout()">Log Out</a>
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </header>

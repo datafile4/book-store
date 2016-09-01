@@ -22,5 +22,4 @@
     } else {
         console.log("Sehf var Linkdaki ID alinmadi  !!!!")
     }
-
 });

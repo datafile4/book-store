@@ -1,8 +1,9 @@
 ﻿app.controller('GetBooks', function ($scope, $http, $rootScope) {
     var f = $scope;
+   
 
     $rootScope.StartPage = 1;
-    $rootScope.ActivePage= 1;
+    $rootScope.ActivePage = 1;
 
     $scope.range = function (min, max, step) {
         step = step || 1;
@@ -14,11 +15,11 @@
     };
 
     $scope.FindPage = function (pageNumber) {
-        var res = $http.post("api/bookstore/GetBooks", { PageNumber: pageNumber-1, PageLength: 5 });
+        var res = $http.post("api/bookstore/GetBooks", { PageNumber: pageNumber - 1, PageLength: 10 });
 
         res.success(function (response) {
             f.Books = response;
-            console.log(response);
+            console.log("Geldi kisi !!!" + JSON.stringify(response));
         });
         res.error(function (response) {
             console.log("In controller error!!" + JSON.stringify(response));
@@ -61,6 +62,7 @@
     }
 
     $scope.ApplySelectedFilters = function () {
+        console.log("ApplySelectedFilters");
         var LangsID = [];
         angular.forEach(f.Languages, function (lang) {
             if (lang.Selected) {
@@ -75,22 +77,43 @@
             }
         })
 
+        f.countOf = function (text) {
+            var s = text ? text.split(/\s+/) : 0;
+            return s ? s.length : '';
+        };
+
+        var SearchTerms = [];
+        f.myWordSplitter = function () {
+            var count_loop = f.countOf(f.SearchTerm)
+            for (var i = 0 ; i < count_loop ; i++) {
+                SearchTerms.push(f.SearchTerm.split(" ")[i]);
+                console.log("Bura bax -> :" + count_loop);
+            }
+        };
+
+
+        f.myWordSplitter();
+        console.log(SearchTerms);
+
         var Filter = {
             GenreIDs: GenresID,
             LangIDs: LangsID,
-            SearchTerms: [], 
-            LowPrice: f.LowPrice,
-            HighPrice: f.HighPrice,
+            SearchTerms: SearchTerms,
+            LowPrice: 1,
+            HighPrice: 999,
             Pagination: {
                 PageNumber: 0,
                 PageLength: 10
             }
         };
 
+        console.log($scope.SearchTerms);
+        //console.log("Slalammlar Kisi !  " + JSON.stringify(Filter));
         $http.post("api/BookStore/GetFilteredBooks", Filter)
         .then(
         function (response) {
-            f.Books = response.data;
+            f.Books = response.data.Books;
+            console.log("F.BOOKS :   !  " + JSON.stringify(f.Books));
         },
         function (response) {
             console.log(response);
