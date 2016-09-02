@@ -201,6 +201,28 @@ namespace BookStore.Controllers
             }
         }
 
+        [HttpGet, RequiresRole]
+        public IHttpActionResult IsInCart(int ID)
+        {
+            using (var con = new SqlConnection(conStr))
+            {
+                con.Open();
+                using (var cmd = new SqlCommand("uspCheckBookInCart", con))
+                {
+
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@UserID", SqlDbType.Int).Value = CurrentUserID;
+                    cmd.Parameters.Add("@BookID", SqlDbType.Int).Value = ID;
+
+                    var result = (int)(cmd.ExecuteScalar() ?? 0);
+                    if (result > 0)
+                        return Ok(true);
+                }
+            }
+
+            return Ok(false);
+        }
+
         [HttpPost]
         [RequiresRole]
         public IHttpActionResult RemoveFromCart(int ID)
@@ -276,7 +298,7 @@ namespace BookStore.Controllers
 
                     while (reader.Read())
                     {
-                        returnModel.Add(CreateBook(reader, 0));
+                        returnModel.Add(CreateBook(reader));
                     }
                     return returnModel;
                 }
@@ -284,7 +306,7 @@ namespace BookStore.Controllers
         }
 
 
-        private static string WriteImage(byte[] arr)
+        private string WriteImage(byte[] arr)
         {
             var filename = $@"images\{DateTime.Now.Ticks}.";
 
@@ -305,15 +327,14 @@ namespace BookStore.Controllers
                 im.Save(path, frmt);
             }
 
-            return filename;
+            return $@"http:\\{Request.RequestUri.Host}\{filename}";
         }
 
 
         [HttpPost, RequiresRole, ValidateModel]
         public IHttpActionResult UploadBook(Book model)
         {
-            var relativeImgUrl = WriteImage(model.ImageBytes.ToArray());
-            var imgUrl = $@"http:\\{Request.RequestUri.Host }\{relativeImgUrl}";
+            var imgUrl = WriteImage(model.ImageBytes.ToArray());
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
@@ -374,7 +395,7 @@ namespace BookStore.Controllers
             {
                 con.Open();
 
-                using (var cmd = new SqlCommand("uspGetBooks", con))
+                using (var cmd = new SqlCommand("uspGetRandomBooks", con))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@PageLength", SqlDbType.Int).Value = pageLength;
@@ -797,10 +818,6 @@ namespace BookStore.Controllers
             }
             return "0";
         }
-
-
-
-
 
         private static DataTable CreateItemTable<T>(IEnumerable<T> items)
         {
