@@ -183,7 +183,7 @@ select
    (select COUNT(*) from Ratings where Ratings.UserID = Users.ID and Ratings.StarID = 5)
 from Carts
 inner join Users on Users.ID = Carts.UserID
-inner join Books on Books.ID = Carts.BookID
+inner join Users on Users.ID = Books.UserID
 inner join Langs on Langs.ID = Books.LangID
 inner join Genres on Genres.ID = Books.GenreID
 where Carts.UserID = @UserID
