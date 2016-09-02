@@ -593,7 +593,7 @@ and
 and
 ((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
 and
-((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like '%'+item+'%') or (Books.Author = '%'+item+'%'))))	
+((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like '%'+item+'%') or (Books.Author like '%'+item+'%'))))	
 and
 (Price between @LowPrice and @HighPrice) 
 
@@ -620,7 +620,7 @@ and
 and
 ((not Exists (select 1 from @GenreIDs)) or Exists (Select 1 from @GenreIDs where item = Genres.ID))	
 and
-((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like '%'+item+'%') or (Books.Author = '%'+item+'%'))))	
+((not Exists (select 1 from @SearchTerms)) or Exists (Select 1 from @SearchTerms where ((Books.Name like concat('%',item,'%')) or (Books.Author like concat('%',item,'%')))))	
 and
 (Price between @LowPrice and @HighPrice) 
 

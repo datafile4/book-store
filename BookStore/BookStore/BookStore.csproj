@@ -83,11 +83,13 @@
   <ItemGroup>
     <Content Include="CSS\AllProducts.css" />
     <Content Include="CSS\BookPage.css" />
+    <Content Include="CSS\FavoriteBooks.css" />
     <Content Include="CSS\Special.css" />
     <Content Include="CSS\UploadBook.css" />
     <Content Include="CSS\UserPage.css" />
     <Content Include="Global.asax" />
     <Content Include="HTML\BookPage.html" />
+    <Content Include="HTML\FavoriteBooks.html" />
     <Content Include="HTML\SetRole.html" />
     <Content Include="images\636081546585122363.png" />
     <Content Include="images\636081550566827167.jpg" />
@@ -99,16 +101,20 @@
     <Content Include="images\Books.png" />
     <Content Include="images\Capture.PNG" />
     <Content Include="images\color-palette.png" />
+    <Content Include="images\Dripping-Color.jpg" />
     <Content Include="images\green-slider.png" />
     <Content Include="images\normal_slide.jpg" />
     <Content Include="images\picture.jpg" />
     <Content Include="images\slide_thwree.jpg" />
+    <Content Include="images\star.png" />
     <Content Include="images\Tom and Jerry Fifty Years of Cat and Mouse.jpg" />
     <Content Include="images\upload.png" />
     <Content Include="images\uploadABook.png" />
     <Content Include="images\wing.jpg" />
     <Content Include="images\wings.jpg" />
     <Content Include="Scripts\BookPage.js" />
+    <Content Include="Scripts\FavoriteBooks.js" />
+    <Content Include="Scripts\HomePage.js" />
     <Content Include="Scripts\RoleCtrl.js" />
     <Content Include="Sql Queries\Database builder.sql" />
     <Content Include="Web.config">

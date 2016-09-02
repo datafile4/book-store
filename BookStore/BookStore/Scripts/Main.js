@@ -2,7 +2,10 @@
 
 app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     $routeProvider
-    .when('/', { templateUrl: 'HTML/HomePage.html' })
+    .when('/', {
+        templateUrl: 'HTML/HomePage.html',
+        controller: 'HomePage'
+    })
     .when('/Login', {
         resolve: {
             "check": function ($location, $rootScope) {
@@ -20,6 +23,11 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
         templateUrl: 'HTML/Register.html',
         controller: 'RegisterCtrl'
     })
+        .when('/FavoriteBooks', {
+        templateUrl: 'HTML/FavoriteBooks.html',
+        controller: 'FavoriteBooks'
+    })
+
 
     .when('/Dashboard', {
         //resolve: {
@@ -74,9 +82,12 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
     
 
     $rootScope.UpdateRoleID = function () {
-        $http.get("api/bookstore/GetCurrentUserInfo").success(function(data) {
-            $rootScope.CurrentUsername = data.Username;
-            $rootScope.UserImageURL = data.ImageUrl;
+        $http.get("api/bookstore/GetCurrentUserInfo").then(function(response) {
+            $rootScope.CurrentUsername = response.data.Username;
+            $rootScope.UserImageURL = response.data.ImageUrl;
+        }, function (reason) {
+            $rootScope.CurrentUsername =null;
+            $rootScope.UserImageURL = null;
         })
 
 
@@ -87,25 +98,7 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
             $rootScope.RoleID = parseInt(data);
             console.log("RoleID : " + $rootScope.RoleID);
 
-            //$rootScope.$on("$routeChangeStart", function (event, next, current) {
-            //    /*
-            //    if ($rootScope.RoleID == 0) { //noone
-            //        $location.path("/Login");
-            //    }
-            //    else if ($rootScope.RoleID == 3) { // admin
-            //        $location.path("/Dashboard");
-            //    }
-            //    else if ($rootScope.RoleID == 2) {//moderator
-            //        $location.path("/");
-            //    }
-            //    else if ($rootScope.RoleID == 1) {//
-            //        $location.path("/GetBooks");
-            //    }
-            //    else {
-            //        console.log("else : " + $rootScope.RoleID);
-            //    }
-            //    */
-            //});
+           
 
 
 

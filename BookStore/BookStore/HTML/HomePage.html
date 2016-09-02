@@ -4,7 +4,7 @@
     <div class="text-on-slider">
         <img src="images/Books.ico" width="100" height="100" alt="main-logo" />
         <h1 style="font-family:Arial;  font-size:30px;">This is Our Slogan</h1>
-        
+
     </div>
     <div class="slider">
         <figure>
@@ -19,33 +19,22 @@
 
 <div class="products-container">
     <ul class="product-list">
-            <li class="w3-card-12" >
-                <img src="../images/harry_potter.jpg" alt="Book" style="width:100% ; height: 83%;">
-                <div class="w3-container w3-center">
-                    <p>Name Of Book <br/> by Author</p>
+
+        <li class="w3-card-12" ng-repeat="book in Books" >
+            <a href="#/BookPage/{{book.ID}}">
+                <div class="temp-book-container">
+                    <div class="price-tag" style="color:#353536">{{book.Price - 0.5 | number:0 }}<sup style="font-size: 70%;">{{ !((book.Price*100)%100) ? "00" : ((book.Price*100)%100 | number:0)}}</sup>&#8380;</div>
+                    <img ng-src="{{book.ImageURL}}" alt="Book" style="width:100% ; height: 83%;">
+                    <div class="w3-container w3-center">
+                        <p>{{book.Name}} <br /> by {{book.Author}}</p>
+                    </div>
                 </div>
-            </li>
-        
-        
-            <li class="w3-card-12" >
-                <img src="../images/OLULER.jpg" alt="Book" style="width:100%; height: 83%;">
-                <div class="w3-container w3-center">
-                    <p>Name Of Book <br /> by Author</p>
-                </div>
-            </li>
-        
-        
-            <li class="w3-card-12" >
-                <img src="../images/nizami-gencevi.jpg" alt="Book" style="width:100%; height: 83%;">
-                <div class="w3-container w3-center">
-                    <p>Name Of Book <br /> by Author</p>
-                </div>
-            </li>
-        
+            </a>
+        </li>
     </ul>
 </div>
 
-<div id="colleagues">
+<div id="colleagues" >
     <ul class="our-col">
         <li id="microsoft-logo">
             <a href="http://microsoft.com" target="_blank"> <img src="https://assets.onestore.ms/cdnfiles/onestorerolling-1607-15000/shell/v3/images/logo/microsoft.png" /> </a>

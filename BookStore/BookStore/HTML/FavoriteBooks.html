@@ -1,0 +1,29 @@
+﻿
+<link href="../CSS/FavoriteBooks.css" rel="stylesheet" />
+
+<div class="container">
+
+    <h2>Favorite Books</h2>
+    <hr />
+    <ul ng-show="Books.length" class="favorite-books">
+        <li class="fav-book" ng-repeat="book in Books">
+            <div class="card">
+
+                <div class="container-light">
+                    <h3 class="book-name-header"><a href="#/BookPage/{{book.ID}}"> {{book.Name}}</a></h3><img src="../images/star.png" width="20" height="20" style="border-radius: 50%;margin-right: 5px;margin-top:10px;float:right;" />
+                </div>
+                <hr />
+                <div class="container">
+                    <img ng-src="{{book.ImageURL}}" alt="book" width="230" height="260" class="circle">
+                    <p style="padding:4px;">Written by {{book.Author}}</p>
+                    <p style="padding:4px;">Seller: <a href="#/UserPage/{{book.Uploader.ID}}" class="username-link">{{book.Uploader.Username}}</a></p>
+                    <p style="float:right;padding:6px;">Price: 123.00&#8380;</p>
+                </div>
+
+                <button class="btn-block"> Buy Now </button>
+                <button class="btn-block-delete" ng-click="RemoveFromFavorite(book.ID)"> Remove </button>
+            </div>
+        </li>
+    </ul>
+    <div ng-hide="Books.length" class="empty" > Favorite Books is Empty </div>
+</div>

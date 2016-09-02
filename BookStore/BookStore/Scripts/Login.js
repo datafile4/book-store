@@ -1,6 +1,6 @@
 ﻿app.controller('LoginCtrl',
     function ($scope, $http, $location, $rootScope) {
-
+        console.log("Burdayiq !!!");
         $scope.Login = function () {
 
             var LoginData = {
@@ -11,7 +11,12 @@
             var res = $http.post("api/BookStore/Login", LoginData);
             console.log("Parameters : " + LoginData.Username + "   Password: " + LoginData.Password);
             res.success(function (data) {
-                console.log("success: " + JSON.stringify(data));
+
+                if (!data.success) {
+                    $scope.error_message = data.message;
+                    return;
+                }
+
                 $location.path('/Dashboard');
                 $rootScope.UpdateRoleID();
 

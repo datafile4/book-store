@@ -29,7 +29,7 @@ body {
         width: 300px;
         height: 160px;
         margin-top: 300px;
-        margin-left: 505px;
+        margin-left: 5%;
         font-size: 14px;
         color: #0d0d0d;
     }
@@ -58,6 +58,13 @@ body {
 
 #colleagues .our-col #apple-logo {
     margin-top: 22px;
+}
+
+#colleagues {
+    margin: 0;
+    padding: 0;
+    height: 300px;
+    width: 100%;
 }
 
 .footer {
@@ -134,7 +141,7 @@ body {
     height: 400px;
     width: 500%;
     left: 0;
-    animation: 25s slidy infinite;
+    animation: 35s slidy infinite;
 }
 
 @keyframes slidy {
@@ -211,9 +218,6 @@ body {
     }
 }
 
-
-
-
 .product {
     background-color: #333333;
     height: 300px;
@@ -226,16 +230,21 @@ body {
 }
 
 .product-list {
-    display: block;
-    width: 1400px;
-    height: auto;
-    overflow: initial;
+    margin-bottom: 20px;
+    width: 1000px;
+    min-height: 100px;
+    margin: auto;
+    overflow: hidden;
 }
 
 .products-container {
-    text-align: center;
-    height: 350px;
+    margin: 0;
+    padding: 0;
+    height: auto;
     width: 100%;
+    margin: auto;
+    margin-bottom: 30px;
+    display: inline-block;
 }
 
 .product-parameters {
@@ -265,12 +274,11 @@ body {
     width: 160px;
 }
 
-li.w3-card-12{
-    width:250px; 
-    height:400px; 
-    float:left; 
-    margin:30px;
-
+li.w3-card-12 {
+    width: 250px;
+    height: 400px;
+    float: left;
+    margin: 30px;
 }
 
 .user-icon-list {
@@ -349,4 +357,35 @@ li.w3-card-12{
 
 .buttons {
     margin-left: 1000px;
+}
+
+.w3-container.w3-center {
+    text-align: center;
+    padding-top: 4px;
+    width: 200px;
+    color: #353536;
+}
+
+.temp-book-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.price-tag {
+    margin-top: 20px;
+    position: absolute;
+    border-radius: 10px 0px 0px 10px;
+    left: 168px;
+    border-left: 1px solid #333;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #333;
+    top: 0px;
+    height: 25px;
+    width: 80px;
+    background-color: white;
+    z-index: 1000;
+    text-align: center;
+    padding-top: 5px;
+    font-size: 15px;
 }

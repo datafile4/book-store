@@ -21,20 +21,15 @@
         var res = $http.post("api/BookStore/Register", RegisterData);
 
         res.success(function (data) {
-            console.log("success: " + JSON.stringify(data));
-
             $rootScope.isLogged = data.success;
             if ($rootScope.isLogged) {
-                $location.path('/Dashboard');
+                $location.path('/Login');
             } else {
                 $scope.message = data.message;
-                $scope.emiraslan = {
-                    color: 'red'
-                }
             }
         });
         res.error(function (data) {
-            console.log("error");
+            console.log(data);
         });
 
     };

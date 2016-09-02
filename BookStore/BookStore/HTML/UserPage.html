@@ -8,8 +8,8 @@
             <li class="user-parameters-username"><i class="material-icons"></i> <span>{{Username}}</span></li>
             <li class="user-parameters-role"><i class="material-icons"></i> {{RoleID == 3 ? "Admin" : "User"}} </li>
             <li class="user-parameters-email"><i class="material-icons">&#xE0BE;</i> {{Email}} </li>
-            <li class="user-parameters-email"><i class="material-icons"></i> {{Location}} </li>
-            <li class="user-parameters-email"><i class="material-icons">phone</i>{{PhoneNumber}} </li>
+            <li class="user-parameters-email"><i class="material-icons"></i>{{Location ? Location : "No Location"}}</li>
+            <li class="user-parameters-email"><i class="material-icons">phone</i>{{Location ? Location : "No Phone Number"}} </li>
         </ul>
     </div>
 </div>

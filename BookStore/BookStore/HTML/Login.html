@@ -29,9 +29,9 @@
                         <span ng-show="frm.password.$dirty && frm.password.$error.maxlength"> too long! </span>
 
                     </div>
-                    <input id="signIn" class="rc-button rc-button-submit" type="button" value="Apply" ng-click="Login()">
-                    <a href="register.html"><p class="return_create">Create New Account</p></a>
-                    <p class="error_message" style="color:#f00"></p>
+                    <input id="signIn" class="rc-button rc-button-submit" type="submit" value="Log in" ng-click="Login()">
+                    <a href="#/Register"><p  style="color:#07c; font-size:15px; width:100%;"  class="return_create">Create New Account</p></a>
+                    <p class="error_message" style="color:#f00; font-size:15px; width:100%;" ng-bind="error_message"></p>
 
 
                 </div>

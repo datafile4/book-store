@@ -79,24 +79,8 @@
                 GenresID.push(genre.ID);
             }
         })
-
-        f.countOf = function (text) {
-            var s = text ? text.split(/\s+/) : 0;
-            return s ? s.length : '';
-        };
-
-        var SearchTerms = [];
-        f.myWordSplitter = function () {
-            var count_loop = f.countOf(f.SearchTerm)
-            for (var i = 0 ; i < count_loop ; i++) {
-                SearchTerms.push(f.SearchTerm.split(" ")[i]);
-            }
-        };
-
-
-        f.myWordSplitter();
         
-
+        var SearchTerms = f.SearchTerm ? f.SearchTerm.split(" ") : [];
         var Filter = {
             GenreIDs: GenresID,
             LangIDs: LangsID,
@@ -104,23 +88,22 @@
             LowPrice: 1,
             HighPrice: 999,
             Pagination: {
-                PageNumber: pageNumber-1,
+                PageNumber: pageNumber - 1,
                 PageLength: $rootScope.PageLength
             }
         };
 
-        console.log($scope.SearchTerms);
         //console.log("Slalammlar Kisi !  " + JSON.stringify(Filter));
         $http.post("api/BookStore/GetFilteredBooks", Filter)
         .then(
         function (response) {
             f.Books = response.data.Books;
             f.AmountPage = Math.floor(response.data.TotalCount / $rootScope.PageLength);
-            console.log("BURDAYAM  -> " + f.AmountPage);
-            console.log("F.BOOKS :   !  " + JSON.stringify(f.Books));
+            //console.log("BURDAYAM  -> " + f.AmountPage);
+            //console.log("F.BOOKS :   !  " + JSON.stringify(f.Books));
         },
         function (response) {
-            console.log(response);
+           // console.log(response);
         });
     }
 
