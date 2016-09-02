@@ -44,9 +44,10 @@
     </div>
     <div class="rate">
         <div class="rating">
-            <span ng-click="RateUser(5)">☆</span><span ng-click="RateUser(4)">☆</span><span ng-click="RateUser(3)">☆</span><span ng-click="RateUser(2)">☆</span><span ng-click="RateUser(1)">☆</span>
+            <span ng-repeat="n in [5,4,3,2,1]" ng-click="RateUser(n)">☆</span>
+            <p type="button" ng-click="RateUser(0)" style="font-size:40%; cursor:pointer; background-color:#34b3a0; border-radius:3px; width:100px; float:left; margin-left:28%;padding:6px; height:20px;color:#f2f2f2; line-height:20px;">Cancel my rate</p>
         </div>
-       
+
     </div>
 </div>
 
