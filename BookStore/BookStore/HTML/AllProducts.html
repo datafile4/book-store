@@ -7,7 +7,7 @@
                 <li class="filters-li">Languages</li>
                 <li class="filters-li">
                     <ul class="container-box-filters">
-                        <li ng-repeat="lang in Languages"><input type="checkbox" ng-model="lang.Selected" /> {{lang.Name}}</li>
+                        <li ng-repeat="lang in Languages" ><input type="checkbox" ng-model="lang.Selected" style="height:15px; width:15px; margin-top:2px;" /> {{lang.Name}}</li>
                     </ul>
                 </li>
                 <li class="filters-li">Genres</li>
@@ -55,7 +55,6 @@
                     <li class="book-seller">
                         <ul class="seller-info">
                             <li>Seller: <a href="#/UserPage/{{book.Uploader.ID}}">{{book.Uploader.Username}}</a></li>
-                            <li>Rate : <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAQAAABKfvVzAAAAkklEQVR4AdXTMQrDMAyF4UIgmydBB68BDwZBQEf7709rjFtwRdRka/M2oW94Ir49LuaXwfwhyDz5BhS9ABCsRc4D7UBPAhI2kgLASuJOpqBvoBRymyZWDyoWpHqwBKSy+A7HpK0flH4Rv+6Bu9B0qQCIAxKD7ECOwTbWSov1bCHopZU0+ihGjcGOfPyGuwf//qafuZqXBK6OLwsAAAAASUVORK5CYII=" /></li>
                         </ul>
                     </li>
                     <li class="book-lang">in {{book.Language}}</li>

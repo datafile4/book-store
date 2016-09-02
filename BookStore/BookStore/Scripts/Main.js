@@ -74,7 +74,8 @@ app.config(['$routeProvider', function ($routeProvider, $rootScope) {
 }]).run(function ($rootScope, $location, $http, $cookies) {
 
     $rootScope.Logout = function() {
-        $cookies.remove('user-g', { domain: '.amiraslan.azurewebsites.net' });
+        $cookies.remove('user-g', { domain: '.atl-bookstock.azurewebsites.net' });
+        
         $cookies.remove('user-g');
         $rootScope.UpdateRoleID();
         $location.path('/');

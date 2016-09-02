@@ -14,8 +14,6 @@
     GetCartItems();
 
     $scope.RemoveFromFavorite = function (bookID) {
-        console.log("Getirilidi !");
-
         $http.post("api/BookStore/RemoveFromCart", null, { params: { ID: bookID } })
             .then(
             function (response) {

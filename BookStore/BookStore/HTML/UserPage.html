@@ -12,6 +12,42 @@
             <li class="user-parameters-email"><i class="material-icons">phone</i>{{Location ? Location : "No Phone Number"}} </li>
         </ul>
     </div>
+    <div class="star-rating">
+        <ul class="rate-data-list">
+            <li>
+                <div class="rate-stars" style="float:left;">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+                </div><span>{{Star5}}</span>
+            </li>
+            <li>
+                <div class="rate-stars" style="float:left;">
+                    <span>★</span><span>★</span><span>★</span><span>★</span><span>☆</span>
+                </div><span>{{Star4}}</span>
+            </li>
+            <li>
+                <div class="rate-stars" style="float:left;">
+                    <span>★</span><span>★</span><span>★</span><span>☆</span><span>☆</span>
+                </div><span>{{Star3}}</span>
+            </li>
+            <li>
+                <div class="rate-stars" style="float:left;">
+                    <span>★</span><span>★</span><span>☆</span><span>☆</span><span>☆</span>
+                </div><span>{{Star2}}</span>
+            </li>
+            <li>
+                <div class="rate-stars" style="float:left;">
+                    <span>★</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                </div><span>{{Star1}}</span>
+            </li>
+        </ul>
+
+    </div>
+    <div class="rate">
+        <div class="rating">
+            <span ng-click="RateUser(5)">☆</span><span ng-click="RateUser(4)">☆</span><span ng-click="RateUser(3)">☆</span><span ng-click="RateUser(2)">☆</span><span ng-click="RateUser(1)">☆</span>
+        </div>
+       
+    </div>
 </div>
 
 <div class="admin-control" ng-show="Books.length && CurrentUsername == Username ">
@@ -60,5 +96,5 @@
     </table>
 </div>
 <div class="no-data" ng-show="!Books.length && CurrentUsername == Username">
-    <span  >No Unconfirmed Book is Available</span>
+    <span>No Unconfirmed Book is Available</span>
 </div>

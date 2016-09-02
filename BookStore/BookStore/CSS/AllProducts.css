@@ -10,9 +10,10 @@ body {
     float: left;
     margin-left: 190px;
     width: 250px;
-    background-color: #cacaca;
+    background-color: #d5d5d5;
     margin-top: 40px;
     overflow: initial;
+    border-radius: 5px;
 }
 
 .product {
@@ -109,8 +110,9 @@ body {
 
 .filters-li {
     padding: 9px;
-    background-color: white;
-    border: 1px solid #82d9ff;
+    background-color: #fbfbfb;
+    border-radius: 8px;
+    
     display: block;
     margin: auto;
     margin-top: 8px;
@@ -142,6 +144,7 @@ th, td {
     td input {
         border: 1px solid #007acc;
         text-align: center;
+        width: 70px;
     }
 
 ul.pagination {

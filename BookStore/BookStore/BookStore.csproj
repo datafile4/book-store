@@ -101,6 +101,7 @@
     <Content Include="images\Books.png" />
     <Content Include="images\Capture.PNG" />
     <Content Include="images\color-palette.png" />
+    <Content Include="images\colorful-hands.jpg" />
     <Content Include="images\Dripping-Color.jpg" />
     <Content Include="images\green-slider.png" />
     <Content Include="images\normal_slide.jpg" />
@@ -180,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\PublishProfiles\amiraslan - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\atl-bookstock - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

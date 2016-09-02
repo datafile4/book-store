@@ -7,7 +7,7 @@
     </div>
     <div class="book-data-container">
         <ul>
-            <li class="book-name">{{BookName}} <div class="button-container"><button class="buy-button" ng-click="AddToCart(ID)">Add to Favorite</button></div> </li>
+            <li class="book-name">{{BookName}} <div class="button-container"><button class="buy-button" ng-hide="IsInFavor" ng-click="AddToCart(ID)" >Add to Favorite</button><button class="buy-button" ng-show="IsInFavor" style="background-color:red;" ng-click="RemoveFromFavorite(ID)">Remove from Favorite</button></div> </li>
 
             <li class="book-author"> by {{ID}} </li>
             <li class="book-price">{{Price - 0.5 | number:0 }}<sup style="font-size: 55%;">{{ !((Price*100)%100) ? "00" : ((Price*100)%100 | number:0)}}</sup>&#8380;</li>

@@ -11,6 +11,7 @@
     };
 
     var SetUserData = function (data) {
+        $scope.ID = data.ID;
         $scope.ImageURL = data.ImageUrl;
         $scope.FirstName = data.FirstName;
         $scope.LastName = data.LastName;
@@ -18,18 +19,26 @@
         $scope.Username = data.Username;
         $scope.PhoneNumber = data.PhoneNumber;
         $scope.Location = data.Location;
+        $scope.Star1 = data.Ratings.Star1;
+        $scope.Star2 = data.Ratings.Star2;
+        $scope.Star3 = data.Ratings.Star3;
+        $scope.Star4 = data.Ratings.Star4;
+        $scope.Star5 = data.Ratings.Star5;
     };
 
     GetUnconfirmedBooks();
 
-    if ($routeParams.ID) {
-        $http.get("api/BookStore/GetUserInfo", { params: {ID: $routeParams.ID}})
-            .success(SetUserData)
-    } else {
+    var RefreshPage = function () {
+        if ($routeParams.ID) {
+            $http.get("api/BookStore/GetUserInfo", { params: { ID: $routeParams.ID } })
+                .success(SetUserData)
+        } else {
 
-        $http.get("api/BookStore/GetCurrentUserInfo")
-            .success(SetUserData)
+            $http.get("api/BookStore/GetCurrentUserInfo")
+                .success(SetUserData)
+        }
     }
+    RefreshPage();
 
 
 
@@ -86,4 +95,16 @@
         confirmOrdelete("api/BookStore/ConfirmBooks", BooksID);
     }
 
+
+    $scope.RateUser = function (starAmount) {
+        $http.get("api/BookStore/RateUser", { params: { ID: $scope.ID, rate: starAmount } })
+              .then(
+              function (response) {
+                  console.log(response);
+                  RefreshPage();
+              },
+              function (response) {
+                  console.log(response);
+              });
+    }
 });
