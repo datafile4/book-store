@@ -306,13 +306,13 @@ namespace BookStore.Controllers
         }
 
 
-        private string WriteImage(byte[] arr)
+        private string GenerateImage(byte[] arr)
         {
-            var filename = $@"images\{DateTime.Now.Ticks}.";
+            var filename = $@"images\{DateTime.Now.Ticks}."; // Burada url-ə ad verirsən
 
             using (var im = Image.FromStream(new MemoryStream(arr)))
             {
-                ImageFormat frmt;
+                ImageFormat frmt;   // Şəklin formatını təyin edirik bu block-da
                 if (ImageFormat.Png.Equals(im.RawFormat))
                 {
                     filename += "png";
@@ -323,18 +323,21 @@ namespace BookStore.Controllers
                     filename += "jpg";
                     frmt = ImageFormat.Jpeg;
                 }
-                string path = HttpContext.Current.Server.MapPath("~/") + filename;
+                string path = HttpContext.Current.Server.MapPath("~/") + filename; // Burda isə serverdə save edirik !
                 im.Save(path, frmt);
             }
 
-            return $@"http:\\{Request.RequestUri.Host}\{filename}";
+            return $@"http:\\{Request.RequestUri.Host}\{filename}"; // Ən axırda alınan url-i göndəririk digər 
+                                                                    // metodlara istifadə üçün 
         }
 
 
         [HttpPost, RequiresRole, ValidateModel]
         public IHttpActionResult UploadBook(Book model)
         {
-            var imgUrl = WriteImage(model.ImageBytes.ToArray());
+
+            var imgUrl = GenerateImage(model.ImageBytes.ToArray());
+
             using (var con = new SqlConnection(conStr))
             {
                 con.Open();
